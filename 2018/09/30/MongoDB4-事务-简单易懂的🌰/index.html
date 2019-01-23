@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  MongoDB4 事务 简单易懂的🌰 |   the kingzez blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		MongoDB4 事务 简单易懂的🌰
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			9月 30, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">3205
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>mongodb 的事务是依靠 mongodb 连接的客户端 session 实现，事务执行的流程大致是<br>建立 session，通过 session startTransaction 启动事务，如果一系列事务都完成，那么 commitTransaction 完成事务操作，并结束当前事务 session；如果一系列事务中有任意事件失败， 那么 abortTransaction 中止事务，内部将已完成的任务回退到修改之前，并结束当前事务 session。<br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">session = client.startSession();</span><br><span class="line">session.startTransaction();</span><br><span class="line">session.commitTransaction();</span><br><span class="line">session.abortTransaction();</span><br><span class="line">session.endSession();</span><br></pre></td></tr></table></figure></p>
+<h3 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h3><p>当前有两个用户，A 用户有余额 50 软妹币，B 用户有余额 10 软妹币，A 用户给 B 转账 10 ，场景设定 转账很安全，网络也很畅通，没有黑客拦截，没有发生意外，这次转账成功了，这时 A 用户余额剩下40 ，B 用户余额有20。A 感觉很安全，这时又给 B 转账，A 忘记自己余额有多少，给 B 转了 50 ，结果出错了。</p>
+<p>在没有事务的情况下，操作数据库是这样的，1.A 账户的余额 -50，2. B 账户增加50. 当 A 余额不足时或在操作 A 账户成功后网络发生错误，B 账户的金额没能正确修改。</p>
+<p>在有事务的情况下，即使在操作 A 账户金额后出现错误，则事务会将整个转账过程回退到修改之前。</p>
+<h3 id="下载-mongodb4-并解压"><a href="#下载-mongodb4-并解压" class="headerlink" title="下载 mongodb4 并解压"></a>下载 mongodb4 并解压</h3><p><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="noopener">https://www.mongodb.com/download-center#community</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-4.0.0.tgz</span><br><span class="line"></span><br><span class="line">tar -xzvf mongodb-osx-ssl-x86_64-4.0.0.tgz</span><br><span class="line"></span><br><span class="line">cd mongodb-osx-ssl-x86_64-4.0.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>!!! Transaction 只适用复制集 Replica Set， 所以要先搭建mongodb 复制集</p>
+</blockquote>
+<h3 id="启动多个-mongodb-实例"><a href="#启动多个-mongodb-实例" class="headerlink" title="启动多个 mongodb 实例"></a>启动多个 mongodb 实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 创建data目录</span><br><span class="line">mkdir -p data/1301</span><br><span class="line">mkdir -p data/1302</span><br><span class="line">mkdir -p data/1303</span><br><span class="line"></span><br><span class="line">// 起三个 mongodb 实例</span><br><span class="line">./bin/mongod --replSet shard1  --dbpath=./data/1301 --port=1301</span><br><span class="line">./bin/mongod --replSet shard1  --dbpath=./data/1302 --port=1302</span><br><span class="line">./bin/mongod --replSet shard1  --dbpath=./data/1303 --port=1303</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/9/1647f1a58ed8c492?w=2946&amp;h=2138&amp;f=png&amp;s=3000404" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 配置复制集</span><br><span class="line">./bin/mongo --port 1301</span><br><span class="line">rsconf = &#123;_id: &quot;shard1&quot;, members: [ &#123; _id: 0, host: &quot;127.0.0.1:1301&quot; &#125; ] &#125;</span><br><span class="line">rs.initiate( rsconf )</span><br><span class="line">rs.add(&quot;127.0.0.1:1302&quot;)</span><br><span class="line">rs.add(&quot;127.0.0.1:1303&quot;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/9/1647f1b57edd5e34?w=3814&amp;h=1894&amp;f=png&amp;s=1012311" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/9/1647f1c9b793bc2a?w=2706&amp;h=1472&amp;f=png&amp;s=460551" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看是否是主节点</span><br><span class="line">rs.isMaster()</span><br><span class="line"></span><br><span class="line">// 查看复制集状态</span><br><span class="line">rs.status()</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/9/1647f1ce6c4826ae?w=2706&amp;h=1472&amp;f=png&amp;s=460551" alt=""></p>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir mongodb4</span><br><span class="line">cd mongodb4</span><br><span class="line">npm init</span><br><span class="line">npm i mongodb -S</span><br><span class="line">vi app.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app.js</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)  </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 连接DB</span></span><br><span class="line">  <span class="keyword">const</span> &#123; MongoClient &#125; = <span class="built_in">require</span>(<span class="string">'mongodb'</span>);</span><br><span class="line">  <span class="keyword">const</span> uri = <span class="string">'mongodb://localhost:1301/dbfour'</span>;</span><br><span class="line">  <span class="keyword">const</span> client = <span class="keyword">await</span> MongoClient.connect(uri, &#123; <span class="attr">useNewUrlParser</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> db = client.db();</span><br><span class="line">  <span class="keyword">await</span> db.dropDatabase();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'(1) 首先 删库 dbfour, then 跑路\n'</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 插入两个账户并充值一些金额</span></span><br><span class="line">  <span class="keyword">await</span> db.collection(<span class="string">'Account'</span>).insertMany([</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'A'</span>, <span class="attr">balance</span>: <span class="number">50</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'B'</span>, <span class="attr">balance</span>: <span class="number">10</span> &#125;</span><br><span class="line">  ]);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'(2) 执行 insertMany,  A 充值 50, B 充值 10\n'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> transfer(<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="number">10</span>); <span class="comment">// 成功</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'(3) 然后 A 给 B 转账 10\n'</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 余额不足 转账失败</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'(4) A 再次转账给 B 50\n'</span>)</span><br><span class="line">    <span class="keyword">await</span> transfer(<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="comment">//error.message; // "Insufficient funds: 40"</span></span><br><span class="line">    <span class="built_in">console</span>.log(error.message)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'\n(5) A 余额不够啊，所以这次转账操作不成功'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转账逻辑</span></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">from, to, amount</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> session = client.startSession();</span><br><span class="line">    session.startTransaction();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> opts = &#123; session, <span class="attr">returnOriginal</span>: <span class="literal">false</span> &#125;;</span><br><span class="line">      <span class="keyword">const</span> A = <span class="keyword">await</span> db.collection(<span class="string">'Account'</span>).</span><br><span class="line">        findOneAndUpdate(&#123; <span class="attr">name</span>: <span class="keyword">from</span> &#125;, &#123; <span class="attr">$inc</span>: &#123; <span class="attr">balance</span>: -amount &#125; &#125;, opts).</span><br><span class="line">        then(<span class="function"><span class="params">res</span> =&gt;</span> res.value);</span><br><span class="line">      <span class="keyword">if</span> (A.balance &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果 A 的余额不足，转账失败 中止事务</span></span><br><span class="line">        <span class="comment">// `session.abortTransaction()` 会撤销上面的 `findOneAndUpdate()` 操作</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Insufficient funds: '</span> + (A.balance + amount));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> B = <span class="keyword">await</span> db.collection(<span class="string">'Account'</span>).</span><br><span class="line">        findOneAndUpdate(&#123; <span class="attr">name</span>: to &#125;, &#123; <span class="attr">$inc</span>: &#123; <span class="attr">balance</span>: amount &#125; &#125;, opts).</span><br><span class="line">        then(<span class="function"><span class="params">res</span> =&gt;</span> res.value);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">await</span> session.commitTransaction();</span><br><span class="line">      session.endSession();</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">from</span>: A, <span class="attr">to</span>: B &#125;;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="comment">// 如果错误发生，中止全部事务并回退到修改之前</span></span><br><span class="line">      <span class="keyword">await</span> session.abortTransaction();</span><br><span class="line">      session.endSession();</span><br><span class="line">      <span class="keyword">throw</span> error; <span class="comment">//使其调用者 catch error</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="查看结果"><a href="#查看结果" class="headerlink" title="查看结果"></a>查看结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+<p><img src="/images/placeholder.png" alt="" data-src="https://user-gold-cdn.xitu.io/2018/7/9/1647f1cc10aa9b99?w=1166&amp;h=482&amp;f=png&amp;s=79963" class="lazyload"></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/wechat-donate.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/alipay-donate.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/mongodb/">mongodb</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/mongodb/">mongodb</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/09/30/async-await-错误处理/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/09/30/async-await-错误处理/">
+          async/await 错误处理</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2019/01/24/2018-Flowing-Water-Review/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2019/01/24/2018-Flowing-Water-Review/">
+            2018 Flowing Water Review</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2019		
+	
+		Kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

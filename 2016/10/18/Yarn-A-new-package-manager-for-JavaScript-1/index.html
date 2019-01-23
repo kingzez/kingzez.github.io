@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Yarn a New Package Manager for JavaScript |   the kingzez blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		Yarn A new package manager for JavaScript
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			10月 18, 2016
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">2808
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>Facebook 开源了 yarn 这个新的 JavaScript 包管理工具，yarn 和 npm 做的是完全一样的事情：作为 nodejs 的包管理工具。既然是一样的事情，那么 yarn 必须有一些优点，才能说服大家去用。根据官方网站的介绍，yarn 有以下六项特点：<br><a id="more"></a><br>（2016 年 10 月 11 日）到今天（10月18）八天内达到14934star，这是何等的快速……</p>
+<blockquote>
+<p>离线模式（重要）</p>
+</blockquote>
+<p>如果之前已经安装过一个软件包，再次安装时就不用再从网络下载了。<br>这一点很重要，npm 饱受诟病的一点就是，每次安装依赖，都需要从网络下载一大堆东西，而且是全部重新下载。工程多的时候比较烦人。这下子可以节约大量时间了。</p>
+<blockquote>
+<p>依赖关系确定性（重要）</p>
+</blockquote>
+<p>在每一台机器上针对同一个工程安装依赖时，生成的依赖关系顺序和版本是一致的。<br>就是说我在另一台设备上对同样的工程安装依赖，或者把这台机器工程下的 node_modules 目录删除来重新安装依赖。由于关联依赖中，没有指定版本号的库，发生了版本更新，就会导致再次安装的依赖，其中具体某些软件包的版本是不一致的。 在这种情况下，你会发现原来能够正常运行的程序，忽然变得不能工作或一堆 BUG。<br>yarn 采用的解决方式是，引入了一个 yarn.lock 文件来应对这个问题。lock 机制在很多包管理中都有用到。例如 ruby 的 rubygems 就会生成 Gemfile.lock.<br>yarn.lock 会记录你安装的所有大大小小的软件包的具体版本号。只要你不删除 yarn.lock 文件，再次运行 yarn install 时，会根据其中记录的版本号获取所有依赖包。你可以把 yarn.lock 提交到版本库里，这样其他同事签出代码并运行 yarn install 时，可以保证大家安装的依赖都是完全一致的。<br>这就特别适合大型项目的多人协作开发和部署。</p>
+<blockquote>
+<p>更好的网络性能</p>
+</blockquote>
+<p>下载软件包时，会进行更好的排序，避免“请求瀑布”，最大限度提高网络利用率。</p>
+<blockquote>
+<p>多注册来源处理</p>
+</blockquote>
+<p>所有的依赖包，不管他被不同的库间接关联引用多少次，安装这个包时，只会从一个注册来源去装，要么是 npm 要么是 bower, 防止出现混乱不一致。</p>
+<blockquote>
+<p>网络弹性处理</p>
+</blockquote>
+<p>安装依赖的过程中，不会因为某个单次网络请求的失败导致整个安装挂掉（不由自主的要黑一下 npm）。当请求失败时会进行自动重试。</p>
+<blockquote>
+<p>扁平模式（重要）</p>
+</blockquote>
+<p>当关联依赖中包括对某个软件包的重复引用，在实际安装时将尽量避免重复的创建。</p>
+<p>为了说明这个问题，我们假设目前工程依赖 A, B, C 三个库，而他们对某个库 somelib 存在这样的依赖关系：</p>
+<p>A - somelib 1.4.x<br>B - somelib 1.6.x<br>C - somelib 1.6.x</p>
+<p>如果要安装 ABC 三个库，那么 somelib 会存在版本冲突。npm 会在实际安装时，给三个库分别下载各自依赖的 somelib 版本。假设 npm 先安装了 A, 由于 A 依赖 somelib 1.4.x 版本，那么 1.4.x 会变成主版本。</p>
+<p>再安装 B, C 时，由于 B, C 依赖的都不是 1.4.x, 于是安装完之后，关系就变成这个样子了：</p>
+<p>node_modules<br>├── A<br>├── somelib 1.4.x<br>├── B<br>│  └── node_modules<br>│      └── somelib 1.6.x<br>└── C<br>    └── node_modules<br>        └── somelib 1.6.x</p>
+<p>明明 B, C 都依赖 1.6.x 版本，实际上 npm 却要把这个版本保存两次，这样明显是对磁盘空间的浪费。我们把这种情况就称为“不扁平的”。尽管 npm 也提供了诸如 flat 等指令去支持“扁平化”处理，yarn 明显试图在这方面做得更好。</p>
+<p>总结三大特点： 超快速、超级安全、超级可靠</p>
+<p>（有没有感觉这猫忒怪……）</p>
+<p>下面说一下安装使用：<br>yarn与npm相同，都是依靠package.json文件安装包。yarn要怎么安装呢？</p>
+<p>macOS下：<br>首先需要先安装Node.js，如果已安装则略过。通过Homebrew安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install yarn</span><br></pre></td></tr></table></figure></p>
+<p>设置PATH<br>需要终端中设置PATH环境变量，以便于全局使用。<br>添加<code>export PATH=&quot;$PATH:$HOME/.yarn/bin&quot;</code>到 profile中 (可能是 .profile, .bashrc, .zshrc, 等等)<br>测试一下~<br>yarn –version</p>
+<p>Windows下：<br>首先需要先安装Node.js，如果已安装则略过。windows下有两种方式安装<br>1.下载.msi文件安装 <a href="https://yarnpkg.com/latest.msi" target="_blank" rel="noopener">https://yarnpkg.com/latest.msi</a><br>2.通过Chocolatey安装（chocolatey是windows下包管理软件，详情移步了解<a href="https://chocolatey.org/install）" target="_blank" rel="noopener">https://chocolatey.org/install）</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install yarn</span><br></pre></td></tr></table></figure></p>
+<p>设置PATH<br>添加<code>set PATH=%PATH%;C:\.yarn\bin</code> 到shell环境变量中</p>
+<p>npm下快速安装<br>可以通过npm安装，非常方便<br>npm install -g yarn</p>
+<p>设置PATH<br>Unix/Linux/macOS<br>需要终端中设置PATH环境变量，以便于全局使用。<br>添加 <code>export PATH=&quot;$PATH:$HOME/.yarn/bin&quot;</code>到 profile中 (可能是 .profile, .bashrc, .zshrc, 等等)<br>windows<br>添加<code>set PATH=%PATH%;C:\.yarn\bin</code>到shell环境变量中<br>测试一下~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn --version</span><br></pre></td></tr></table></figure></p>
+<p>安装之后，就可以愉快优雅的创建项目了~</p>
+<p>创建一个新项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init</span><br></pre></td></tr></table></figure>
+<p>添加项目依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add [package]</span><br><span class="line">yarn add [package]@[version]</span><br><span class="line">yarn add [package]@[tag]</span><br></pre></td></tr></table></figure>
+<p>更新依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn upgrade [package]</span><br><span class="line">yarn upgrade [package]@[version]</span><br><span class="line">yarn upgrade [package]@[tag]</span><br></pre></td></tr></table></figure>
+<p>移除依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn remove [package]</span><br></pre></td></tr></table></figure>
+<p>安装项目依赖的所有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn</span><br></pre></td></tr></table></figure></p>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn install</span><br></pre></td></tr></table></figure>
+<p>简单比较一下yarn与npm的命令<br>运行<code>yarn</code>运行相当于<code>npm install</code><br>运行  <code>yarn add &lt;name&gt;</code>运行相当于<code>npm install --save &lt;name&gt;</code></p>
+<p>Reference：<br><a href="https://yarnpkg.com/" target="_blank" rel="noopener">https://yarnpkg.com/</a></p>
+<p><a href="https://github.com/yarnpkg/yarn" target="_blank" rel="noopener">https://github.com/yarnpkg/yarn</a></p>
+<p><a href="https://code.facebook.com/posts/1840075619545360" target="_blank" rel="noopener">https://code.facebook.com/posts/1840075619545360</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/22892675?from=timeline&amp;isappinstalled=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22892675?from=timeline&amp;isappinstalled=0</a></p>
+<p><a href="https://www.zhihu.com/question/51502849" target="_blank" rel="noopener">https://www.zhihu.com/question/51502849</a></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/js/">js</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/yarn/">yarn</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2016/09/24/scope与controller-as区别/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2016/09/24/scope与controller-as区别/">
+          $scope与controller as区别</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2016/11/15/初试Mithril-js/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2016/11/15/初试Mithril-js/">
+            初试Mithril.js</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2019		
+	
+		Kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
