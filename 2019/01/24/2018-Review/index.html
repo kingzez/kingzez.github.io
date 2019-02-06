@@ -93,7 +93,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1296
+			<span class="post-info-entry">1289
 			</span>
 		
 	</div>
@@ -109,7 +109,7 @@
 					<p><img src="https://user-gold-cdn.xitu.io/2019/1/25/16880d36eeb3f78d?w=624&amp;h=102&amp;f=png&amp;s=28571" alt=""></p>
 <h1 id="One"><a href="#One" class="headerlink" title="One"></a>One</h1><p>一、众所周知年初各种币火的一塌糊涂，telegram 被称为 ”币圈微信“必不可少会对其搞周边开发，研究 telegram 相关，大概的需求点是 telegram 群管理机器人，telegram 陌生人拉群，要实现这些势必少不了对 telegram 开放 api  的研究，telegram 的协议很特殊，是独自研发的 MTProto。<a id="more"></a> telegram 好像说的有点多了，对 telegram api 一定了解后，主要入手点是 telegram web 版，看了一下竟然是开源的，而且是使用 angularjs 开发，通过我的魔改，实现了自动拉人与收集群及用户名信息，最终数据是1000+币圈群与100w用户名，当然这些信息本身都是公开的，我只对其进行整理归类。其中使用的技术点有 nodejs，mogodb，angularjs，少量的python。</p>
 <h1 id="Two"><a href="#Two" class="headerlink" title="Two"></a>Two</h1><p>二、对微信网页版进行封包，实现登录多个微信，分析网页版微信接口，使用 electronjs 对网页版微信封包，其后客户有 windows xp的需求，由于 electronjs 最低兼容 win7 ，随后又使用了 nwjs 的老版本 0.14.7（当时版本是0.30.x）对聊天的客户端进行的封包，后来又遇到 发送的 mp4 文件无法播放，又对 nwjs 加入对mpeg的编译得以实现播放mp4，总之填了不少坑。其中使用的技术点有 electronjs，nwjs。</p>
-<h1 id="Three"><a href="#Three" class="headerlink" title="Three"></a>Three</h1><p>三、接触了 vue，使用 vue-cli 搭建项目，使用 express，mongoDB 完成接口服务，docker 部署上线，独自完成一个项目—代理商平台。</p>
+<h1 id="Three"><a href="#Three" class="headerlink" title="Three"></a>Three</h1><p>三、使用 vue-cli 搭建项目，使用 express，mongoDB 完成接口服务，docker 部署上线，独自完成一个项目—代理商平台。</p>
 <h1 id="Four"><a href="#Four" class="headerlink" title="Four"></a>Four</h1><p>四、尝试接纳 typescript ，也是因为此前没有深入了解过 ts ，对其语法有一定误解，深入了解后，emm~ 真香，用 ts 重构了之前的项目。</p>
 <h1 id="Five"><a href="#Five" class="headerlink" title="Five"></a>Five</h1><p>五、日常更新迭代，没有大的波澜。</p>
 <h1 id="Seven"><a href="#Seven" class="headerlink" title="Seven"></a>Seven</h1><p>七、要实现一个 SSO（Single sign-on）单点登录服务，经过一番折腾，对 oauth2 了解了一番，最终使用 oauth2 中的 authorization code 模式实现了单点登录服务，服务架构包括 oauth2-server（认证服务），permission-server（权限中心服务），permission-ui（权限管理前端），server 端统一采用 ts，express，postgresql，权限采用 RBAC（Role-Based Access Control） 模型。</p>
