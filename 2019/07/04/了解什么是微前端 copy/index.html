@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  了解什么是微前端 |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw，王泽知">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		了解什么是微前端
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Jul 04, 2019
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">20259
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>译：<a href="https://hackernoon.com/understanding-micro-frontends-b1c11585a297" target="_blank" rel="noopener">Understanding Micro Frontends</a></p>
+<h3 id="Understanding-Micro-Frontends"><a href="#Understanding-Micro-Frontends" class="headerlink" title="Understanding Micro Frontends"></a>Understanding Micro Frontends</h3><h3 id="了解什么是微前端"><a href="#了解什么是微前端" class="headerlink" title="了解什么是微前端"></a>了解什么是微前端</h3><p>As a frontend developer, all these years you were developing monoliths, even though you already knew it was a bad practice. You divided your code into components, used <em>require</em> or <em>import</em> and defined npm packages in your package.json or mounted sub git repositories into your project, yet you ended up building a monolith. It’s time to change it.<br><a id="more"></a></p>
+<p>作为前端开发人员，这些年来你一直在开发单体应用，即使你已经知道这是一个不好的做法。 您将代码划分为组件，使用 <em>require</em> 或 <em>import</em> 并将package.json中定义的npm包或已安装的子git仓库添加到项目中，但最终构建了一个整体。 是时候改变它了。</p>
+<h3 id="Why-is-your-code-is-a-monolith"><a href="#Why-is-your-code-is-a-monolith" class="headerlink" title="Why is your code is a monolith?"></a>Why is your code is a monolith?</h3><h3 id="为什么你的代码是一个单体？"><a href="#为什么你的代码是一个单体？" class="headerlink" title="为什么你的代码是一个单体？"></a>为什么你的代码是一个单体？</h3><p>All frontend applications are a monolithic application in nature, except apps that already implemented micro frontends. The reason is if you are developing with the React library and if you have two teams both should be using the same React library and both teams should be in sync on deployments and always will be conflicting during code merges. They are not separated completely and most probably they are maintaining the same repository and have the same build system. The exit from a monolithic app is formulated as microservices. But it’s for backend! 😱</p>
+<p>除了已经实现了微前端的应用之外，所有前端应用本质上都是单一的应用。 原因是如果您正在使用 React 库进行开发，并且如果您有两个团队，则两个团队都应该使用相同的React 库，并且两个团队应该在部署时保持同步，并且在代码合并期间始终会发生冲突。 它们没有完全分离，很可能它们维护着相同的仓库并具有相同的构建系统。 单体应用的退出被标志为微服务的出现。 但是它适用于后端！😱</p>
+<h3 id="What-is-actually-microservices"><a href="#What-is-actually-microservices" class="headerlink" title="What is actually microservices?"></a>What is actually microservices?</h3><h3 id="什么是微服务？"><a href="#什么是微服务？" class="headerlink" title="什么是微服务？"></a>什么是微服务？</h3><p>In general and the most simplistic explanation for microservices is, it is a development technique which allows developers to do independent deployments for different parts of the platform without harming other parts. The capability of independent deployment allows them to build isolated or loosely coupled services. To put this architecture on a more stable base there are some sets of rules to follow which can be summarized as follows: Each service should have only one task and it should be small. So the team who is responsible for this service should be small. About the size of the team and the project, one of the coolest explanation on the internet has been done by <a href="https://martinfowler.com/articles/microservices.html#HowBigIsAMicroservice" target="_blank" rel="noopener">James Lewis and Martin Fowler</a> as below:</p>
+<p>对于微服务，一般而言最简单的解释是，它是一种开发技术，允许开发人员为平台的不同部分进行独立部署，而不会损害其他部分。 独立部署的能力允许他们构建孤立或松散耦合的服务。 为了使这个体系结构更稳定，有一些规则要遵循，可以总结如下：每个服务应该只有一个任务，它应该很小。 所以负责这项服务的团队应该很小。 关于团队和项目的规模，<a href="https://martinfowler.com/articles/microservices.html#HowBigIsAMicroservice" target="_blank" rel="noopener">James Lewis 和 Martin Fowler</a> 在互联网上做出的最酷解释之一如下：</p>
+<blockquote>
+<p>In our conversations with microservice practitioners, we see a range of sizes of services. The largest sizes reported follow Amazon’s notion of the Two Pizza Team (i.e. the whole team can be fed by two pizzas), meaning no more than a dozen people. On the smaller size scale we’ve seen setups where a team of half-a-dozen would support half-a-dozen services.</p>
+</blockquote>
+<blockquote>
+<p>在我们与微服务从业者的对话中，我们看到了一系列服务规模。 报道的最大规模遵循亚马逊关于Two Pizza Team的概念（即整个团队可以由两个比萨饼供给），意味着不超过十几个人。 在规模较小的规模上，我们已经看到了一个由六人组成的团队支持六项服务的设置。</p>
+</blockquote>
+<p>I created a simple sketch to give a visual explanation for monolith and microservices:</p>
+<p>我画了一个简单的草图，为整体和微服务提供了直观的解释：</p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702523-c2af6800-9f31-11e9-988e-598f1c66f423.jpg" alt=""></p>
+<p>As you can understand from the drawing above each service in microservices is a standalone application except UI. UI is still in one piece! When all services handled by one team and while the company is scaling up, the Frontend team will start struggling and won’t be able to keep up with it and this is the bottleneck of this architecture.</p>
+<p>从上图可以理解，微服务中的每个服务都是一个独立的应用，除了UI。 UI仍然是一体的！ 当一个团队处理所有服务并且公司正在扩展时，前端团队将开始苦苦挣扎并且无法跟上它，这是这种架构的瓶颈。</p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702910-d14a4f00-9f32-11e9-9879-0dc0510ac3ef.jpg" alt=""></p>
+<p>Additional to its bottleneck, this architecture will result in some organizational problems too. Assume that the company is growing and will adopt agile development methodologies which require <em>cross-functional</em> small teams. On this common example, naturally, product owners will start to define the stories as frontend and backend tasks and the <em>cross-functional</em> team will never be a real <em>cross-functional</em> unit. It will be a shallow bubble which looks like an agile team but it will be separated deep inside. More on that managing this kind of team will be really a nail-biting duty. On each planning, there would be a question if there were enough frontend task or were there enough backend tasks in the sprint. To address all the problems described here and numerous others, a couple of years ago the <strong>micro frontends idea</strong> has emerged and it started to gain popularity very quickly.</p>
+<p>除了瓶颈之外，这种架构也会导致一些组织问题。 假设公司正在发展并将采用需要<em>跨职能</em>小团队的敏捷开发方法。 在这个常见的例子中，产品所有者自然会开始将故事定义为前端和后端任务，而<em>跨职能</em>团队将永远不会成为真正的<em>跨职能</em>部门。 这将是一个浅薄的泡沫，看起来像一个敏捷的团队，但它将在内部分开。 关于管理这种团队的更多信息将是一项非常重要的工作。 在每个计划中，如果有足够的前端任务或者sprint中有足够的后端任务，则会有一个问题。 为了解决这里描述的所有问题和许多其他问题，几年前出现了<strong>微前端</strong>的想法并且开始迅速普及。</p>
+<h3 id="The-solution-to-the-bottleneck-problem-in-microservices-Micro-Frontends-🎉"><a href="#The-solution-to-the-bottleneck-problem-in-microservices-Micro-Frontends-🎉" class="headerlink" title="The solution to the bottleneck problem in microservices: Micro Frontends 🎉"></a>The solution to the bottleneck problem in microservices: Micro Frontends 🎉</h3><h3 id="解决微服务中的瓶颈问题：Micro-Frontends🎉"><a href="#解决微服务中的瓶颈问题：Micro-Frontends🎉" class="headerlink" title="解决微服务中的瓶颈问题：Micro Frontends🎉"></a>解决微服务中的瓶颈问题：Micro Frontends🎉</h3><p>The solution is actually quite obvious, embrace the same principles which are working for backend services for many years: Divide the frontend monolith into small UI fragments. But UI is not quite similar to services, it is the interface between the end user and the product, it should be consistent and seamless. Even more, in the era of Single Page Applications, the whole application is running on the browser on the client side. They are not simple HTML files anymore, instead, they are sophisticated pieces of software reaching really complex levels. Now I feel like a definition of the micro frontend is necessary:</p>
+<p>解决方案实际上非常明显，采用了多年来为后端服务工作的相同原则：将前端整体划分为小的UI片段。 但UI与服务并不十分相似，它是最终用户与产品之间的接口，应该是一致且无缝的。 更重要的是，在单页面应用时代，整个应用在客户端的浏览器上运行。 它们不再是简单的HTML文件，相反，它们是复杂的软件，达到了非常复杂的水平。 现在我觉得微型前端的定义是必要的：</p>
+<blockquote>
+<p>The idea behind Micro Frontends is to think about a website or web app as a composition of features which are owned by independent teams. Each team has a distinct area of business or mission it cares about and specialises in. A team is cross functional and develops its features end-to-end, from database to user interface. (micro-frontends.org)</p>
+</blockquote>
+<blockquote>
+<p>Micro Frontends背后的想法是将网站或Web应用视为独立团队拥有的功能组合。 每个团队都有一个独特的业务或任务领域，做他们关注和专注的事情。团队是跨职能的，从数据库到用户界面开发端到端的功能。（<a href="https://micro-frontends.org/" target="_blank" rel="noopener">micro-frontends.org</a>）</p>
+</blockquote>
+<p>From my experience so far, for many companies, it is really hard to directly adopt the architecture proposed above. Lots of others have a huge legacy burden which is nailing them down from migrating to a new architecture. For that reason a softer midway solution which is more flexible to allow easy adoption and secure migration is vital. After overviewing the architecture in more detail I will try to provide some insight into an architecture which is confirming the proposal above and allowing more flexible ways to follow. Before diving into the details, I need to build up some terminology.</p>
+<p>根据我迄今为止的经验，对于许多公司来说，直接采用上面提出的架构真的很难。 许多其他人都有巨大的遗留负担，这使他们无法迁移到新的架构。 出于这个原因，更柔软的中间解决方案更加灵活，易于采用和安全迁移至关重要。 在更详细地概述了体系结构后，我将尝试提供一些体系结构的洞察，该体系结构确认了上述提议并允许更灵活的方式。 在深入了解细节之前，我需要建立一些术语。</p>
+<h3 id="The-overall-structure-and-some-terminology"><a href="#The-overall-structure-and-some-terminology" class="headerlink" title="The overall structure and some terminology"></a>The overall structure and some terminology</h3><h3 id="整体结构和一些术语"><a href="#整体结构和一些术语" class="headerlink" title="整体结构和一些术语"></a>整体结构和一些术语</h3><p>Let’s imagine we are dividing the monolithic app structure vertically through business functionalities. We will end up with several smaller applications which has the same structure with the monolithic application. But if we add a special app on top of all these small monolithic apps, users will communicate with this new app and it will compose the old monolithic UI from each small app into one. This new layer can be named as <strong>stitching layer</strong> because it gets the produced UI parts from each microservice and combines into one <em>seamless</em> UI for the end user and this would be the most straight forward implementation of a micro frontend 🤩</p>
+<p>让我们假设我们通过业务功能垂直划分整体应用结构。 我们最终会得到几个较小的应用，它们与单体应用具有相同的结构。 但是如果我们在所有这些小型单体应用之上添加一个特殊应用，用户将与这个新应用进行通信，它将把每个小应用的旧单体UI组合成一个。 这个新图层可以命名为<strong>拼接图层</strong>，因为它从每个微服务中获取生成的UI部件，并为最终用户组合成一个<em>无缝</em> UI，这将是微前端的最直接实现🤩</p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702748-5aad5180-9f32-11e9-93f4-eaaf99415697.jpg" alt=""></p>
+<p>For a better understanding, I will refer to each small monolithic app as <strong>micro-app</strong> since they all are standalone apps and not microservices only, they all have UI parts and each represents an end-to-end business functionality.</p>
+<p>为了更好地理解，我将每个小型单体应用称为<strong>微应用</strong>，因为它们都是独立的应用，而不仅仅是微服务，它们都有UI部件，每个都代表端到端的业务功能。</p>
+<p>As it’s already known, today’s frontend ecosystem is highly versatile and can be extremely complex. So this kind of straightforward solutions will not be sufficient enough when the time comes to implement it for a real product.</p>
+<p>众所周知，今天的前端生态系统功能多样，而且非常复杂。 因此，当实现真正的产品时，这种直接的解决方案还不够。</p>
+<h3 id="Problems-to-solve"><a href="#Problems-to-solve" class="headerlink" title="Problems to solve"></a>Problems to solve</h3><h1 id="要解决的问题"><a href="#要解决的问题" class="headerlink" title="要解决的问题"></a>要解决的问题</h1><p>While this article was just an idea, I started a Reddit thread to discuss the idea. Thanks to the community and their responses I can list some problems to be addressed and I will try to describe them one by one.</p>
+<p>虽然这篇文章只是一个想法，但我开始使用Reddit讨论这个想法。 感谢社区和他们的回复，我可以列出一些需要解决的问题，我将尝试逐一描述。</p>
+<p><em>How to create a seamless and consistent UI experience when we have a totally independent standalone <strong>micro-apps</strong>?</em></p>
+<p><em>当我们拥有一个完全独立的独立<strong>微应用</strong>时，如何创建无缝且一致的UI体验？</em></p>
+<p>Well, there is no silver bullet answer to this question but one of the ideas is creating a shared UI library which is a standalone <strong>micro-app</strong> itself too. By that way, all the other micro-apps will depend on that shared UI library micro-app. In that case, we just created a shared dependency and we killed the idea of standalone <strong>micro-apps</strong>.</p>
+<p>好吧，这个问题没有灵丹妙药的答案，但其中一个想法是创建一个共享的UI库，它也是一个独立的微应用。 通过这种方式，所有其他<strong>微应用</strong>将依赖于共享的UI库微应用。 在这种情况下，我们刚刚创建了一个共享依赖项，我们就杀死了独立<strong>微应用</strong>的想法。</p>
+<p>Another idea can be sharing <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS custom variables</a> on the :root level. The advantage of this solution would be the global configurable theme between apps.</p>
+<p>另一个想法是在根级共享CSS自定义变量（ <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS custom variables</a> ）。 此解决方案的优势在于应用之间的全局可配置主题。</p>
+<p>Or we may simply share some SASS variables and mixins between app teams. The downside of this approach would be the repetitive implementation of UI elements and the integrity of the designs of similar elements should be checked and validated always for all the <strong>micro-apps.</strong></p>
+<p>或者我们可以简单地在应用团队之间共享一些SASS变量和混合。 这种方法的缺点是UI元素的重复实现，并且应该对所有<strong>微应用</strong>始终检查和验证类似元素的设计的完整性。</p>
+<p><em>How do we make sure that one team is not overriding the CSS written by another team?</em></p>
+<p><em>我们如何确保一个团队不会覆盖另一个团队编写的CSS？</em></p>
+<p>One solution is CSS scoping via CSS selector names which are carefully selected by the micro-app name. By putting this scoping task to the <strong>stitching layer</strong> will reduce the development overhead but will increase the responsibility of the <strong>stitching layer</strong>.</p>
+<p>一种解决方案是通过CSS选择器名称进行CSS定义，这些名称由微应用名称精心选择。 通过将该范围任务放在<strong>拼接层</strong>上将减少开发开销，但会增加<strong>拼接层</strong>的责任。</p>
+<p>Another solution can be forcing each <strong>micro-app</strong> to be a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements" target="_blank" rel="noopener">custom web component</a>. The advantage of this solution is the scoping done by the browser, but it comes with a price: it is nearly impossible to do server-side rendering with shadow DOM. Additionally, there is no 100% <a href="https://caniuse.com/#search=custom%20elements" target="_blank" rel="noopener">browser support</a>for custom elements yet especially if you have to support IE.</p>
+<p>另一种解决方案可以是强制每个微应用成为自定义Web组件（<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements" target="_blank" rel="noopener">custom web component</a>）。 这个解决方案的优点是浏览器完成了范围设计，但需要付出代价：使用shadow DOM进行服务器端渲染几乎是不可能的。 此外，自定义元素没有100％的<a href="https://caniuse.com/#search=custom%20elements" target="_blank" rel="noopener">浏览器支持</a>，特别是IE。</p>
+<p><em>How should we share the global information between micro-apps?</em></p>
+<p><em>我们应该如何在微应用之间共享全局信息？</em></p>
+<p>This question points out to one of the most concerned issues on this topic, but the solution is pretty easy: HTML 5 has pretty powerful functionalities which are not well known by the majority of frontend developers. For example, <strong>custom events</strong> are one of them and it is the solution for sharing information within the micro-apps.</p>
+<p>这个问题指出了关于这个主题的最关注的问题之一，但解决方案非常简单：HTML 5具有相当强大的功能，大多数前端开发人员都不知道。 例如，<strong>自定义事件（custom events）</strong> 就是其中之一，它是在微应用中共享信息的解决方案。</p>
+<p>Alternatively any shared pub-sub implementation or T39 observable implementation can do the trick. If we want a more sophisticated global state handler we can implement a shared miniature Redux, by that way we can achieve more reactive architecture.</p>
+<p>或者，任何共享的pub-sub实现或T39可观察的实现都可以实现。 如果我们想要一个更复杂的全局状态处理程序，我们可以实现共享的微型Redux，通过这种方式我们可以实现更多的相应式架构。</p>
+<p><em>If all micro-apps are standalone apps, how do we do client-side routing?</em></p>
+<p><em>如果所有微应用都是独立应用，我们如何进行客户端路由？</em></p>
+<p>This problem is up to each implementation by design. All major modern frameworks are providing powerful routing mechanisms on the client side by using browser history state. The problem is which application is responsible for the routing and when.</p>
+<p>这个问题取决于设计的每个实现, 所有主要的现代框架都通过使用浏览器历史状态在客户端提供强大的路由机制, 问题在于哪个应用负责路由以及何时。</p>
+<p>My current pragmatic approach is creating a shared client router which is responsible only from the top level routes and the rest belongs to the respective micro-app. Let’s say we have a /content/:id route definition. The shared router will resolve /content part and the resolved route will be passed into ContentMicroApp. ContentMicroApp is a standalone server and it will be called with /:id only.</p>
+<p>我目前的实用方法是创建一个共享客户端路由器，它只负责顶级路由，其余路由器属于相应的微应用。 假设我们有 <code>/content/:id</code> 路由定义。 共享路由器将解析 <code>/content</code>，已解析的路由将传递到ContentMicroApp。 ContentMicroApp是一个独立的服务器，它将仅使用 <code>/:id</code> 进行调用。</p>
+<p><em>We must have the server-side rendering for sure but is it possible with micro-frontends?</em></p>
+<p><em>我们必须是服务器端渲染，但是有可能使用微前端吗？</em></p>
+<p>Server-side rendering is a tricky problem. If you are considering iframes to stitch the <strong>micro-apps</strong> then forget about server-side rendering. Similarly, web components for stitching task are not powerful than iframes. But if each <strong>micro-app</strong> is able to render its content on the server side then the <strong>stitching layer</strong> will be responsible only for concatenating the HTML fragments on the server side.</p>
+<p>服务器端呈现是一个棘手的问题。 如果你正在考虑iframes缝合<strong>微应用</strong>然后忘记服务器端渲染。 同样，拼接任务的Web组件也不比iframe强大。 但是，如果每个<strong>微应用</strong>能够在服务器端呈现其内容，那么<strong>拼接层</strong>将仅负责连接服务器端的HTML片段。</p>
+<p><em>Integration with a legacy environment is vital! But how?</em></p>
+<p><em>与传统环境集成至关重要！ 但是怎么样？</em></p>
+<p>To integrate a legacy system, I would like to describe the strategy of my own that I named as “<em>gradual invasion</em>”.</p>
+<p>为了整合遗留系统，我想描述我自己的策略，我称之为“<em>渐进式入侵</em>”。</p>
+<p>First, we have to implement the stitching layer and it should have a functionality of transparent proxy. Then we can define the legacy system as a <strong>micro-app</strong> by declaring a wildcard route to it: <em>LegacyMicroApp</em>. So all the traffic will hit the stitching layer and will be proxied to the legacy system transparently since we don’t have any other micro-apps yet.</p>
+<p>首先，我们必须实现拼接层，它应该具有透明代理的功能。 然后我们可以通过声明一个通配符路径将遗留系统定义为<strong>微应用</strong>：<em>LegacyMicroApp</em>。 因此，所有流量都将到达拼接层，并将透明地代理到旧系统，因为我们还没有任何其他微应用。</p>
+<p>Next step will be our first <em>gradual invasion</em> movement: We will take a small bite from the <em>LegacyMicroApp</em> by deleting the main navigation and replacing it with a dependency. This dependency will be a <strong>micro-app</strong> implemented with a shiny new technology: <em>NavigationMicroApp</em>.</p>
+<p>下一步将是我们的<em>第一次逐步入侵</em>：我们将从LegacyMicroApp中删除主要导航并用依赖项替换它。 这种依赖关系将是一个使用闪亮的新技术实现的<strong>微应用</strong>：<em>NavigationMicroApp</em> 。</p>
+<p>Now the stitching layer will resolve each route as <em>LegacyMicroApp</em> and it will resolve the dependency as <em>NavigationMicroApp</em> and serve them by concatenating these two.</p>
+<p>现在，拼接层将每个路径解析为<em>Legacy Micro App</em>，它将依赖关系解析为<em>Navigation MicroApp</em>，并通过连接这两个来为它们提供服务。</p>
+<p>Then the next bite will come for the footer by following the same pattern with the main navigation.</p>
+<p>然后通过主导航遵循相同的模式来为引导下一步。</p>
+<p>And then we will continue taking similar small bites from <em>LegacyMicroApp</em> until nothing left from it.</p>
+<p>然后我们将继续从Legacy MicroApp中获取逐步重复以上操作，直到没有任何遗漏。</p>
+<p><em>How to orchestrate the client side so we won’t need to reload the page each time?</em></p>
+<p><em>如何编排客户端，这样我们每次都不需要重新加载页面？</em></p>
+<p>Well, the <strong>stitching layer</strong> solves the problems on the server side but not on the client side. On the client side, after loading already glued fragments as a seamless HTML, we don’t need to load all the parts each time on URL change. Therefore we have to have some mechanism which loads fragments asynchronously. But the problem is, these fragments may have some dependencies and these dependencies need to be resolved on the client-side. That means a micro frontend solution should provide a mechanism to load <strong>micro-apps</strong> and also some mechanism for dependency injection.</p>
+<p><strong>拼接层</strong>解决了服务器端的问题，但没有解决客户端问题。 在客户端，在将已粘贴的片段作为无缝HTML加载后，我们不需要每次在URL更改时加载所有部分。 因此，我们必须有一些异步加载片段的机制。 但问题是，这些片段可能有一些依赖关系，这些依赖关系需要在客户端解决。 这意味着微前端解决方案应提供加载<strong>微应用</strong>的机制，以及依赖注入的一些机制。</p>
+<hr>
+<p>According to the questions and possible solutions above, I can summarize everything under the following topics:</p>
+<p>根据上述问题和可能的解决方案，我可以总结以下主题下的所有内容：</p>
+<p><strong>Client-side</strong></p>
+<ul>
+<li>Orchestration</li>
+<li>Routing</li>
+<li>Isolation of micro-apps</li>
+<li>App to app communication</li>
+<li>Consistency between micro-app UIs</li>
+</ul>
+<p><strong>客户端</strong></p>
+<ul>
+<li>编排</li>
+<li>路由</li>
+<li>隔离微应用</li>
+<li>应用之间通信</li>
+<li>微应用UI之间的一致性</li>
+</ul>
+<p><strong>Server-side</strong></p>
+<ul>
+<li>Server-side rendering</li>
+<li>Routing</li>
+<li>Dependency management</li>
+</ul>
+<p><strong>服务端</strong></p>
+<ul>
+<li>服务端渲染</li>
+<li>路由</li>
+<li>依赖管理</li>
+</ul>
+<h3 id="A-flexible-and-powerful-yet-simple-architecture"><a href="#A-flexible-and-powerful-yet-simple-architecture" class="headerlink" title="A flexible and powerful yet simple architecture**"></a>A flexible and powerful yet simple architecture**</h3><h1 id="灵活、强大而简单的架构"><a href="#灵活、强大而简单的架构" class="headerlink" title="灵活、强大而简单的架构"></a>灵活、强大而简单的架构</h1><p><img src="https://user-images.githubusercontent.com/10891613/60702255-f938b300-9f30-11e9-80c2-5e2470b6edcd.jpg" alt=""></p>
+<p>So, it worthed the wait all along this article! The basic elements and requirements of a micro frontends architecture finally started to reveal itself!</p>
+<p>所以，这篇文章还是很值得期待的！ 微前端架构的基本要素和要求终于显现！</p>
+<p>With the guidance of these requirements and concerns, I started to develop a solution which I named as <strong><em>microfe</em></strong>. 😎 Here I will describe the architectural goal of this project by underlining its main components in an abstract manner.</p>
+<p>在这些要求和关注的指导下，我开始开发一种名为microfe的解决方案。 😎在这里，我将通过抽象的方式强调其主要组件来描述该项目的架构目标。</p>
+<p>It is easy to start with client-side and it has three separate backbone-structures: <em>AppsManager</em>, <em>Loader</em>, <em>Router</em> and one extra <em>MicroAppStore.</em></p>
+<p>它很容易从客户端开始，它有三个独立的主干结构：<em>AppsManager</em>，<em>Loader</em>，<em>Router</em>和一个额外的<em>MicroAppStore</em>。</p>
+<p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702174-b4ad1780-9f30-11e9-9bdb-d3baefd54981.jpg" class="lazyload"></p>
+<h3 id="AppsManager"><a href="#AppsManager" class="headerlink" title="AppsManager"></a>AppsManager</h3><p>AppsManager is the core of client-side micro-app orchestration. The main functionality of AppsManager is to create the dependency tree. When all of the dependencies of a micro-app are resolved, it instantiates the micro-app.</p>
+<p>AppsManager 是客户端微应用编排的核心。 AppsManager的主要功能是创建依赖关系树。 当解决了微应用的所有依赖关系时，它会实例化微应用。</p>
+<h3 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h3><p>Another important part of client-side micro-app orchestration is the Loader. The responsibility of the loader is fetching the unresolved micro-apps from the server-side.</p>
+<p>客户端微应用编排的另一个重要部分是Loader。 加载器的责任是从服务器端获取未解析的微应用。</p>
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>To solve client-side routing I introduced the Router into <strong><em>microfe</em></strong>. Unlike the common client-side routers, the <strong><em>microfe</em></strong> router has limited functionalities, It does not resolve the pages but micro-apps. Let’s say we have an URL /content/detail/13 and a <em>ContentMicroApp</em>. In that case, the <strong><em>microfe</em></strong> router will resolve the URL up to /content/<em> and it will call </em>ContentMicroApp*/detail/13 URL part.</p>
+<p>为了解决客户端路由问题，我将 Router 引入了 <strong><em>microfe</em></strong>。 与常见的客户端路由器不同，<strong><em>microf</em></strong> 的功能有限，它不解析页面而是微应用。 假设我们有一个URL <code>/content/detail/13</code> 和一个ContentMicroApp。 在这种情况下，<strong><em>microfe</em></strong> 将URL解析为 <code>/content/</code>，它将调用ContentMicroApp <code>/detail/13</code> URL部分。</p>
+<h3 id="MicroAppStore"><a href="#MicroAppStore" class="headerlink" title="MicroAppStore"></a>MicroAppStore</h3><p>To solve micro-app to micro-app client-side communication I introduced MicroAppStore into <strong><em>microfe.</em></strong> It has the similar functionalities of Redux library with a difference: It is resilient to asynchronous data structure changes and reducer declarations.</p>
+<p>为了解决微应用到微应用客户端的通信，我将MicroAppStore引入了 <strong><em>microfe</em></strong>。 它具有与Redux库类似的功能，区别在于：它对异步数据结构更改和reducer 声明更灵活。</p>
+<hr>
+<p>The server-side part can be a little bit more complicated in implementation but simpler in structure. It consists of only two main part <em>StitchingServer</em> and lots of <em>MicroAppServer</em>.</p>
+<p>服务器端部分在实现上可能稍微复杂一些，但结构更简单。 它只包含两个主要部分<em>StitchingServer</em>和许多<em>MicroAppServer</em>。</p>
+<h3 id="MicroAppServer"><a href="#MicroAppServer" class="headerlink" title="MicroAppServer"></a>MicroAppServer</h3><p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702407-88de6180-9f31-11e9-9698-8fd841967671.jpg" class="lazyload"></p>
+<p>Bare minimum functionality of a <em>MicroAppServer</em> can be summarized as <em>init</em> and <em>serve</em>.</p>
+<p><em>MicroAppServer</em>的最小功能可以概括为<em>init</em>和<em>serve</em>。</p>
+<p>While a <em>MicroAppServer</em> booting up first thing it should do is calling <em>SticthingServer</em> register endpoint with a <em>micro-app declaration</em> which defines the micro-app <em>dependencies</em>, <em>type</em>, and <em>URL schema</em> of <em>MicroAppServer</em>. I think there is no need to mention about serve functionality since there is nothing special about it.</p>
+<p>虽然<em>MicroAppServer</em>首先启动它应该做的是使用<em>微应用声明</em>调用<em>SticthingServer</em>注册端点，该声明定义了<em>MicroAppServer</em>的微应用<em>依赖关系</em>，<em>类型</em>和<em>URL架构</em>。 我认为没有必要提及服务功能，因为没有什么特别之处。</p>
+<h3 id="StitchingServer"><a href="#StitchingServer" class="headerlink" title="StitchingServer"></a>StitchingServer</h3><p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702852-a52ece00-9f32-11e9-9327-0b64a43b9dda.jpg" class="lazyload"></p>
+<p><em>StitchingServer</em> provides a <em>register</em> endpoint for <em>MicroAppServers.</em> When a <em>MicroAppServer</em> registers itself to <em>StichingServer</em>, <em>StichingServer</em> records the declaration of the <em>MicroAppServer.</em></p>
+<p><em>StitchingServer</em>为<em>MicroAppServers</em>提供注册端点。 当<em>MicroAppServer</em>将自己注册到<em>StichingServer</em>时，<em>StichingServer</em>会记录<em>MicroAppServer</em>的声明。</p>
+<p>Later the <em>StitchingServer</em> uses the declaration to resolve the <em>MicroAppServers</em>from the requested URL.</p>
+<p>稍后，<em>StitchingServer</em>使用声明从请求的URL解析<em>MicroAppServers</em>。</p>
+<p>After resolving a <em>MicroAppServer</em> and all of its dependencies, all relative paths in CSS, JS and HTML will be prefixed with related <em>MicroAppServer</em> public URL. One additional step is prefixing the CSS selectors with a unique identifier of <em>MicroAppServer</em> to prevent collision between micro-apps on client-side.</p>
+<p>解析M<em>icroAppServer</em>及其所有依赖项后，CSS，JS和HTML中的所有相对路径都将以相关的<em>MicroAppServer</em>公共URL为前缀。 另外一步是为CSS选择器添加一个唯一的<em>MicroAppServer</em>标识符，以防止客户端的微应用之间发生冲突。</p>
+<p>Then the main responsibility of <em>StitchingServer</em> comes into the scene: composing and returning a seamless HTML page from all collected parts.</p>
+<p>然后<em>StitchingServer</em>的主要职责就是：从所有收集的部分组成并返回一个无缝的HTML页面。</p>
+<h3 id="A-Glimpse-of-Other-Implementations-out-There"><a href="#A-Glimpse-of-Other-Implementations-out-There" class="headerlink" title="A Glimpse of Other Implementations out There"></a>A Glimpse of Other Implementations out There</h3><h1 id="其他实现一览"><a href="#其他实现一览" class="headerlink" title="其他实现一览"></a>其他实现一览</h1><p>Even before it was called micro frontends by 2016, lots of big companies were trying to solve similar problems such as Facebook with its <a href="https://www.facebook.com/notes/facebook-engineering/bigpipe-pipelining-web-pages-for-high-performance/389414033919/" target="_blank" rel="noopener">BigPipe</a>. Nowadays the idea is gaining momentum. The companies with different sizes are interested in the subject and investing time and money on it. For instance, <em>Zalando</em> open-sourced its solution which is called <a href="https://www.mosaic9.org/" target="_blank" rel="noopener">Project Mosaic</a>. I can say that <strong><em>microfe</em></strong> and Project Mosaic are following similar approaches with some vital differences. While microfe embraces full decentralized route definitions to empower more independence for each micro-app, Project Mosaic prefers centralized route definition and layout definitions for each route. By that way, Project Mosaic allows easy A/B testing and dynamic Layout generation on the fly.</p>
+<p>甚至在2016年被称为微前端之前，许多大公司都试图通过 <a href="https://www.facebook.com/notes/facebook-engineering/bigpipe-pipelining-web-pages-for-high-performance/389414033919/" target="_blank" rel="noopener">BigPipe</a> 来解决Facebook等类似问题。 如今这个想法正在获得验证。 不同规模的公司对该主题感兴趣并投入时间和金钱。 例如，Zalando开源了其名为Project Mosaic的解决方案。 我可以说，微型和 <a href="https://www.mosaic9.org/" target="_blank" rel="noopener">Project Mosaic</a>.遵循类似的方法，但有一些重要的区别。 虽然microfe采用完全分散的路由定义来增强每个微应用的独立性，但Project Mosaic更喜欢每条路径的集中路由定义和布局定义。 通过这种方式，Project Mosaic可以实现轻松的A/B测试和动态布局生成。</p>
+<p>There are some other approaches to the subject such as using iframes as stitching layer which is obviously not on the server-side but on the client-side. This is a very simple solution which does not require so much server structure and DevOps involvement. The job can be done by the frontend team only, so it creates a less organizational burden on the company and also it is less costly.</p>
+<p>对于该主题还有一些其他方法，例如使用iframe作为拼接层，这显然不是在服务器端而是在客户端。 这是一个非常简单的解决方案，不需要太多的服务器结构和DevOps参与。 这项工作只能由前端团队完成，因此可以减轻公司的组织负担，同时降低成本。</p>
+<p>There is a framework already out there called <em><a href="https://single-spa.js.org/" target="_blank" rel="noopener">single-spa</a></em>. The project relies on naming conventions of each app to resolve and load <strong>micro-apps</strong>. Easy to grasp the idea and follow the patterns. So it can be a good initial introduction for experimenting the idea on your own local environment. But the downside of the project is you have to build each <strong>micro-app</strong> in a specific way so they can play nice with the framework.</p>
+<p>已经有一个框架叫做 <em><a href="https://single-spa.js.org/" target="_blank" rel="noopener">single-spa</a></em>。 该项目依赖于每个应用的命名约定来解析和加载微应用。 容易掌握想法并遵循模式。 因此，在您自己的本地环境中尝试该想法可能是一个很好的初步介绍。 但是项目的缺点是你必须以特定的方式构建每个微应用，以便他们可以很好地使用框架。</p>
+<h3 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h3><h3 id="最后的想法"><a href="#最后的想法" class="headerlink" title="最后的想法"></a>最后的想法</h3><p>I believe that micro frontends topic will be discussed more frequently in time. If the topic manages to get the attention of more and more companies, it will be the defacto way of development in large teams. It can be really beneficial in the close future for any frontend developer to grasp some insights and experience on this architecture.</p>
+<p>我相信微前端话题会更频繁地讨论。 如果该主题能够引起越来越多公司的关注，它将成为大型团队的事实发展方式。 在不久的将来，任何前端开发人员都可以在这个架构上掌握一些见解和经验，这真的很有用。</p>
+<h3 id="Consider-contributing"><a href="#Consider-contributing" class="headerlink" title="Consider contributing"></a>Consider contributing</h3><h3 id="考虑贡献"><a href="#考虑贡献" class="headerlink" title="考虑贡献"></a>考虑贡献</h3><p>I’m heavily experimenting on micro frontends with a noble goal in my mind: Creating a micro frontend framework which can solve the majority of problems without compromising of the performance and ease of development and testability. If you have any bright ideas to show, do not hesitate to visit my repositories, open an issue or reach me out via comments below or <a href="https://twitter.com/onrzfr" target="_blank" rel="noopener">Twitter DM</a>. I will be there to help you! 🙂</p>
+<p>我正在大力尝试微前端，在我的脑海中有一个崇高的目标：创建一个微框架框架，可以解决大多数问题，而不会影响性能，易于开发和可测试性。 如果您有任何明智的想法，请不要犹豫，访问我的repo，打开问题或通过下面的评论或 Twitter DM 与我联系。 我会在那里帮助你！🙂</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/wechat-donate.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/alipay-donate.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/micro-frontend/">micro frontend</a> <a class="tag-link" href="/tags/微前端/">微前端</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2019/07/04/understanding_micro_frontends/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2019/07/04/understanding_micro_frontends/">
+          了解什么是微前端</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2019		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

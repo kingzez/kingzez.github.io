@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
 
-  <title>  2018 Flowing Water Review |   the kingzez blog </title>
+  <title>  Git Stash 用于保存和恢复工作进度 |   the kingzez blog </title>
 
   
     <meta name="description" content="kingzez, blog, wangzezhi, vincentw，王泽知">
@@ -17,6 +17,11 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
 </head>  
   <body>   
     
@@ -37,12 +42,6 @@
           
             <a class="header-menu-link" id="header-menu-home" href="/">
               <i class="iconfont icon-home">  
-            </i></a>     
-          
-              
-          
-            <a class="header-menu-link" id="header-menu-archives" href="/archives">
-              <i class="iconfont icon-archives">  
             </i></a>     
           
               
@@ -82,18 +81,18 @@
 	
 <div class="post-header">
 	<p class="post-title">	
-		2018 Flowing Water Review
+		git stash 用于保存和恢复工作进度
 	</p>
 
 	<div class="post-info">	
 		<span class="post-info-entry">
-			1月 24, 2019
+			Apr 09, 2017
 		</span>
 
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1296
+			<span class="post-info-entry">461
 			</span>
 		
 	</div>
@@ -106,18 +105,21 @@
 		
 
 			
-					<p><img src="https://user-gold-cdn.xitu.io/2019/1/25/16880d36eeb3f78d?w=624&amp;h=102&amp;f=png&amp;s=28571" alt=""></p>
-<h1 id="One"><a href="#One" class="headerlink" title="One"></a>One</h1><p>一、众所周知年初各种币火的一塌糊涂，telegram 被称为 ”币圈微信“必不可少会对其搞周边开发，研究 telegram 相关，大概的需求点是 telegram 群管理机器人，telegram 陌生人拉群，要实现这些势必少不了对 telegram 开放 api  的研究，telegram 的协议很特殊，是独自研发的 MTProto。<a id="more"></a> telegram 好像说的有点多了，对 telegram api 一定了解后，主要入手点是 telegram web 版，看了一下竟然是开源的，而且是使用 angularjs 开发，通过我的魔改，实现了自动拉人与收集群及用户名信息，最终数据是1000+币圈群与100w用户名，当然这些信息本身都是公开的，我只对其进行整理归类。其中使用的技术点有 nodejs，mogodb，angularjs，少量的python。</p>
-<h1 id="Two"><a href="#Two" class="headerlink" title="Two"></a>Two</h1><p>二、对微信网页版进行封包，实现登录多个微信，分析网页版微信接口，使用 electronjs 对网页版微信封包，其后客户有 windows xp的需求，由于 electronjs 最低兼容 win7 ，随后又使用了 nwjs 的老版本 0.14.7（当时版本是0.30.x）对聊天的客户端进行的封包，后来又遇到 发送的 mp4 文件无法播放，又对 nwjs 加入对mpeg的编译得以实现播放mp4，总之填了不少坑。其中使用的技术点有 electronjs，nwjs。</p>
-<h1 id="Three"><a href="#Three" class="headerlink" title="Three"></a>Three</h1><p>三、接触了 vue，使用 vue-cli 搭建项目，使用 express，mongoDB 完成接口服务，docker 部署上线，独自完成一个项目—代理商平台。</p>
-<h1 id="Four"><a href="#Four" class="headerlink" title="Four"></a>Four</h1><p>四、尝试接纳 typescript ，也是因为此前没有深入了解过 ts ，对其语法有一定误解，深入了解后，emm~ 真香，用 ts 重构了之前的项目。</p>
-<h1 id="Five"><a href="#Five" class="headerlink" title="Five"></a>Five</h1><p>五、日常更新迭代，没有大的波澜。</p>
-<h1 id="Seven"><a href="#Seven" class="headerlink" title="Seven"></a>Seven</h1><p>七、要实现一个 SSO（Single sign-on）单点登录服务，经过一番折腾，对 oauth2 了解了一番，最终使用 oauth2 中的 authorization code 模式实现了单点登录服务，服务架构包括 oauth2-server（认证服务），permission-server（权限中心服务），permission-ui（权限管理前端），server 端统一采用 ts，express，postgresql，权限采用 RBAC（Role-Based Access Control） 模型。</p>
-<h1 id="Eight"><a href="#Eight" class="headerlink" title="Eight"></a>Eight</h1><p>八、赶在 vue-cli 3正式版刚发布，新项目尝鲜使用，重构了权限管理的前端。日常更新迭代，没有大的波澜。</p>
-<h1 id="Nine"><a href="#Nine" class="headerlink" title="Nine"></a>Nine</h1><p>九、引入 easy-mock，私有化部署，培训 easy-mock 使用。日常更新迭代，没有大的波澜。</p>
-<h1 id="Ten"><a href="#Ten" class="headerlink" title="Ten"></a>Ten</h1><p>十、官网升级改版。日常更新迭代，没有大的波澜。</p>
-<h1 id="Eleven"><a href="#Eleven" class="headerlink" title="Eleven"></a>Eleven</h1><p>十一、繁忙的。公司内部进销存平台的构建，爬虫服务，url提取工具。server 端新的尝试，使用 koa 替换了 express。其中使用的技术点有koa， electronjs，ts，puppeteer，websocket。</p>
-<h1 id="Twelve"><a href="#Twelve" class="headerlink" title="Twelve"></a>Twelve</h1><p>十二、寒冬已至，是个凝重又忧桑的月份，不少小伙伴们走了，然后，然后我接手了小伙伴们的项目……</p>
+					<p>git stash 用于保存和恢复工作进度<br><a id="more"></a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+<p>保存当前的工作进度。会分别对暂存区和工作区的状态进行保存</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save "message..."</span><br></pre></td></tr></table></figure>
+<p>这条命令实际上是第一条 <code>git stash</code> 命令的完整版</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+<p>显示进度列表。此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop [--index] [\&lt;stash&gt;]</span><br></pre></td></tr></table></figure>
+<p>如果不使用任何参数，会恢复最新保存的工作进度，并将恢复的工作进度从存储的工作进度列表中清除。</p>
+<p>如果提供<stash>参数（来自 <code>git stash list</code> 显示的列表），则从该 <code>&lt;stash&gt;</code> 中恢复。恢复完毕也将从进度列表中删除 <code>&lt;stash&gt;</code>。</stash></p>
+<p>选项–index 除了恢复工作区的文件外，还尝试恢复暂存区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply [--index] [\&lt;stash&gt;]</span><br></pre></td></tr></table></figure>
+<p>除了不删除恢复的进度之外，其余和 <code>git stash pop</code> 命令一样</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git stash clear</span><br></pre></td></tr></table></figure>
+<p>删除所有存储的进度</p>
   	
 					
 	  </div>     
@@ -213,13 +215,13 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/review/">review</a> 	
+          <a class="category-link" href="/categories/git/">git</a> 	
       
         	
 
         
           <i class="iconfont icon-tag"></i>     
-            <a class="tag-link" href="/tags/review/">review</a>    
+            <a class="tag-link" href="/tags/git/">git</a>    
         	
   </div>
 
@@ -229,15 +231,22 @@
 <nav class="post-footer-nav">
   <div class="post-footer-link">
   
-      <a href="/2018/09/30/MongoDB4-事务-简单易懂的🌰/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2017/03/20/git-pull-强制覆盖local/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/09/30/MongoDB4-事务-简单易懂的🌰/">
-          MongoDB4 事务 简单易懂的🌰</a>
+          <a class="post-nav-title" href="/2017/03/20/git-pull-强制覆盖local/">
+          git pull 强制覆盖本地文件</a>
       </a>
   
   </div>
   <div class="post-footer-link">
+    
+        <a href="/2017/04/10/git重写最近一次历史/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2017/04/10/git重写最近一次历史/">
+            Git重写最近一次历史</a>
+        </a>
     
   </div>
 
@@ -260,7 +269,7 @@
     
     <div class="search-container sildeUpMin">
         <div class="search-header">
-            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
             <span class="search-cancel">
                 <i class="iconfont icon-cancel">
             </i></span>
@@ -277,31 +286,25 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
-            </a>
-            
-         
-            
-
-            <a class="mobile-menu-link" href="/about">关于
+            <a class="mobile-menu-link" href="/about">About
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
             
          
       
