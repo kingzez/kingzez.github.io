@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  初探 Web Components |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw，王泽知">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		初探 web components
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Dec 13, 2019
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">4700
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>通过使用 Custom Elements 创建内联的 CSS 和 JavaScript 的自定义元素。需要说明的是它不是 React， Vue 或者 Angular 的框架的替代方案，它是一个全新的概念。</p>
+<h4 id="CustomElementRegistry-对象"><a href="#CustomElementRegistry-对象" class="headerlink" title="CustomElementRegistry 对象"></a>CustomElementRegistry 对象</h4><p>在 window 全局对象下暴露了 customElements 属性，可以通过此属性访问到 <code>CustomElementRegistry</code> 对象。<br><code>CustomElementRegistry</code> 对象下的几种方法用于注册 Custom Elements和查询 Custom Elements：</p>
+<ul>
+<li><code>define()</code>用于定义新的 Custom Element</li>
+<li><code>get()</code> 用于获取 Custom Element 的 constructor，如果不存在，返回 undefined</li>
+<li><code>upgrade()</code> 用于升级 Custom Element</li>
+<li><code>whenDefined()</code> 用于获取 Custom Element 的 constructor，类似 get()，不同之处是返回值是 promise，有可用值是返回 resolves 状态</li>
+</ul>
+<h4 id="如何创建一个-Custom-Element"><a href="#如何创建一个-Custom-Element" class="headerlink" title="如何创建一个 Custom Element"></a>如何创建一个 Custom Element</h4><p>在调用 <code>window.customElements.define()</code> 方法前，首先要定义一个新的HTML元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ToDo...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 CustomTitle 类的构造器中使用 <strong>Shadow DOM</strong> 关联自定义 CSS，JavaScript 和 HTML到新的元素，这样就可以在这个新元素中封装各种功能，首先初始化构造器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后调用 attachShadow()，传入参数 <code>{ mode: &#39;open&#39; }</code> ,这个属性设置了 shadow DOM的封装模式，如果设置值为 <code>open</code>，可以访问元素的 shadowRoot 属性，如果值为 <code>close</code>，则不可以。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.attachShadow(&#123; <span class="attr">mode</span>: <span class="string">'open'</span> &#125;)</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来设置元素的HTML</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.attachShadow(&#123; <span class="attr">mode</span>: <span class="string">'open'</span> &#125;)</span><br><span class="line">        <span class="keyword">this</span>.shadowRoot.innerHTML = <span class="string">`</span></span><br><span class="line"><span class="string">            &lt;h1&gt;Hello WC!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">        `</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的 innerHTML 可以写入多个 html tag</p>
+</blockquote>
+<p>定义了内置元素后，即可使用 window.customElements</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.customElements.define(<span class="string">'custom-title'</span>, CustomTitle)</span><br></pre></td></tr></table></figure>
+<p>以上即可在页面中使用 <custom-title></custom-title></p>
+<h4 id="加入CSS"><a href="#加入CSS" class="headerlink" title="加入CSS"></a>加入CSS</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>()</span><br><span class="line">    <span class="keyword">this</span>.attachShadow(&#123; <span class="attr">mode</span>: <span class="string">'open'</span> &#125;)</span><br><span class="line">    <span class="keyword">this</span>.shadowRoot.innerHTML = <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;style&gt;</span></span><br><span class="line"><span class="string">        h1 &#123;</span></span><br><span class="line"><span class="string">          font-size: 40px;</span></span><br><span class="line"><span class="string">          color: #000;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &lt;/style&gt;</span></span><br><span class="line"><span class="string">      &lt;h1&gt;Hello WC!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="简写语法"><a href="#简写语法" class="headerlink" title="简写语法"></a>简写语法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.customElements.define(<span class="string">'custom-title'</span>, <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="加入-JavaScript"><a href="#加入-JavaScript" class="headerlink" title="加入 JavaScript"></a>加入 JavaScript</h4><p>在加入JavaScript处理方式上与 CSS 上略有区别，不能再模板字符串中直接写入，需要加入 addEventListener处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.attachShadow(&#123; <span class="attr">mode</span>: <span class="string">'open'</span> &#125;)</span><br><span class="line">        <span class="keyword">this</span>.shadowRoot.innerHTML = <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;style&gt;</span></span><br><span class="line"><span class="string">            h1 &#123;</span></span><br><span class="line"><span class="string">              font-size: 40px;</span></span><br><span class="line"><span class="string">              color: #000;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &lt;/style&gt;</span></span><br><span class="line"><span class="string">        &lt;h1&gt;Hello WC!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">        `</span></span><br><span class="line">    <span class="keyword">this</span>.addEventListener(<span class="string">'click'</span>, e =&gt; &#123;</span><br><span class="line">    	<span class="built_in">console</span>.log(<span class="string">'clicked'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://codepen.io/kingzez/pen/NWPbOrO" target="_blank" rel="noopener">demo 链接</a></p>
+<h4 id="使用-template"><a href="#使用-template" class="headerlink" title="使用 template"></a>使用 template</h4><p>可以使用 <code>template</code>，通过id指定到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"custom-title-template"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    h1 &#123;</span><br><span class="line">        font-size: 40px;</span><br><span class="line">        color: #000;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello WC!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">custom-title</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-title</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后在 Custom Element 构造器中引用到 shadow DOM 上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.attachShadow(&#123; <span class="attr">mode</span>: <span class="string">'open'</span> &#125;)</span><br><span class="line">        <span class="keyword">const</span> tmpl = ducument.querySelector(<span class="string">'#custom-title-template'</span>)</span><br><span class="line">        <span class="keyword">this</span>.shadowRoot.appendChild(tmpl.content.cloneNode(<span class="literal">true</span>))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.customElements.define(<span class="string">'custom-title'</span>, CustomTitle)</span><br></pre></td></tr></table></figure>
+<p><a href="https://codepen.io/kingzez/pen/xxbRyYg" target="_blank" rel="noopener">demo 链接</a></p>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>除 constructor 外，还可以定义生命周期函数，用于在特定时期执行特定的方法</p>
+<ul>
+<li><code>connectedCallback</code> 当元素插入到DOM中时执行</li>
+<li><code>disconnectedCallback</code> 当DOM中删除元素时执行</li>
+<li><code>attributeChangedCallback</code> 当检测到属性发生更改或添加或删除时执行（传入3个参数）<ul>
+<li>attrName: 变化了的属性名</li>
+<li>oldVal: 属性改变前的值</li>
+<li>newVal: 属性改变后的值</li>
+</ul>
+</li>
+<li><code>adoptedCallback</code> 当元素已<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/adoptNode" target="_blank" rel="noopener">移至新文档时</a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    connectedCallback() &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    disconnectedCallback() &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    attributeChangedCallback(attrName, oldVal, newVal) &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面提到<code>attributeChangedCallback</code> 会监听属性值的变化，这里要定义监听属性值的范围，必须定义一个静态方法用于返回监听属性的数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLELement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> observedAttributes() &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="string">'diabled'</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    attributeChangedCallback() &#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我定义了 <code>disabled</code> 属性用于被监听，当它的值变化了，比如它的值为 <code>true</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">'custom-title'</span>).disabled = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>此时，<code>attributeChangedCallback</code> 被触发，三个参数值分别为 <code>&#39;disabled&#39;, false, true</code></p>
+<h4 id="定义自定义属性"><a href="#定义自定义属性" class="headerlink" title="定义自定义属性"></a>定义自定义属性</h4><p>在自定义元素上定义自定义属性，通过添加 getter 和 setter 函数向自定义元素上定义自定义属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> observedAttributes() &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'nbattribute'</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> nbattribute() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getAttribute(<span class="string">'nbattribute'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> nbattribute(value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setAttribute(<span class="string">'nbattribute'</span>, value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果是定义类似 <code>disabled</code> 这样的布尔属性值，如果值为 <code>true</code> 时展示这个属性值，<code>false</code> 时不展示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTitle</span> <span class="keyword">extends</span> <span class="title">HTMLElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> observedAttributes() &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'boolattribute'</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> boolattribute() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.hasAttribute(<span class="string">'boolattribute'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> boolattribute(value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.setAttribute(<span class="string">'boolattribute'</span>, <span class="string">''</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.removeAttribute(<span class="string">'boolattribute'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="设置尚未定义的自定义元素的样式"><a href="#设置尚未定义的自定义元素的样式" class="headerlink" title="设置尚未定义的自定义元素的样式"></a>设置尚未定义的自定义元素的样式</h4><p>在页面加载过程中，JavaScript的加载需要时间，此时自定义元素还未定义，当页面加载完成后，页面的的重新布局过程可能不是那么友好，为了解决这个问题，加入 <code>:not(:defined)</code> 伪类，设置一个大致的高度和渐变效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">custom-title</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:defined)</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">transition</span>: opacity <span class="number">0.5s</span> ease-in-out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="浏览器支持情况-caniuse"><a href="#浏览器支持情况-caniuse" class="headerlink" title="浏览器支持情况 caniuse"></a>浏览器支持情况 <a href="https://caniuse.com/#search=Custom%20Elements" target="_blank" rel="noopener">caniuse</a></h4><p>最新版的 FireFox，Safari，Chrome，使用 Chromium内核 重写的Edge，IE（就别想了），另外可以加入 <a href="https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements" target="_blank" rel="noopener">polyfill</a> 兼容老版本的浏览器</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/vue/">vue</a> <a class="tag-link" href="/tags/webcomponents/">webcomponents</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2019/07/10/future-origin-programing-how-to-use-vue3-syntax-in-vue2-in-practice/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2019/07/10/future-origin-programing-how-to-use-vue3-syntax-in-vue2-in-practice/">
+          面向未来编程，如何在 Vue2 中使用 Vue3 的语法[实践篇]</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2019		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

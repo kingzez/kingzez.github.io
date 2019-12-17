@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html>
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
@@ -112,9 +112,9 @@
 <p>在我们与微服务从业者的对话中，我们看到了一系列服务规模。 报道的最大规模遵循亚马逊关于Two Pizza Team的概念（即整个团队可以由两个比萨饼供给），意味着不超过十几个人。 在规模较小的规模上，我们已经看到了一个由六人组成的团队支持六项服务的设置。</p>
 </blockquote>
 <p>我画了一个简单的草图，为整体和微服务提供了直观的解释：</p>
-<p><img src="https://user-images.githubusercontent.com/10891613/60702523-c2af6800-9f31-11e9-988e-598f1c66f423.jpg" alt=""></p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702523-c2af6800-9f31-11e9-988e-598f1c66f423.jpg" alt></p>
 <p>从上图可以理解，微服务中的每个服务都是一个独立的应用，除了UI。 UI仍然是一体的！ 当一个团队处理所有服务并且公司正在扩展时，前端团队将开始苦苦挣扎并且无法跟上它，这是这种架构的瓶颈。</p>
-<p><img src="https://user-images.githubusercontent.com/10891613/60702910-d14a4f00-9f32-11e9-9879-0dc0510ac3ef.jpg" alt=""></p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702910-d14a4f00-9f32-11e9-9879-0dc0510ac3ef.jpg" alt></p>
 <p>除了瓶颈之外，这种架构也会导致一些组织问题。 假设公司正在发展并将采用需要 <em>跨职能</em> 小团队的敏捷开发方法。 在这个常见的例子中，产品所有者自然会开始将故事定义为前端和后端任务，而 <em>跨职能</em> 团队将永远不会成为真正的 <em>跨职能</em> 部门。 这将是一个浅薄的泡沫，看起来像一个敏捷的团队，但它将在内部分开。 关于管理这种团队的更多信息将是一项非常重要的工作。 在每个计划中，如果有足够的前端任务或者sprint中有足够的后端任务，则会有一个问题。 为了解决这里描述的所有问题和许多其他问题，几年前出现了<strong>微前端</strong>的想法并且开始迅速普及。</p>
 <h3 id="解决微服务中的瓶颈问题：Micro-Frontends🎉"><a href="#解决微服务中的瓶颈问题：Micro-Frontends🎉" class="headerlink" title="解决微服务中的瓶颈问题：Micro Frontends🎉"></a>解决微服务中的瓶颈问题：Micro Frontends🎉</h3><p>解决方案实际上非常明显，采用了多年来为后端服务工作的相同原则：将前端整体划分为小的UI片段。 但UI与服务并不十分相似，它是最终用户与产品之间的接口，应该是一致且无缝的。 更重要的是，在单页面应用时代，整个应用在客户端的浏览器上运行。 它们不再是简单的HTML文件，相反，它们是复杂的软件，达到了非常复杂的水平。 现在我觉得微型前端的定义是必要的：</p>
 <blockquote>
@@ -122,7 +122,7 @@
 </blockquote>
 <p>根据我迄今为止的经验，对于许多公司来说，直接采用上面提出的架构真的很难。 许多其他人都有巨大的遗留负担，这使他们无法迁移到新的架构。 出于这个原因，更柔软的中间解决方案更加灵活，易于采用和安全迁移至关重要。 在更详细地概述了体系结构后，我将尝试提供一些体系结构的洞察，该体系结构确认了上述提议并允许更灵活的方式。 在深入了解细节之前，我需要建立一些术语。</p>
 <h3 id="整体结构和一些术语"><a href="#整体结构和一些术语" class="headerlink" title="整体结构和一些术语"></a>整体结构和一些术语</h3><p>让我们假设我们通过业务功能垂直划分整体应用结构。 我们最终会得到几个较小的应用，它们与单体应用具有相同的结构。 但是如果我们在所有这些小型单体应用之上添加一个特殊应用，用户将与这个新应用进行通信，它将把每个小应用的旧单体UI组合成一个。 这个新图层可以命名为<strong>拼接图层</strong>，因为它从每个微服务中获取生成的UI部件，并为最终用户组合成一个<em>无缝</em> UI，这将是微前端的最直接实现🤩</p>
-<p><img src="https://user-images.githubusercontent.com/10891613/60702748-5aad5180-9f32-11e9-93f4-eaaf99415697.jpg" alt=""></p>
+<p><img src="https://user-images.githubusercontent.com/10891613/60702748-5aad5180-9f32-11e9-93f4-eaaf99415697.jpg" alt></p>
 <p>为了更好地理解，我将每个小型单体应用称为<strong>微应用</strong>，因为它们都是独立的应用，而不仅仅是微服务，它们都有UI部件，每个都代表端到端的业务功能。</p>
 <p>众所周知，今天的前端生态系统功能多样，而且非常复杂。 因此，当实现真正的产品时，这种直接的解决方案还不够。</p>
 <h3 id="要解决的问题"><a href="#要解决的问题" class="headerlink" title="要解决的问题"></a>要解决的问题</h3><p>虽然这篇文章只是一个想法，但我开始使用Reddit讨论这个想法。 感谢社区和他们的回复，我可以列出一些需要解决的问题，我将尝试逐一描述。</p>
@@ -166,21 +166,21 @@
 <li>路由</li>
 <li>依赖管理</li>
 </ul>
-<h3 id="灵活、强大而简单的架构"><a href="#灵活、强大而简单的架构" class="headerlink" title="灵活、强大而简单的架构"></a>灵活、强大而简单的架构</h3><p><img src="https://user-images.githubusercontent.com/10891613/60702255-f938b300-9f30-11e9-80c2-5e2470b6edcd.jpg" alt=""></p>
+<h3 id="灵活、强大而简单的架构"><a href="#灵活、强大而简单的架构" class="headerlink" title="灵活、强大而简单的架构"></a>灵活、强大而简单的架构</h3><p><img src="https://user-images.githubusercontent.com/10891613/60702255-f938b300-9f30-11e9-80c2-5e2470b6edcd.jpg" alt></p>
 <p>所以，这篇文章还是很值得期待的！ 微前端架构的基本要素和要求终于显现！</p>
 <p>在这些要求和关注的指导下，我开始开发一种名为microfe的解决方案。 😎在这里，我将通过抽象的方式强调其主要组件来描述该项目的架构目标。</p>
 <p>它很容易从客户端开始，它有三个独立的主干结构：<em>AppsManager，</em> <em>Loader，</em> <em>Router</em> 和一个额外的<em>MicroAppStore。</em></p>
-<p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702174-b4ad1780-9f30-11e9-9bdb-d3baefd54981.jpg" class="lazyload"></p>
+<p><img src="/images/placeholder.png" alt data-src="https://user-images.githubusercontent.com/10891613/60702174-b4ad1780-9f30-11e9-9bdb-d3baefd54981.jpg" class="lazyload"></p>
 <h3 id="AppsManager"><a href="#AppsManager" class="headerlink" title="AppsManager"></a>AppsManager</h3><p>AppsManager 是客户端微应用编排的核心。 AppsManager的主要功能是创建依赖关系树。 当解决了微应用的所有依赖关系时，它会实例化微应用。</p>
 <h3 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h3><p>客户端微应用编排的另一个重要部分是Loader。 加载器的责任是从服务器端获取未解析的微应用。</p>
 <h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>为了解决客户端路由问题，我将 Router 引入了 <strong><em>microfe</em></strong>。 与常见的客户端路由器不同，<strong><em>microf</em></strong> 的功能有限，它不解析页面而是微应用。 假设我们有一个URL <code>/content/detail/13</code> 和一个ContentMicroApp。 在这种情况下，<strong><em>microfe</em></strong> 将URL解析为 <code>/content/</code>，它将调用ContentMicroApp <code>/detail/13</code> URL部分。</p>
 <h3 id="MicroAppStore"><a href="#MicroAppStore" class="headerlink" title="MicroAppStore"></a>MicroAppStore</h3><p>为了解决微应用到微应用客户端的通信，我将MicroAppStore引入了 <strong><em>microfe</em></strong>。 它具有与Redux库类似的功能，区别在于：它对异步数据结构更改和reducer 声明更灵活。</p>
 <hr>
 <p>服务器端部分在实现上可能稍微复杂一些，但结构更简单。 它只包含两个主要部分 <em>StitchingServer</em> 和许多<em>MicroAppServer。</em></p>
-<h3 id="MicroAppServer"><a href="#MicroAppServer" class="headerlink" title="MicroAppServer"></a>MicroAppServer</h3><p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702407-88de6180-9f31-11e9-9698-8fd841967671.jpg" class="lazyload"></p>
+<h3 id="MicroAppServer"><a href="#MicroAppServer" class="headerlink" title="MicroAppServer"></a>MicroAppServer</h3><p><img src="/images/placeholder.png" alt data-src="https://user-images.githubusercontent.com/10891613/60702407-88de6180-9f31-11e9-9698-8fd841967671.jpg" class="lazyload"></p>
 <p><em>MicroAppServer</em> 的最小功能可以概括为 <em>init</em> 和 <em>serve。</em></p>
 <p>虽然 <em>MicroAppServer</em> 首先启动它应该做的是使用 <em>微应用声明</em> 调用 <em>SticthingServer</em> 注册端点，该声明定义了 <em>MicroAppServer</em> 的微应用 <em>依赖关系，</em> <em>类型</em> 和 <em>URL架构。</em> 我认为没有必要提及服务功能，因为没有什么特别之处。</p>
-<h3 id="StitchingServer"><a href="#StitchingServer" class="headerlink" title="StitchingServer"></a>StitchingServer</h3><p><img src="/images/placeholder.png" alt="" data-src="https://user-images.githubusercontent.com/10891613/60702852-a52ece00-9f32-11e9-9327-0b64a43b9dda.jpg" class="lazyload"></p>
+<h3 id="StitchingServer"><a href="#StitchingServer" class="headerlink" title="StitchingServer"></a>StitchingServer</h3><p><img src="/images/placeholder.png" alt data-src="https://user-images.githubusercontent.com/10891613/60702852-a52ece00-9f32-11e9-9327-0b64a43b9dda.jpg" class="lazyload"></p>
 <p><em>StitchingServer</em> 为 <em>MicroAppServers</em> 提供注册端点。 当 <em>MicroAppServer</em> 将自己注册到 <em>StichingServer</em> 时，<em>StichingServer</em> 会记录<em>MicroAppServer</em> 的声明。</p>
 <p>稍后，<em>StitchingServer</em> 使用声明从请求的URL解析 <em>MicroAppServers。</em></p>
 <p>解析M <em>icroAppServer</em> 及其所有依赖项后，CSS，JS和HTML中的所有相对路径都将以相关的 <em>MicroAppServer</em> 公共URL为前缀。 另外一步是为CSS选择器添加一个唯一的 <em>MicroAppServer</em> 标识符，以防止客户端的微应用之间发生冲突。</p>
