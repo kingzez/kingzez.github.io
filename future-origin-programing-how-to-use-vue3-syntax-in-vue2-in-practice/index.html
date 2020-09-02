@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  面向未来编程，如何在 Vue2 中使用 Vue3 的语法[实践篇] |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		面向未来编程，如何在 Vue2 中使用 Vue3 的语法[实践篇]
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Jul 10, 2019
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">9546
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>面向未来编程(Future-Oriented Programming)，<a href="https://github.com/vuejs/vue-function-api" target="_blank" rel="noopener">vue-function-api</a> 提供开发者在 Vue2.x 中使用 Vue3 的语法逻辑开发应用。(为方便以下以 Vue2 表示)</p>
+<p>本文不对文档 api 对过多说明，仅讨论在项目实践中遇到的问题。比较两者的区别是对 Vue3 写法最快的了解，下面通过对比同一个功能在 Vue2 与 Vue3 的区别。</p>
+<p>场景是这样的，一个列表页，上部分是条件筛选，下部分是 table，table 行内会有删除，修改（以 dialog 形式展示）功能，template 部分无区别，这里不做赘述。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>安装 vue-function-api</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-function-api --save</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">yarn add vue-function-api</span><br></pre></td></tr></table></figure>
+<p>在项目中引入 main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Element <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br><span class="line"><span class="keyword">import</span> &#123; plugin &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span> <span class="comment">// &lt;--- 引入 vue-function-api</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Element)</span><br><span class="line">Vue.use(plugin) <span class="comment">// &lt;--- 这样就可以在单文件组件中使用函数式 API了</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  router,</span><br><span class="line">  store,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+<p>准备工作后，就可以安安静静的做比较了。</p>
+<h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><p>在 Vue2 中，首先要定义 <strong>data</strong>, <strong>data</strong> 中我们定义一个 query 对象用于条件筛选，citys 用于条件筛选中城市（动态获取下拉），statusMap 用于筛选条件中状态的下拉，list 用于 table。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      query: &#123;</span><br><span class="line">        city: <span class="literal">null</span>,</span><br><span class="line">        name: <span class="literal">null</span>,</span><br><span class="line">        status: <span class="literal">null</span></span><br><span class="line">      &#125;,</span><br><span class="line">      citys: [],</span><br><span class="line">      list: [],</span><br><span class="line">      statusMap:  [&#123;</span><br><span class="line">        value: <span class="number">1</span>,</span><br><span class="line">        label: <span class="string">'启用'</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        value: <span class="number">2</span>,</span><br><span class="line">        label: <span class="string">'禁用'</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>Vue3 中是这样定义</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; value &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    <span class="keyword">const</span> query = value(&#123;</span><br><span class="line">      city: <span class="literal">null</span>,</span><br><span class="line">      name: <span class="literal">null</span>,</span><br><span class="line">      status: <span class="literal">null</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">const</span> citys = value([])</span><br><span class="line">    <span class="keyword">const</span> list = value([])</span><br><span class="line">    <span class="keyword">const</span> statusMap = value([&#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">      label: <span class="string">'启用'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      value: <span class="number">2</span>,</span><br><span class="line">      label: <span class="string">'禁用'</span></span><br><span class="line">    &#125;])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      query,</span><br><span class="line">      citys,</span><br><span class="line">      list,</span><br><span class="line">      statusMap</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引入 <strong>setup</strong>, 在其中做 <strong>data</strong> 做的事情，细心的同学会发现在 <strong>setup</strong> 后需要 return 所定义的变量，其中也并非要将所有的变量都放入 return 中，放入 return 中是为了能够在 template 中使用，即只需 return template 中依赖的变量</p>
+<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>上文中说到 table 中有删除，编辑功能，正常的系统中这类功能是需要有权限的人才能操作，这里我们假设已经将 permissions 存入 vuex 中，使用的时需要通过 mapGetters 取出 permissions（此处为举例这样实现，正常的权限要比这个复杂）。</p>
+<p>在 Vue2 中是这样写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// 此处先省略 data 部分...</span></span><br><span class="line">  computed: &#123;</span><br><span class="line">    ...mapGetters([<span class="string">'permissions'</span>]),</span><br><span class="line">    canUpdate() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.permissions.includes(<span class="string">'update'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    canDelete() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.permissions.includes(<span class="string">'delete'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Vue3：目前 vue-function-api 还不支持 vuex map 的方式 导出 vuex 中的状态，这里我们从 Vue root 中取出 store 中的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; computed &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup(props, ctx) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; $store &#125; = ctx.root</span><br><span class="line">    <span class="comment">// 此处先省略 data 部分...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> permissions = computed(<span class="function"><span class="params">()</span> =&gt;</span> $store.getters.permissions)</span><br><span class="line">    <span class="keyword">const</span> canUpdate = <span class="function"><span class="params">()</span> =&gt;</span> permissions.includes(<span class="string">'update'</span>)</span><br><span class="line">    <span class="keyword">const</span> canDelete = <span class="function"><span class="params">()</span> =&gt;</span> permissions.includes(<span class="string">'delete'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      canUpdate,</span><br><span class="line">      canDelete <span class="comment">// &lt;--- 这里只导出 template 的依赖</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 template 中， 编辑，删除的按钮上 分别加入 <code>v-if=&quot;canUpdate&quot;</code>, <code>v-if=&quot;canDelete&quot;</code>，即可实现对应权限的人才能看到对应的按钮，了解更多 <a href="https://github.com/vuejs/vue-function-api#context" target="_blank" rel="noopener">context</a>。</p>
+<h3 id="methods-amp-lifecycle"><a href="#methods-amp-lifecycle" class="headerlink" title="methods &amp; lifecycle"></a>methods &amp; lifecycle</h3><p>基于上文中的描述，因为是一个列表页，所以结合 lifecycle 一起做一下对比。</p>
+<p>在 Vue2 中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="keyword">async</span> fetchCity() &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchCityApi()</span><br><span class="line">      <span class="keyword">this</span>.citys = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> fetchList() &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchListApi(<span class="keyword">this</span>.query)</span><br><span class="line">      <span class="keyword">this</span>.list = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">delete</span>(id) &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> deleteItem(id)</span><br><span class="line">      <span class="keyword">const</span> &#123; status, msg &#125; = response.data</span><br><span class="line">      <span class="keyword">if</span> (status !== <span class="string">'ok'</span>) <span class="keyword">return</span> <span class="keyword">this</span>.$message.error(msg)</span><br><span class="line">      <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">        type: <span class="string">'success'</span>,</span><br><span class="line">        message: <span class="string">'删除成功'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    confirm(id) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$confirm(<span class="string">`确认删除`</span>, <span class="string">'提示'</span>, &#123;</span><br><span class="line">        confirmButtonText: <span class="string">'确定'</span>,</span><br><span class="line">        cancelButtonText: <span class="string">'取消'</span>,</span><br><span class="line">        type: <span class="string">'warning'</span></span><br><span class="line">      &#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.delete(id)</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">          type: <span class="string">'info'</span>,</span><br><span class="line">          message: <span class="string">'已取消'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    detail(id) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$router.push(&#123;</span><br><span class="line">        path: <span class="string">'/detail'</span>,</span><br><span class="line">        query: &#123; id &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.fetchCity()</span><br><span class="line">    <span class="keyword">this</span>.fetchList()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来看 Vue3 中实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; computed, onCreated &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup(props, ctx) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; $message, $router, $confirm, $store &#125; = ctx.root <span class="comment">// &lt;--- setup() 中不可以使用 this 访问当前组件实例, 可以通过 setup 的第二个参数 context 来访问 vue2.x API 中实例上的属性。</span></span><br><span class="line">    <span class="comment">// 此处先省略 data 部分...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// method</span></span><br><span class="line">    <span class="keyword">const</span> fetchCity = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchCityApi()</span><br><span class="line">      citys.value = response.data <span class="comment">// &lt;--- 划重点，通过 value() wrap初始化的变量在 setup 内部引用值或者修改值都要加 .value</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> fetchList = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchListApi(query.value)</span><br><span class="line">      list.value = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">delete</span> = <span class="keyword">async</span> id =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> deleteItem(id)</span><br><span class="line">      <span class="keyword">const</span> &#123; status, msg &#125; = response.data</span><br><span class="line">      <span class="keyword">if</span> (status !== <span class="string">'ok'</span>) <span class="keyword">return</span> $message.error(msg)</span><br><span class="line">      $message(&#123;</span><br><span class="line">        type: <span class="string">'success'</span>,</span><br><span class="line">        message: <span class="string">'删除成功'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    confirm(id) &#123;</span><br><span class="line">      $confirm(<span class="string">`确认删除`</span>, <span class="string">'提示'</span>, &#123;</span><br><span class="line">        confirmButtonText: <span class="string">'确定'</span>,</span><br><span class="line">        cancelButtonText: <span class="string">'取消'</span>,</span><br><span class="line">        type: <span class="string">'warning'</span></span><br><span class="line">      &#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">delete</span>(id)</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        $message(&#123;</span><br><span class="line">          type: <span class="string">'info'</span>,</span><br><span class="line">          message: <span class="string">'已取消'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    detail(id) &#123;</span><br><span class="line">      $router.push(&#123;</span><br><span class="line">        path: <span class="string">'/detail'</span>,</span><br><span class="line">        query: &#123; id &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// lifecycle</span></span><br><span class="line">    onCreated(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fetchCity()</span><br><span class="line">      fetchList()</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      fetchCity,</span><br><span class="line">      fetchList,</span><br><span class="line">      confirm,</span><br><span class="line">      detail <span class="comment">// &lt;--- 这里只导出 template 的依赖</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>是不是感觉切换到 Vue3 也没那么难</p>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p>watch 的例子在一个列表页中可能没有什么使用场景，上文中说到列表页上面是一个条件筛选，有城市下拉，状态下拉，当然正常情况下，我们都是通过 select 的 change 事件调用 fetchList，这里我就为了举例而这么写，实际项目自己衡量利弊。</p>
+<p>在 Vue2 中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  watch: &#123;</span><br><span class="line">    query: &#123;</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fetchList()</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; <span class="attr">deep</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 或者不嫌麻烦这样写...</span></span><br><span class="line">  watch: &#123;</span><br><span class="line">    <span class="string">'query.city'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fetchList()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'query.name'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fetchList()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'query.status'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fetchList()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 Vue3 中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; watch &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    watch(</span><br><span class="line">      query,</span><br><span class="line">      val =&gt; &#123;</span><br><span class="line">        fetchList()</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; <span class="attr">deep</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 或者</span></span><br><span class="line"></span><br><span class="line">    watch(</span><br><span class="line">      () =&gt; query.value,</span><br><span class="line">      val =&gt; &#123;</span><br><span class="line">        fetchList()</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; <span class="attr">deep</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过以上对比，你应该对 Vue3 写法有一定理解了，因为是以一个列表页为 demo对比，没有用到 <strong>provide</strong>、 <strong>inject</strong>，想了解的同学可以到 <em><a href="https://github.com/vuejs/vue-function-api#provide-inject" target="_blank" rel="noopener"><code>provide, inject</code></a>，</em> 还有 <strong>state</strong> 相当于 <em><a href="https://vuejs.org/v2/api/index.html#Vue-observable" target="_blank" rel="noopener"><code>Vue.observable</code></a></em>.</p>
+<p>对比完整代码</p>
+<p><strong>Vue2</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      query: &#123;</span><br><span class="line">        city: <span class="literal">null</span>,</span><br><span class="line">        name: <span class="literal">null</span>,</span><br><span class="line">        status: <span class="literal">null</span></span><br><span class="line">      &#125;,</span><br><span class="line">      citys: [],</span><br><span class="line">      list: [],</span><br><span class="line">      statusMap:  [&#123;</span><br><span class="line">        value: <span class="number">1</span>,</span><br><span class="line">        label: <span class="string">'启用'</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        value: <span class="number">2</span>,</span><br><span class="line">        label: <span class="string">'禁用'</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    ...mapGetters([<span class="string">'permissions'</span>]),</span><br><span class="line">    canUpdate() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.permissions.includes(<span class="string">'update'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    canDelete() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.permissions.includes(<span class="string">'delete'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="keyword">async</span> fetchCity() &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchCityApi()</span><br><span class="line">      <span class="keyword">this</span>.citys = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> fetchList() &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchListApi(<span class="keyword">this</span>.query)</span><br><span class="line">      <span class="keyword">this</span>.list = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">delete</span>(id) &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> deleteItem(id)</span><br><span class="line">      <span class="keyword">const</span> &#123; status, msg &#125; = response.data</span><br><span class="line">      <span class="keyword">if</span> (status !== <span class="string">'ok'</span>) <span class="keyword">return</span> <span class="keyword">this</span>.$message.error(msg)</span><br><span class="line">      <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">        type: <span class="string">'success'</span>,</span><br><span class="line">        message: <span class="string">'删除成功'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    confirm(id) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$confirm(<span class="string">`确认删除`</span>, <span class="string">'提示'</span>, &#123;</span><br><span class="line">        confirmButtonText: <span class="string">'确定'</span>,</span><br><span class="line">        cancelButtonText: <span class="string">'取消'</span>,</span><br><span class="line">        type: <span class="string">'warning'</span></span><br><span class="line">      &#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.delete(id)</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">          type: <span class="string">'info'</span>,</span><br><span class="line">          message: <span class="string">'已取消'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    detail(id) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$router.push(&#123;</span><br><span class="line">        path: <span class="string">'/detail'</span>,</span><br><span class="line">        query: &#123; id &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.fetchCity()</span><br><span class="line">    <span class="keyword">this</span>.fetchList()</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    query: &#123;</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fetchList()</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; <span class="attr">deep</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Vue3</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; value, computed, onCreated &#125; <span class="keyword">from</span> <span class="string">'vue-function-api'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup(props, ctx) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; $store, $message, $router, $route &#125; = ctx.root</span><br><span class="line">    <span class="comment">// reactive state</span></span><br><span class="line">    <span class="keyword">const</span> query = value(&#123;</span><br><span class="line">      city: <span class="literal">null</span>,</span><br><span class="line">      name: <span class="literal">null</span>,</span><br><span class="line">      status: <span class="literal">null</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">const</span> citys = value([])</span><br><span class="line">    <span class="keyword">const</span> list = value([])</span><br><span class="line">    <span class="keyword">const</span> statusMap = value([&#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">      label: <span class="string">'启用'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      value: <span class="number">2</span>,</span><br><span class="line">      label: <span class="string">'禁用'</span></span><br><span class="line">    &#125;])</span><br><span class="line"></span><br><span class="line">    <span class="comment">// computed</span></span><br><span class="line">    <span class="keyword">const</span> permissions = computed(<span class="function"><span class="params">()</span> =&gt;</span> $store.getters.permissions)</span><br><span class="line">    <span class="keyword">const</span> canUpdate = <span class="function"><span class="params">()</span> =&gt;</span> permissions.includes(<span class="string">'update'</span>)</span><br><span class="line">    <span class="keyword">const</span> canDelete = <span class="function"><span class="params">()</span> =&gt;</span> permissions.includes(<span class="string">'delete'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// method</span></span><br><span class="line">    <span class="keyword">const</span> fetchCity = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchCityApi()</span><br><span class="line">      citys.value = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> fetchList = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> fetchListApi(query.value)</span><br><span class="line">      list.value = response.data</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">delete</span> = <span class="keyword">async</span> id =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> deleteItem(id)</span><br><span class="line">      <span class="keyword">const</span> &#123; status, msg &#125; = response.data</span><br><span class="line">      <span class="keyword">if</span> (status !== <span class="string">'ok'</span>) <span class="keyword">return</span> $message.error(msg)</span><br><span class="line">      $message(&#123;</span><br><span class="line">        type: <span class="string">'success'</span>,</span><br><span class="line">        message: <span class="string">'删除成功'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    confirm(id) &#123;</span><br><span class="line">      $confirm(<span class="string">`确认删除`</span>, <span class="string">'提示'</span>, &#123;</span><br><span class="line">        confirmButtonText: <span class="string">'确定'</span>,</span><br><span class="line">        cancelButtonText: <span class="string">'取消'</span>,</span><br><span class="line">        type: <span class="string">'warning'</span></span><br><span class="line">      &#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">delete</span>(id)</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        $message(&#123;</span><br><span class="line">          type: <span class="string">'info'</span>,</span><br><span class="line">          message: <span class="string">'已取消'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    detail(id) &#123;</span><br><span class="line">      $router.push(&#123;</span><br><span class="line">        path: <span class="string">'/detail'</span>,</span><br><span class="line">        query: &#123; id &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// watch</span></span><br><span class="line">    watch(</span><br><span class="line">      query,</span><br><span class="line">      val =&gt; &#123;</span><br><span class="line">        fetchList()</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; <span class="attr">deep</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// lifecycle</span></span><br><span class="line">    onCreated(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fetchCity()</span><br><span class="line">      fetchList()</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      query,</span><br><span class="line">      citys,</span><br><span class="line">      list,</span><br><span class="line">      statusMap,</span><br><span class="line">      canUpdate,</span><br><span class="line">      canDelete,</span><br><span class="line">      fetchCity,</span><br><span class="line">      fetchList,</span><br><span class="line">      confirm,</span><br><span class="line">      detail</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>这里贴一下 <strong>setup</strong> 中的第二个参数 <code>context</code>，对象中的属性是 2.x 中的 vue 实例属性的一个子集。完整的属性列表：</p>
+<ul>
+<li>parent</li>
+<li>root</li>
+<li>refs</li>
+<li>slots</li>
+<li>attrs</li>
+<li>emit</li>
+</ul>
+<p>像其他库 vuex，vue-router，ElementUI 的一些 $方法可以从 root 中取得</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup(props, ctx) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; $store, $router, $route, $message, $confirm &#125; = ctx.root</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h3><p>笔者已用到正式环境，目前来看还没有什么问题，引用 vue-function-api 官方的说明</p>
+<blockquote>
+<p>vue-function-api 会一直保持与 Vue3.x 的兼容性，当 3.0 发布时，您可以无缝替换掉本库。<br>vue-function-api 的实现只依赖 Vue2.x 本身，不论 Vue3.x 的发布与否，都不会影响您正常使用本库。<br>由于 Vue2.x 的公共 API 限制，vue-function-api 无法避免的会产生一些额外的内存负载。如果您的应用并不工作在极端内存环境下，无需关心此项。</p>
+</blockquote>
+<p><a href="https://github.com/vuejs/vue-function-api" target="_blank" rel="noopener">Vue Function API</a><br><a href="https://zhuanlan.zhihu.com/p/68477600" target="_blank" rel="noopener">通过基于函数的 API 来复用组件逻辑</a></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/vue/">vue</a> <a class="tag-link" href="/tags/vue3/">vue3</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/understanding_micro_frontends/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/understanding_micro_frontends/">
+          了解什么是微前端</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/web-components-custom-elements/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/web-components-custom-elements/">
+            初探 web components</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?177b36730553609e444cea3165c877ed"; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2020		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

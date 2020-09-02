@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  Javascript中的枚举 [译] |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		Javascript中的枚举 [译]
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			May 23, 2016
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">6037
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><strong> <em>Javascript中的枚举</em> ，</strong>你想这样定义枚举：<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var SizeEnum = &#123;</span><br><span class="line">  SMALL: 1,</span><br><span class="line">  MEDIUM: 2,</span><br><span class="line">  LARGE: 3,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后这样用它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var mySize = SizeEnum.SMALL;</span><br></pre></td></tr></table></figure></p>
+<p>如果你想把枚举对应的值加上属性，你可以给它们加一个额外的对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var SizeEnum = &#123;</span><br><span class="line">  SMALL: 1,</span><br><span class="line">  MEDIUM: 2,</span><br><span class="line">  LARGE: 3,</span><br><span class="line">  properties: &#123;</span><br><span class="line">    1: &#123;name: &quot;small&quot;, value: 1, code: &quot;S&quot;&#125;,</span><br><span class="line">    2: &#123;name: &quot;medium&quot;, value: 2, code: &quot;M&quot;&#125;,</span><br><span class="line">    3: &#123;name: &quot;large&quot;, value: 3, code: &quot;L&quot;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后像这样用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mySize = SizeEnum.MEDIUM;</span><br><span class="line">var myCode = SizeEnum.properties[mySize].code; // myCode == &quot;M&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>上面描述的是对JavaScript枚举思考很长时间得出的结果。它尝试最好的结合以原语为枚举值（序列化）和以对象作为值（允许值对应属性），进一步阅读了解我是怎么实现这一方法。</p>
+<h4 id="重新理解枚举"><a href="#重新理解枚举" class="headerlink" title="重新理解枚举"></a>重新理解枚举</h4><p>我最近偶然发现自己在StackOverflow已经回答了几年的问题，读过一些评论之后思考了一下觉得这是一个很值得话题。</p>
+<p><em>那么评论中都是那些问题呢？</em></p>
+<p><strong>在JavaScript中写枚举最好的方法是？</strong><br>首先，在回答问题之前，先了解一下什么是枚举？在JavaScript中写意着什么。让我们先看一下枚举的定义：<br><strong>枚举是什么?</strong></p>
+<blockquote>
+<p>在数学和计算机科学理论中，一个集的枚举是列出某些有穷序列集的所有成员的程序，或者是一种特定类型对象的计数。这两种类型经常（但不总是）重叠。枚举是一个被命名的整型常数的集合<br><em>–维基百科: 枚举</em></p>
+</blockquote>
+<p>一个很好的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum WeekDay = &#123;MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>总结：枚举是一组预定义的常量中的一个制约变量。在上面的例子中WeekDay是一个枚举值，MONDAY、TUESDAY等是集合中的常量，也可称为枚举成员，如果我们声明一个变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeekDay payDay;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以把它分配给MONDAY，TUESDAY等任何一个常量，直到包括SUNDAY，但不是其他的什么，像12、<code>labour day</code>。<br>…这给我们带来一个问题。<br><strong>它不能在JavaScript中实现</strong><br>javascript是弱类型语言，这意味着不需要事先声明一个特定类型的变量。在Java（强类型）中你可能这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int i; // declares a variable named i which may hold integer values.</span><br></pre></td></tr></table></figure></p>
+<p>如果之后你要给它分配一个字符串，你需要这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = &quot;Hello World&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>但是编译器会返回错误，中断生成文件<br>不像Javascript中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var i;</span><br><span class="line">i = 10;</span><br><span class="line">i = &quot;Hello World&quot;;</span><br><span class="line">i = 3.1415;</span><br><span class="line">i = true;</span><br><span class="line">i = [&apos;my&apos;, &apos;array&apos;];</span><br><span class="line">i = &#123;look: &apos;at&apos;, my: &apos;object&apos;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>正如你所看到，我们声明了一个变量（通过关键字var）,但它在运行时类型是不受限制的。我们可以给他分配任何值。维基百科的措辞有点尴尬，但是你读到这行</p>
+<blockquote>
+<p>A variable that has been declared as having an enumerated type can be assigned any of the enumerators as a value.</p>
+</blockquote>
+<p>它表明，任何的枚举数都可被分配，但是什么都没有，所以它限制了可以分配给变量的值。在JavaScript中我们只是不能这样做，因此我们不能写真正的枚举，我们可以模仿C语言中提供的一些方便的方法，但要记住，我们只模仿它提供的语法糖。</p>
+<p><strong>在javascript中写枚举</strong><br>我是从强类型的java中转过来的，但也很长时间没有写枚举了，因此Java的编程给我带来一些不同的解决方法来模仿写出枚举。</p>
+<p><em>常数，常常是i、c、w。命名约定</em><br>只列出你使用类顶部的常数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public static final int DAYS_MONDAY = 0;</span><br><span class="line">public static final int DAYS_TUESDAY = 1;</span><br><span class="line">// ..</span><br><span class="line">public static final int DAYS_SUNDAY = 6;</span><br></pre></td></tr></table></figure></p>
+<p><em>简单常量类</em><br>像上面简单的例子，把常量放到专用的类中用于复用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class DaysEnum &#123;</span><br><span class="line">  public static final int MONDAY = 0;</span><br><span class="line">  public static final int TUESDAY = 1;</span><br><span class="line">  // ..</span><br><span class="line">  public static final int SUNDAY = 6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>常数实例类</em></p>
+<p>Java的枚举促使了js枚举的仿制，它使用一个专用的私有构造函数类（除了类本身没有被实例化）和使用实例本身作为枚举值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class DaysEnum &#123;</span><br><span class="line">  private DaysEnum() &#123;&#125;</span><br><span class="line">  public static final DaysEnum MONDAY = new DaysEnum();</span><br><span class="line">  public static final DaysEnum TUESDAY = new DaysEnum();</span><br><span class="line">  // ..</span><br><span class="line">  public static final DaysEnum SUNDAY = new DaysEnum();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外，使用枚举实例的枚举数是一种优雅的方式，这使得这样模拟枚举类型的安全，与其他两个变量比，枚举的变量将是整数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int payDay = DAYS_FRIDAY; // variation 1</span><br><span class="line">int payDay = DaysEnum.FRIDAY; // variation 2</span><br></pre></td></tr></table></figure></p>
+<p>它仍然有可能指定一个完全错误的值，如128这样的枚举。相比之下，第三的变异实际上限制可以被分配到枚举列出枚举成员的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DaysEnum payDay = DaysEnum.FRIDAY; // ok</span><br><span class="line">DaysEnum payDay = 128; // compiler error</span><br></pre></td></tr></table></figure></p>
+<p>作为新增加的亮点，第三枚举模式允许我们添加额外的字段，例如把一天加上名字，甚至方法（isWeekendDay()为例）的枚举。因此，从Java中了解的这些模式，我在StackOverflow上建议JavaScript使用第三枚举的方法来写。<br>目前仍是在StackOverFlow上得到的星最多的，因此我要解释一下为什么，然后告诉你我个人认为在JavaScript中获得最大的收益就是要尽可能的少写枚举。</p>
+<p><strong><em>那么替代这种方法的又是什么呢？ 这样的方法又有什么错误呢？</em></strong></p>
+<p>第三枚举在JavaScript中是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var DaysEnum = &#123;</span><br><span class="line">  MONDAY: &#123;&#125;, // optionally you can give the object properties and methods</span><br><span class="line">  TUESDAY: &#123;&#125;,</span><br><span class="line">  // ..</span><br><span class="line">  SUNDAY: &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>但是，我现在不再推荐这种风格，不要再使用它了。<br><strong><em>为什么不呢?</em></strong><br>因为在评论中有人指出关于线程的问题，当数据序列化的时候这将出现一些问题，为了理解为什么这样，让我们来看一看当我们把DaysEnum中的一个枚举值作为一个对象的字段会发生什么：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123;</span><br><span class="line">  payDay: DaysEnum.MONDAY</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var yesterday = DaysEnum.THURSDAY, </span><br><span class="line">    today = DaysEnum.MONDAY;</span><br><span class="line">if (yesterday == myObject.payDay)</span><br><span class="line">  alert(&quot;Yesterday was pay day... but not today...&quot;);</span><br><span class="line">else if (today == myObject.payDay)</span><br><span class="line">  alert(&quot;Today is pay day! Yippie!!!&quot;);</span><br><span class="line">else</span><br><span class="line">  alert(&quot;Neither yesterday nor today are pay days... I&apos;m broke!&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>到目前为止很好，它会alert出我们预期的”Today is pay day! Yippie!!!”(今天是周一)，但是我们将<code>myObject</code>序列化转成JSON,再将它反序列化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var serialized = JSON.stringify(myObject);</span><br><span class="line">  alert(&quot;serialized myObject: &quot; + serialized);</span><br><span class="line">var deserializedObject = JSON.parse(serialized);</span><br><span class="line">if (yesterday == deserializedObject.payDay)</span><br><span class="line">  alert(&quot;Yesterday was pay day... but not today...&quot;);</span><br><span class="line">else if (today == deserializedObject.payDay)</span><br><span class="line">  alert(&quot;Today is pay day! Yippie!!!&quot;);</span><br><span class="line">else</span><br><span class="line">  alert(&quot;Neither yesterday nor today are pay days... I&apos;m broke!&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>这个结果是”Neither yesterday nor today are pay days… I’m broke!”原因是依靠反序列化<code>JSON.parse</code>创建一个新的对象作为payDay的值，这个新对象不同于<code>DaysEnum.FRIDAY</code>因此在比较之后会错误。</p>
+<p>我认为这样解决问题不是一个很好的方法，能系列化和反序列化枚举是很重要的，而不能忽视的。这就是为什么我建议不要使用这种模式，相反的是用第二枚举解决问题就不会出现这样的问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var DaysEnum = &#123;</span><br><span class="line">  MONDAY: &quot;monday&quot;,</span><br><span class="line">  TUESDAY: &quot;tuesday&quot;,</span><br><span class="line">  // ..</span><br><span class="line">  SUNDAY: &quot;sunday&quot;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>（或者你可以用数字代替字符串的值，都可以达到同样的效果），让我们检查一下这个做系列化的安全性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123;</span><br><span class="line">  payDay: DaysEnum.FRIDAY</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var serialized = JSON.stringify(myObject);</span><br><span class="line">  alert(&quot;serialized myObject: &quot; + serialized);</span><br><span class="line">var deserializedObject = JSON.parse(serialized);</span><br><span class="line">if (yesterday == deserializedObject.payDay)</span><br><span class="line">  alert(&quot;Yesterday was pay day... but not today...&quot;);</span><br><span class="line">else if (today == deserializedObject.payDay)</span><br><span class="line">  alert(&quot;Today is pay day! Yippie!!!&quot;);</span><br><span class="line">else</span><br><span class="line">  alert(&quot;Neither yesterday not today are pay days... I&apos;m broke!&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>正如预期的那样，结果是”Today is pay day! Yippie!!!”。但是我绝得给枚举的添加字段和方法真的很棒，我们可以这样做：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var SizeEnum = &#123;</span><br><span class="line">  SMALL: &#123;name: &quot;small&quot;, value: 1, code: &quot;S&quot;&#125;,</span><br><span class="line">  MEDIUM: &#123;name: &quot;medium&quot;, value: 2, code: &quot;M&quot;&#125;,</span><br><span class="line">  LARGE: &#123;name: &quot;large&quot;, value: 3, code: &quot;L&quot;&#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>但是可以说这不需要序列化和反序列化，我们只需要给额外的对象增加一个属性W:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var SizeEnum = &#123;</span><br><span class="line">  SMALL: 1,</span><br><span class="line">  MEDIUM: 2,</span><br><span class="line">  LARGE: 3,</span><br><span class="line">  properties: &#123;</span><br><span class="line">    1: &#123;name: &quot;small&quot;, value: 1, code: &quot;S&quot;&#125;,</span><br><span class="line">    2: &#123;name: &quot;medium&quot;, value: 2, code: &quot;M&quot;&#125;,</span><br><span class="line">    3: &#123;name: &quot;large&quot;, value: 3, code: &quot;L&quot;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们能够取到枚举数的属性值，像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mySize = SizeEnum.MEDIUM;</span><br><span class="line">var myCode = SizeEnum.properties[mySize].code; // myCode == &quot;M&quot;</span><br></pre></td></tr></table></figure></p>
+<p>……不可否认优雅的方式。我想说的是，对于一个枚举值的序列化/反序列化的能力远比在实例上属性更重要。</p>
+<p><strong><em>Object.freeze</em></strong><br>在类型安全的语言中，枚举的这些类型都是不变的，值得集合不改变也不做自身的常量值，在JavaScript中，任何时候我们都可以覆盖赋值所有的常数，或添加新的属性，如果你想避免这种情况，可以看一下<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank" rel="noopener">Objcet.freeze</a></p>
+<p>Object.freeze() 方法可以冻结一个对象。冻结对象是指那些不能添加新的属性，不能修改已有属性的值，不能删除已有属性，以及不能修改已有属性的可枚举性、可配置性、可写性的对象。也就是说，这个对象永远是不可变的。该方法返回被冻结的对象。</p>
+<p>听起来还真是一个很需要的方法，是吗~？</p>
+<p>因为不是所有的浏览器都支持，你应该在使用前测试是否可用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (Object.freeze)</span><br><span class="line">  Object.freeze(DaysEnum);</span><br></pre></td></tr></table></figure></p>
+<p>好了，就到这~JavaScript中的枚举，写代码去！</p>
+<p>第一次翻译外文，水平有限，如有误，请批正。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/js/">js</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/js/">js</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/undefined和null的区别/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/undefined和null的区别/">
+          undefined和null的区别</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/前端资源收集/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/前端资源收集/">
+            前端资源收集</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?177b36730553609e444cea3165c877ed"; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2020		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

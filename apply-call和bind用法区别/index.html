@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  Apply、call和bind用法区别 |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		apply、call和bind用法区别
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Jun 10, 2016
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1899
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>每个函数中都包含两个非继承而来的方法：<code>apply()</code>, <code>call</code>。这两个方法的用途都是在特定的作用域下调用函数，实际上等于设置函数体内this对象的值。首先，<code>apply()</code>方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array的实例，也可以是arguments对象，例如：<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function sum (num1, num2)&#123;</span><br><span class="line">	return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function sumCall1(num1, num2)&#123;</span><br><span class="line">	return sum.apply(this, arguments);  //传入arguments对象</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function sumCall2(num1, num2)&#123;</span><br><span class="line">	return sum.apply(this, [num1,num2]);  //传入数组</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sumCall1(1,3);  // 4</span><br><span class="line">sumCall2(1,3);  // 4</span><br></pre></td></tr></table></figure></p>
+<p>上面例子中，sumCall1()在执行sum()函数时传入了this作为this值（因为是在全局作用域中调用的，所以传入的就是window对象）和arguments对象，然而sumCall2()同样也调用sum()函数，但它传入的则是this和一个参数数组，都返回同样的结果。</p>
+<blockquote>
+<p>在严格模式下，未指定环境对象而调用函数，则this值不会转成window。除非明确把函数添加到某个对象或者调用<code>apply()</code>或<code>call()</code>，否则this值将是undefined。</p>
+</blockquote>
+<p><code>call()</code>方法与<code>apply()</code>方法的作用相同，它们的区别在于接收参数的方式不同，对于<code>call()</code>方法而言，第一个参数是this不变，变化的是其余参数都是直接传递给函数，也就是说在使用<code>call()</code>时，传递函数的参数要一一列举出来，看下面的例子🌰：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sum(num1, num2)&#123;</span><br><span class="line">	return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function callSum(num1, num2)&#123;</span><br><span class="line">	return sum.call(this, num1,num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callSum(1，3) // 4</span><br></pre></td></tr></table></figure></p>
+<p>在使用<code>call()</code>方法的情况下，callSum要传入每一个参数值，结果与使用<code>apply()</code>并没有什么不同。至于是使用<code>apply()</code>还是<code>call()</code>，完全取决于你采用哪种给函数传递参数的方式最方便。如果你打算直接传入arguments对象，或者包含函数中先接收到的也是一个数组，那么使用<code>apply()</code>肯定很方便；否则，选择<code>call()</code>更合适，（再不给函数传递参数的情况下，使用哪个方法都无所谓。）</p>
+<p>事实上，传递参数并非<code>apply()</code>和<code>call()</code>真正用武之地，它们最强大的地方是能够扩充函数的赖以运行的作用域，看下面例子🌰：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">window.color = &quot;red&quot;;</span><br><span class="line">var o.color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function sayColor()&#123;</span><br><span class="line">	alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sayColor();</span><br><span class="line"></span><br><span class="line">sayColor.call(this);	//red</span><br><span class="line">sayColor.call(window);	//red</span><br><span class="line">sayColor.call(o);		//blue</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>apply()</code>或<code>call()</code>来扩充作用域的最大好处就是对象不需要与方法有任何耦合关系。在ES5中还定义了一个方法<code>bind()</code>。这个方法会创建一个函数的实例，其this值会被绑定到传给<code>bind()</code>函数的值。再来个例子🌰。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">window.color = &quot;red&quot;;</span><br><span class="line">var o.color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function sayColor()&#123;</span><br><span class="line">	alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var objSayColor = sayColor.bind(o);</span><br><span class="line">objSayColor();	//blue</span><br></pre></td></tr></table></figure></p>
+<p>在这里，<code>sayColor()</code>调用<code>bind()</code>并传入对象o，创建了<code>objSayColor()</code>函数，<code>objSayColor()</code>函数this值等于o，因此即使是在全局作用域中调用这个函数，也会看到”blue”。</p>
+<p>补充：<br>传入的第一个参数为<code>null</code>，函数体内的this会默认指向宿主对象，在浏览器中，如果使用严格模式，则还为null。<br>函数是在非严格模式下，指定为 <code>null</code> 或 <code>undefined</code> 的 this 值会被替换成全局对象，<br>就先说这么多~</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/js/">js</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/js/">js</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/Sass中混合宏、继承、占位符比较/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/Sass中混合宏、继承、占位符比较/">
+          Sass中混合宏、继承、占位符比较</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/iterm-2-cd-神器/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/iterm-2-cd-神器/">
+            iterm 2 cd 神器</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?177b36730553609e444cea3165c877ed"; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2020		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  Mac OSX 10.10下使用Homebrew安装MongoDB及启动连接 |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		Mac OSX 10.10下使用Homebrew安装MongoDB及启动连接
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Jul 16, 2015
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">3389
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		 	
+				
+
+	
+	<div class="gallery-thumb">
+		
+			<div class="gallery lazyload" src="http://7xkghm.com1.z0.glb.clouddn.com/image/blog/install-mongodb.png" data-origin="http://7xkghm.com1.z0.glb.clouddn.com/image/blog/install-mongodb.png" data-src="http://7xkghm.com1.z0.glb.clouddn.com/image/blog/install-mongodb.png" style="background-image: url("/images/placeholder.png");" images placeholder.png");"></div>
+		  
+	</div>
+			
+		
+
+			
+					<p>Homebrew是Mac OSX下一个包依赖管理工具，用它来安装软件非常的方便只需要brew install ***，不用再操心安装过程中软件的依赖问题。<br><a id="more"></a></p>
+<p>###Homebrew 安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;</span><br></pre></td></tr></table></figure>
+<p>###MongoDB 安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mongodb</span><br></pre></td></tr></table></figure>
+<p>等待安装，我的是之前下载过所以直接安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~ w<span class="variable">$brew</span> install mongodb</span><br><span class="line">==&gt; Downloading https://homebrew.bintray.com/bottles/mongodb-3.0.2.yosemite.bott</span><br><span class="line">Already downloaded: /Library/Caches/Homebrew/mongodb-3.0.2.yosemite.bottle.tar.gz</span><br><span class="line">==&gt; Pouring mongodb-3.0.2.yosemite.bottle.tar.gz</span><br><span class="line">==&gt; Caveats</span><br><span class="line">To have launchd start mongodb at login:</span><br><span class="line">    ln -sfv /usr/<span class="built_in">local</span>/opt/mongodb/*.plist ~/Library/LaunchAgents</span><br><span class="line">Then to load mongodb now:</span><br><span class="line">    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist</span><br><span class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need launchctl, you can just run:</span></span><br><span class="line"><span class="string">    mongod --config /usr/local/etc/mongod.conf</span></span><br><span class="line"><span class="string">==&gt; Summary</span></span><br><span class="line"><span class="string">🍺  /usr/local/Cellar/mongodb/3.0.2: 17 files, 153M</span></span><br></pre></td></tr></table></figure></p>
+<p>需要测试是否安装成功，用mongod命令进行测试，执行mongod后会返回一顿错误、<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~ w<span class="variable">$mongod</span></span><br><span class="line">2015-07-16T22:45:19.706+0800 I STORAGE  [initandlisten] exception <span class="keyword">in</span> initAndListen: 29 Data directory /data/db not found., terminating</span><br><span class="line">2015-07-16T22:45:19.706+0800 I CONTROL  [initandlisten] dbexit:  rc: 100</span><br></pre></td></tr></table></figure></p>
+<p>错误信息是dbpath /data/db不存在，需要创建/data/db这个目录或者使用–dbpath参数项指定一个已经存在的目录，dbpath /data/db这个目录是用来存储MongoDB的数据文件，既然不存在我们就创建<code>/data/db</code>这个目录或者使用<code>--dbpath</code>参数项指定一个已经存在的目录。<br>首先在终端输入<code>cd /</code>命令返回到磁盘根目录<br>然后输入<code>mkdir -p /data/db</code>创建<code>/data/db</code><br>再次输入<code>mongod</code>命令启动MongoDB的服务<br>又返回一堆错误信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ w<span class="variable">$mongod</span></span><br><span class="line">2015-07-16T22:55:10.232+0800 I STORAGE  [initandlisten] exception <span class="keyword">in</span> initAndListen: 98 Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied Is a mongod instance already running?, terminating</span><br><span class="line">2015-07-16T22:55:10.232+0800 I CONTROL  [initandlisten] dbexit:  rc: 100</span><br></pre></td></tr></table></figure>
+<p>不能创建/打开/data/db/mongod.lock这个文件，原因是Permission denied（权限拒绝），原因是当前用户执行mongod这个命令时，对/data/db没有操作权限，给/data/db加上权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R  当前登录的用户名 /data</span><br></pre></td></tr></table></figure></p>
+<p>再次在终端输入<code>mongod</code>启动MongoDB的服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/ w<span class="variable">$sudo</span> chown -R w /data</span><br><span class="line">/ w<span class="variable">$mongod</span></span><br><span class="line">2015-07-16T22:55:49.058+0800 I JOURNAL  [initandlisten] journal dir=/data/db/journal</span><br><span class="line">2015-07-16T22:55:49.059+0800 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed</span><br><span class="line">2015-07-16T22:55:49.084+0800 I JOURNAL  [durability] Durability thread started</span><br><span class="line">2015-07-16T22:55:49.084+0800 I JOURNAL  [journal writer] Journal writer thread started</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] MongoDB starting : pid=2473 port=27017 dbpath=/data/db 64-bit host=W-MacBook-Pro.local</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] db version v3.0.2</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] git version: nogitversion</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] build info: Darwin yosemitevm.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05 PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64 BOOST_LIB_VERSION=1_49</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] allocator: system</span><br><span class="line">2015-07-16T22:55:49.085+0800 I CONTROL  [initandlisten] options: &#123;&#125;</span><br><span class="line">2015-07-16T22:55:49.086+0800 I INDEX    [initandlisten] allocating new ns file /data/db/local.ns, filling with zeroes...</span><br><span class="line">2015-07-16T22:55:49.423+0800 I STORAGE  [FileAllocator] allocating new datafile /data/db/local.0, filling with zeroes...</span><br><span class="line">2015-07-16T22:55:49.423+0800 I STORAGE  [FileAllocator] creating directory /data/db/_tmp</span><br><span class="line">2015-07-16T22:55:50.063+0800 I STORAGE  [FileAllocator] <span class="keyword">done</span> allocating datafile /data/db/local.0, size: 64MB,  took 0.639 secs</span><br><span class="line">2015-07-16T22:55:50.412+0800 I NETWORK  [initandlisten] waiting <span class="keyword">for</span> connections on port 27017</span><br><span class="line">2015-07-16T22:56:05.218+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:49580 <span class="comment">#1 (1 connection now open)</span></span><br></pre></td></tr></table></figure></p>
+<p>启动成功了，然后再打开一个新的终端窗口输入<code>mongo</code>命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/ w<span class="variable">$mongo</span></span><br><span class="line">MongoDB shell version: 3.0.2</span><br><span class="line">connecting to: <span class="built_in">test</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>OK 安装完成,可以使用。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/Mac/">Mac</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/Mac/">Mac</a> <a class="tag-link" href="/tags/homebrew/">homebrew</a> <a class="tag-link" href="/tags/mongodb/">mongodb</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/github的静态博客用万网解析/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/github的静态博客用万网解析/">
+          github的静态博客用万网解析</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/解决Mac下Sublime Text 23以新窗口打开文件/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/解决Mac下Sublime Text 23以新窗口打开文件/">
+            解决Mac下Sublime Text 2/3以新窗口打开文件</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?177b36730553609e444cea3165c877ed"; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2020		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
