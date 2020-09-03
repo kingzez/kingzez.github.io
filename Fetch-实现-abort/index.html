@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+
+  <title>  Fetch 实现 Abort |   the kingzez blog </title>
+
+  
+    <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
+  
+
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css">
+  <script type="text/javascript">
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init', 'a2cdaf57bbf7e228', {});
+    gio('send');
+  </script>
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo1.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		Fetch 实现 abort
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Apr 05, 2020
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">2374
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><img src="https://user-images.githubusercontent.com/10891613/92090784-721bef00-ee02-11ea-8cb7-e057c081451c.png" alt="cover"></p>
+<p>中断一个 fetch 请求，主要使用 <code>AbortController</code> 实现。</p>
+<p>目前，浏览器端原生获取数据，发请求的主要是 <code>XMLHttpRequest</code> 和 <code>fetch</code>，<code>XMLHttpRequest</code> 作为元老级的存在， <code>fetch</code> 是在 ES6 中推出的更现代的 API。</p>
+<p><code>XMLHttpRequest</code> 本身是支持请求中断的（abort），以下是 XHR 中断的示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">xhr.method = <span class="string">'GET'</span></span><br><span class="line">xhr.url = <span class="string">'https://slowmo.glitch.me/5000'</span></span><br><span class="line">xhr.open(method, url, <span class="literal">true</span>)</span><br><span class="line">xhr.send()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中断请求</span></span><br><span class="line">abortButton.addEventListener(<span class="string">'click'</span>, () =&gt; xhr.abort())</span><br></pre></td></tr></table></figure>
+<p><code>fetch</code> 设计之初是不支持中断的，开发者 2015 年在 GitHub 上提的 <a href="https://github.com/whatwg/fetch/issues/27" target="_blank" rel="noopener">issue</a> 还是 open 状态，以至于开发者们尝试在 <code>fetch</code> 规范外兼容或解决这个问题，其中就包括 <a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="noopener">cancelable-promises</a> 及其他 <a href="https://github.com/whatwg/fetch/issues/27#issuecomment-267483591" target="_blank" rel="noopener">hack</a> 方法。</p>
+<p>但是，现在有了通用的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController" target="_blank" rel="noopener"><code>AbortController</code></a> 和 <code>AbortSignal</code> API，这些 API 是由 <a href="https://dom.spec.whatwg.org/#aborting-ongoing-activities" target="_blank" rel="noopener">DOM 标准规范</a> 提供的，而不是由语言本身提供的。</p>
+<h2 id="什么是-AbortController？"><a href="#什么是-AbortController？" class="headerlink" title="什么是 AbortController？"></a>什么是 AbortController？</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/168491/1586014073330-3e5c59ae-6258-40ff-be63-13f3377fde51.png#align=left&amp;display=inline&amp;height=311&amp;name=image.png&amp;originHeight=504&amp;originWidth=978&amp;size=75306&amp;status=done&amp;style=none&amp;width=603" alt="image.png"></p>
+<p>正如 <a href="https://dom.spec.whatwg.org/#aborting-ongoing-activities" target="_blank" rel="noopener">DOM 规范文档中所说</a></p>
+<blockquote>
+<p>Though promises do not have a built-in aborting mechanism, many APIs using them require abort semantics. AbortController is meant to support these requirements by providing an abort() method that toggles the state of a corresponding AbortSignal object. The API which wishes to support aborting can accept an AbortSignal object, and use its state to determine how to proceed.</p>
+</blockquote>
+<blockquote>
+<p>尽管 Promise 没有内置的中止机制，但是使用它们的许多 API 都需要中止语义。 AbortController 旨在通过提供可以切换相应 AbortSignal 对象状态的 abort() 方法来支持这些需求。 希望支持中止的 API 可以接受 AbortSignal 对象，并使用其状态来确定如何进行。</p>
+</blockquote>
+<p>以下是 <code>AbortController</code>  的基本用法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 AbortController 的实例</span></span><br><span class="line"><span class="keyword">const</span> controller = <span class="keyword">new</span> AbortController()</span><br><span class="line"><span class="keyword">const</span> signal = controller.signal</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听 abort 事件，在 controller.abort() 执行后执行回调打印</span></span><br><span class="line">signal.addEventListener(<span class="string">'abort'</span>, () =&gt; &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(signal.aborted) <span class="comment">// true</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 触发中断</span></span><br><span class="line">controller.abort()</span><br></pre></td></tr></table></figure></p>
+<h2 id="怎么使用-AbortController-中断-fetch-请求？"><a href="#怎么使用-AbortController-中断-fetch-请求？" class="headerlink" title="怎么使用 AbortController 中断 fetch 请求？"></a>怎么使用 AbortController 中断 fetch 请求？</h2><p><code>fetch</code> 接受 <code>AbortSignal</code> 作为第二个参数的一部分。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> controller = <span class="keyword">new</span> AbortController()</span><br><span class="line"><span class="keyword">const</span> signal = controller.signal</span><br><span class="line"></span><br><span class="line"><span class="comment">// API 5s 后返回相应</span></span><br><span class="line"><span class="comment">// https://slowmo.glitch.me/5000 5000 代表 5s 后返回相应值</span></span><br><span class="line"></span><br><span class="line">fetch(<span class="string">'https://slowmo.glitch.me/5000'</span>, &#123; signal &#125;)</span><br><span class="line">	.then(<span class="function"><span class="params">r</span> =&gt;</span> r.json())</span><br><span class="line">	.then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(response))</span><br><span class="line">	.catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (err.name === <span class="string">'AbortError'</span>) &#123;</span><br><span class="line">    	<span class="built_in">console</span>.log(<span class="string">'Fetch was aborted'</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    	<span class="built_in">console</span>.log(<span class="string">'Error'</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 2s 后中断请求，将触发 'AbortError'</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> controller.abort(), <span class="number">2000</span>)</span><br></pre></td></tr></table></figure>
+<p>触发 <code>controller.abort()</code>  会中断 <code>fetch</code>  的 request 和 response。相同的 <code>AbortSignal</code> （以上示例中的 signal ）可用于中止多个获取请求。 <code>AbortController</code>  不仅适用于 <code>fetch</code> ，可以适用到中止任意异步事件，比如可以<a href="https://egghead.io/lessons/react-cancel-a-promise-using-abortcontroller" target="_blank" rel="noopener">实现一个可中断的promise</a>。</p>
+<h2 id="浏览器支持情况"><a href="#浏览器支持情况" class="headerlink" title="浏览器支持情况"></a>浏览器支持情况</h2><p>除了 IE 以外，支持性还是可以的<br><a href="https://caniuse.com/#feat=abortcontroller" target="_blank" rel="noopener">https://caniuse.com/#feat=abortcontroller</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FetchController#Browser_compatibility" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/FetchController#Browser_compatibility</a></p>
+<h2 id="polyfill"><a href="#polyfill" class="headerlink" title="polyfill"></a>polyfill</h2><p><a href="https://www.npmjs.com/package/abort-controller" target="_blank" rel="noopener">https://www.npmjs.com/package/abort-controller</a><br><a href="https://www.npmjs.com/package/abortcontroller-polyfill" target="_blank" rel="noopener">https://www.npmjs.com/package/abortcontroller-polyfill</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><blockquote>
+<p><a href="https://developers.google.com/web/updates/2017/09/abortable-fetch" target="_blank" rel="noopener">https://developers.google.com/web/updates/2017/09/abortable-fetch</a><br><a href="https://github.com/whatwg/fetch/issues/27" target="_blank" rel="noopener">https://github.com/whatwg/fetch/issues/27</a></p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+
+  <div class="post-footer-other">
+    
+      <span class="post-footer-item">
+        
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+ 
+      </span>        
+       
+    
+      <span class="post-footer-item">
+        <span class="share-btn">
+	<span class="iconfont icon-share"></span>
+</span>
+<div class="-mob-share sildeUpMin">
+	<ul class="-mob-inner">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-douban 
+		-mob-share-douban 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-facebook 
+		-mob-share-facebook 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-twitter 
+		-mob-share-twitter 
+		-mob-share-link"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-google 
+		-mob-share-google 
+		-mob-share-link"></li>		
+   	   
+	</ul>
+</div>	
+
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      </span>  
+               
+  </div>  
+    
+
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/fetch/">fetch</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/清明节这天的网站都深沉了/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/清明节这天的网站都深沉了/">
+          清明节这天的网站都”深沉“了</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/Vue-computed-实现原理/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/Vue-computed-实现原理/">
+            Vue computed 实现原理</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?177b36730553609e444cea3165c877ed"; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2020		
+	
+		kingzez
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

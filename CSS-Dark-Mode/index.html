@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
 
-  <title>  清明节这天的网站都”深沉“了 |   the kingzez blog </title>
+  <title>  CSS Dark Mode |   the kingzez blog </title>
 
   
     <meta name="description" content="kingzez, blog, wangzezhi, vincentw">
@@ -81,18 +81,18 @@
 	
 <div class="post-header">
 	<p class="post-title">	
-		清明节这天的网站都”深沉“了
+		CSS Dark Mode
 	</p>
 
 	<div class="post-info">	
 		<span class="post-info-entry">
-			Apr 04, 2020
+			Mar 11, 2020
 		</span>
 
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">856
+			<span class="post-info-entry">467
 			</span>
 		
 	</div>
@@ -105,13 +105,11 @@
 		
 
 			
-					<p>2020年4月4日举行全国性哀悼活动。在此期间，全国和驻外使领馆下半旗志哀，全国停止公共娱乐活动。4月4日10时起，全国人民默哀3分钟，汽车、火车、舰船鸣笛，防空警报鸣响。发现众多网站都“深沉”了，其实感觉我们国家还是挺团结的……</p>
-<p><img src="https://user-images.githubusercontent.com/10891613/92090544-223d2800-ee02-11ea-98ca-63d7af6c089d.png" alt="jd.com"></p>
-<p><img src="https://user-images.githubusercontent.com/10891613/92090557-249f8200-ee02-11ea-8d9a-1874c64d89a8.png" alt="taobao.com"></p>
-<p><img src="https://user-images.githubusercontent.com/10891613/92090550-236e5500-ee02-11ea-9384-ee9da896f0b7.png" alt="amazon.cn"><br>对于这种置灰的效果是怎么如何实现？不可能修改所有的css颜色，其实只要在html 根元素上加上 filter 属性即可</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.html</span> &#123;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">grayscale</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="attribute">-webkit-filter</span>: <span class="built_in">grayscale</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="comment">/* IE兼容 放弃IE吧 */</span></span><br><span class="line">  <span class="attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="built_in">BasicImage</span>(grayscale=<span class="number">1</span>);</span><br><span class="line">  <span class="comment">/* 或引入svg文件 */</span></span><br><span class="line">  <span class="attribute">filter</span>:<span class="built_in">url</span>(<span class="string">"data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg'&gt;&lt;filter id='grayscale'&gt;&lt;feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+					<p>简单实现，主要依靠 media query 的 prefers-color-scheme</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">prefers-color-scheme:</span> light) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: white;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">prefers-color-scheme:</span> dark) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: black;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可通过 css var 实现。</p>
 <blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter-function/grayscale" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter-function/grayscale</a><br><a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms532889%28v%3dvs.85%29" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms532889%28v%3dvs.85%29</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme</a><br><a href="https://css-tricks.com/dark-modes-with-css/" target="_blank" rel="noopener">https://css-tricks.com/dark-modes-with-css/</a><br><a href="https://medium.com/@mwichary/dark-theme-in-a-day-3518dde2955a" target="_blank" rel="noopener">https://medium.com/@mwichary/dark-theme-in-a-day-3518dde2955a</a></p>
 </blockquote>
   	
 					
@@ -137,7 +135,7 @@
 
 	<div class="donate-img-box">
 		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat-donate.png" alt="No Donate Image!">	
-		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/alipay-donate.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay-donate.png" alt="No Donate Image!">	
 	</div>
 
 	<span class="donate-word">世界美好 你也是</span>
@@ -220,21 +218,21 @@
 <nav class="post-footer-nav">
   <div class="post-footer-link">
   
-      <a href="/CSS-Dark-Mode/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/提效工具集/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/CSS-Dark-Mode/">
-          CSS Dark Mode</a>
+          <a class="post-nav-title" href="/提效工具集/">
+          提效工具集</a>
       </a>
   
   </div>
   <div class="post-footer-link">
     
-        <a href="/Fetch-实现-abort/" id="post-nav-newer" class="post-nav-link-wrap">
+        <a href="/清明节这天的网站都深沉了/" id="post-nav-newer" class="post-nav-link-wrap">
           <strong class="post-nav-caption">newer</strong>
              
-            <a class="post-nav-title" href="/Fetch-实现-abort/">
-            Fetch 实现 abort</a>
+            <a class="post-nav-title" href="/清明节这天的网站都深沉了/">
+            清明节这天的网站都”深沉“了</a>
         </a>
     
   </div>
@@ -269,7 +267,7 @@
      <div class="mobile-menu">      
 
       
-      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
       
 
          
