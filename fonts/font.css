@@ -1,0 +1,6 @@
+@import 'https://cdn.jsdelivr.net/npm/firacode@5.2.0/distr/fira_code.min.css';
+
+code[class*='language-'],
+pre[class*='language-'] {
+  font-family: Fira Code, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+}
