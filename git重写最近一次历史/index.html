@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">391
+			<span class="post-info-entry">394
 			</span>
 		
 	</div>
@@ -105,9 +101,15 @@
 		
 
 			
-					<p>假设你刚刚提交的一个commit中有个错误，想修改一下commit的message，但是又不想在修改无意义的文件再次commit，这时需要使用命令<code>--amend</code>即重写最近的一次commit历史。<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend -m <span class="string">"your new commit message"</span></span><br></pre></td></tr></table></figure></p>
-<p>在amend之后，commit的时间不会被重写，如果想要重写commit的时间需要使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend --reset-author</span><br></pre></td></tr></table></figure></p>
+					<p>假设你刚刚提交的一个commit中有个错误，想修改一下commit的message，但是又不想在修改无意义的文件再次commit，这时需要使用命令<code>--amend</code>即重写最近的一次commit历史。<br><a id="more"></a></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> commit --amend
+</code></pre>
+<p>或者</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> commit --amend -m <span class="token string">"your new commit message"</span>
+</code></pre>
+<p>在amend之后，commit的时间不会被重写，如果想要重写commit的时间需要使用</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> commit --amend --reset-author
+</code></pre>
 <p>其中需要注意的是amend命令重写上一个commit，所以在已经push了上一个commit的情况下，尽可能的不要使用amend。如果你执意要amend已经push的commit，一定要保证这个commit所在的分支只有你一个人，否则将给其他人带来毁灭性的打击，在amend之后使用<code>git push --force</code>。</p>
   	
 					

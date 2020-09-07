@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">333
+			<span class="post-info-entry">329
 			</span>
 		
 	</div>
@@ -121,20 +117,22 @@
 <ul>
 <li>第一步：从项目仓库中，创建一个新的分支，并测试合并请求中的改动</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>git fetch origin 
+</code></pre><ul>
 <li>第二步: 创建本地分支local用来存放远程仓库的最新分支</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b local origin/develop</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>git checkout -b local origin/develop
+</code></pre><ul>
 <li>第三步：进行合并，手动修改合并后的文件</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge develop</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>git merge develop
+</code></pre><ul>
 <li>第四步：修改后按照正常的git流程进行操作</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">git commit -m &quot;latest&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-<p>OK~</p>
+<pre><code>git add -A
+git commit -m &quot;latest&quot;
+git push 
+</code></pre><p>OK~</p>
   	
 					
 	  </div>     

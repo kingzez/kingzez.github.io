@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1253
+			<span class="post-info-entry">1236
 			</span>
 		
 	</div>
@@ -112,8 +108,10 @@
 <li>First argument (required): the original string to be converted.</li>
 <li>Second argument (optional): space-delimited list of minor words that must always be lowercase except for the first word in the string. The JavaScript/CoffeeScript tests will pass undefined when this argument is unused.</li>
 </ul>
-<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">titleCase(&apos;a clash of KINGS&apos;, &apos;a an the of&apos;) // should return: &apos;A Clash of Kings&apos;</span><br><span class="line">titleCase(&apos;THE WIND IN THE WILLOWS&apos;, &apos;The In&apos;) // should return: &apos;The Wind in the Willows&apos;</span><br><span class="line">titleCase(&apos;the quick brown fox&apos;) // should return: &apos;The Quick Brown Fox&apos;</span><br></pre></td></tr></table></figure>
-  	
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><pre><code>titleCase(&#39;a clash of KINGS&#39;, &#39;a an the of&#39;) // should return: &#39;A Clash of Kings&#39;
+titleCase(&#39;THE WIND IN THE WILLOWS&#39;, &#39;The In&#39;) // should return: &#39;The Wind in the Willows&#39;
+titleCase(&#39;the quick brown fox&#39;) // should return: &#39;The Quick Brown Fox&#39;
+</code></pre>  	
 					
 	  </div>     
 	  

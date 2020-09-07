@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">283
+			<span class="post-info-entry">282
 			</span>
 		
 	</div>
@@ -109,11 +105,12 @@
 <ul>
 <li>从 Git 的数据库中删除对于该文件的追踪；</li>
 <li>把对应的规则写入 .gitignore，让忽略真正生效；</li>
-<li>commit＋push。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --assume-unchanged</span><br></pre></td></tr></table></figure>
-</li>
+<li>commit＋push。<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> update-index --assume-unchanged
+</code></pre>
+作用是将此文件移出版本控制，git不会记录此文件的修改，这样再将该文件加到<code>.ignore</code>中，与之对应的是<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> update-index --no-assume-unchanged
+</code></pre>
+如果是操作失误，即将操作失误移出版本控制的文件重新标识为git可记录的文件</li>
 </ul>
-<p>作用是将此文件移出版本控制，git不会记录此文件的修改，这样再将该文件加到<code>.ignore</code>中，与之对应的是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --no-assume-unchanged</span><br></pre></td></tr></table></figure></p>
-<p>如果是操作失误，即将操作失误移出版本控制的文件重新标识为git可记录的文件</p>
   	
 					
 	  </div>     

@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">856
+			<span class="post-info-entry">844
 			</span>
 		
 	</div>
@@ -117,8 +113,11 @@
 			
 					<p>对于IE6 png 透明，解决方法很多，本文介绍的是博主经常用的的两种方法：<br><a id="more"></a></p>
 <p>####第一种是：Alpha（阿尔法）修复法<br>复制并粘贴iepngfix.htc和blank.gif到您的网站的文件夹。</p>
-<p>CSS选择器，必须包括标签/元素对你想要PNG支持——基本上，给它一个逗号分隔的列表标记的使用。它还必须包括正确的路径。HTC相对于HTML文档位置（不相关的CSS文件！）。例如，可能像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">img, div, a, input &#123; behavior: url(/css/resources/iepngfix.htc) &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
-<p>使用起来非常简单，就这样，就可以达到IE6下png透明<br><a href="http://www.twinhelix.com/css/iepngfix/iepngfix.zip" target="_blank" rel="noopener">iepngfix.htc blank.gif下载包</a></p>
+<p>CSS选择器，必须包括标签/元素对你想要PNG支持——基本上，给它一个逗号分隔的列表标记的使用。它还必须包括正确的路径。HTC相对于HTML文档位置（不相关的CSS文件！）。例如，可能像这样：</p>
+<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+img, div, a, input { behavior: url(/css/resources/iepngfix.htc) }
+&lt;/style&gt;
+</code></pre><p>使用起来非常简单，就这样，就可以达到IE6下png透明<br><a href="http://www.twinhelix.com/css/iepngfix/iepngfix.zip" target="_blank" rel="noopener">iepngfix.htc blank.gif下载包</a></p>
 <p>####第二种是：Unit PNG Fix </p>
 <ul>
 <li>1.非常小的javascript文件:1kb!</li>
@@ -126,10 +125,11 @@
 <li>3.无论是img元素或background-image属性,都能有效果.</li>
 <li>4.在加载页面之前就能自动运行.或者就一丁点的元素.</li>
 <li>5.允许自动高宽.</li>
-<li>6.使用起来超级简单.<br>如何使用:<br>1).下载zip 然后,添加下面的代码到你页面的头部.(一定要确保路径的正确)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!--[if lt IE 7]&gt;</span><br><span class="line">        &lt;script type=&quot;text/javascript&quot; src=&quot;unitpngfix.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;![endif]--&gt;</span><br></pre></td></tr></table></figure>
-</li>
+<li>6.使用起来超级简单.<br>如何使用:<br>1).下载zip 然后,添加下面的代码到你页面的头部.(一定要确保路径的正确)<pre><code>&lt;!--[if lt IE 7]&gt;
+      &lt;script type=&quot;text/javascript&quot; src=&quot;unitpngfix.js&quot;&gt;&lt;/script&gt;
+&lt;![endif]--&gt; 
+</code></pre>2).添加clear.gif到你的images 文件夹中.在js文件中,修改”var clear=”images/clear.gif” 路径,为你存放clear.gif的文件路径. </li>
 </ul>
-<p>2).添加clear.gif到你的images 文件夹中.在js文件中,修改”var clear=”images/clear.gif” 路径,为你存放clear.gif的文件路径. </p>
 <p>3). 你的整个项目的png图片都实现了透明效果.的确非常简单吧?就2个步骤,就实现了整个站点所有png的透明效果.<br><a href="http://labs.unitinteractive.com/downloads/unitpngfix.zip" target="_blank" rel="noopener">Uint PNG Fix下载包</a>    </p>
   	
 					

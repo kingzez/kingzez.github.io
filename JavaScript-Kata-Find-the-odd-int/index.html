@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1063
+			<span class="post-info-entry">955
 			</span>
 		
 	</div>
@@ -106,9 +102,46 @@
 
 			
 					<h4 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h4><p>Given an array, find the int that appears an odd number of times.<br><a id="more"></a><br>There will always be only one integer that appears an odd number of times.</p>
-<h4 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution:"></a>My Solution:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function findOdd(A) &#123;</span><br><span class="line">  //happy coding!</span><br><span class="line">  var n = 0;</span><br><span class="line">  for(var i=0; i&lt;A.length; i++)&#123;</span><br><span class="line">      n = n^A[i];</span><br><span class="line">   &#125;</span><br><span class="line">  return n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases:"></a>Test Cases:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function doTest(a, n) &#123;</span><br><span class="line">  console.log(&quot;A = &quot;, a);</span><br><span class="line">  console.log(&quot;n = &quot;, n);</span><br><span class="line">  Test.assertEquals(findOdd(a), n);</span><br><span class="line">&#125;</span><br><span class="line">Test.describe(&apos;Example tests&apos;, function() &#123;</span><br><span class="line">  doTest([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5], 5);</span><br><span class="line">  doTest([1,1,2,-2,5,2,4,4,-1,-2,5], -1);</span><br><span class="line">  doTest([20,1,1,2,2,3,3,5,5,4,20,4,5], 5);</span><br><span class="line">  doTest([10], 10);</span><br><span class="line">  doTest([1,1,1,1,1,1,10,1,1,1,1], 10);</span><br><span class="line">  doTest([5,4,3,2,1,5,4,3,2,10,10], 1);</span><br><span class="line">&#125;);</span><br><span class="line">Test.describe(&apos;Random tests&apos;, function() &#123;</span><br><span class="line">  var i, sz, a, j, n;</span><br><span class="line">  for(i = 0; i &lt; 40; ++i) &#123;</span><br><span class="line">    sz = Math.round(Math.random()*1000+50);</span><br><span class="line">    if (!sz%2) &#123;</span><br><span class="line">      ++sz;</span><br><span class="line">    &#125;</span><br><span class="line">    a = [];</span><br><span class="line">    for(j = 0; j &lt; sz - 1; j+=2) &#123;</span><br><span class="line">      n = Math.round(Math.random()*1000);</span><br><span class="line">      a.push(n);</span><br><span class="line">      a.push(n);</span><br><span class="line">    &#125;</span><br><span class="line">    n = Math.round(Math.random()*1000);</span><br><span class="line">    a.push(n);</span><br><span class="line">    Test.assertEquals(findOdd(a), n);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-  	
+<h4 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution:"></a>My Solution:</h4><pre><code>function findOdd(A) {
+  //happy coding!
+  var n = 0;
+  for(var i=0; i&lt;A.length; i++){
+      n = n^A[i];
+   }
+  return n;
+}
+</code></pre><h4 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="Test Cases:"></a>Test Cases:</h4><pre><code>function doTest(a, n) {
+  console.log(&quot;A = &quot;, a);
+  console.log(&quot;n = &quot;, n);
+  Test.assertEquals(findOdd(a), n);
+}
+Test.describe(&#39;Example tests&#39;, function() {
+  doTest([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5], 5);
+  doTest([1,1,2,-2,5,2,4,4,-1,-2,5], -1);
+  doTest([20,1,1,2,2,3,3,5,5,4,20,4,5], 5);
+  doTest([10], 10);
+  doTest([1,1,1,1,1,1,10,1,1,1,1], 10);
+  doTest([5,4,3,2,1,5,4,3,2,10,10], 1);
+});
+Test.describe(&#39;Random tests&#39;, function() {
+  var i, sz, a, j, n;
+  for(i = 0; i &lt; 40; ++i) {
+    sz = Math.round(Math.random()*1000+50);
+    if (!sz%2) {
+      ++sz;
+    }
+    a = [];
+    for(j = 0; j &lt; sz - 1; j+=2) {
+      n = Math.round(Math.random()*1000);
+      a.push(n);
+      a.push(n);
+    }
+    n = Math.round(Math.random()*1000);
+    a.push(n);
+    Test.assertEquals(findOdd(a), n);
+  }
+});
+</code></pre>  	
 					
 	  </div>     
 	  

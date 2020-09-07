@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">2177
+			<span class="post-info-entry">2147
 			</span>
 		
 	</div>
@@ -105,11 +101,40 @@
 		
 
 			
-					<p>有的文章中没有添加如上这种banner图，所以呢，博客右侧的Recent的缩略图只会显示默认的图，<a id="more"></a>有时候连续五篇文章都没有图那就连续五张缩略图一样了，很不美观，不喜欢~所以就把它改成没有缩略图情况下随机变换缩略图，不多说，上代码：<br>首先需要通过Math对象生成出一个随机数，random方法可以生成一个0~1之间的随机数，得到的数再乘10，结果即为0~10之间的一个随机数，再通过round方法对该随机数进行四舍五入得到一个整数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var randomBgIndex = Math.round(Math.random() * 10);</span><br></pre></td></tr></table></figure></p>
-<p>再声明一个数组用来存放缩略图的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var thumbnailBg = []; </span><br><span class="line">	thumbnailBg[0] = &quot;css/images/thumb-default-small.png&quot;; </span><br><span class="line">	thumbnailBg[1] = &quot;css/images/thumb-default-small1.png&quot;; </span><br><span class="line">	thumbnailBg[2] = &quot;css/images/thumb-default-small2.png&quot;; </span><br><span class="line">	thumbnailBg[3] = &quot;css/images/thumb-default-small3.png&quot;; </span><br><span class="line">	thumbnailBg[4] = &quot;css/images/thumb-default-small4.png&quot;; </span><br><span class="line">	thumbnailBg[5] = &quot;css/images/thumb-default-small5.png&quot;; </span><br><span class="line">	thumbnailBg[6] = &quot;css/images/thumb-default-small6.png&quot;; </span><br><span class="line">	thumbnailBg[7] = &quot;css/images/thumb-default-small7.png&quot;; </span><br><span class="line">	thumbnailBg[8] = &quot;css/images/thumb-default-small8.png&quot;; </span><br><span class="line">	thumbnailBg[9] = &quot;css/images/thumb-default-small9.png&quot;; </span><br><span class="line">	thumbnailBg[10] = &quot;css/images/thumb-default-small10.png&quot;; </span><br><span class="line">&lt;span style=&quot;background-image:url(&lt;%= thumbnailBg[randomBgIndex] %&gt;)&quot;  class=&quot;thumbnail-image thumbnail-none&quot;&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<p>&lt;% %&gt;这里是blog用的ejs语法<code>thumbnailBg[randomBgIndex]</code>用来取随机产生的值。</p>
-<p>完整的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var randomBgIndex = Math.round(Math.random() * 10);</span><br><span class="line">var thumbnailBg = []; </span><br><span class="line">	thumbnailBg[0] = &quot;css/images/thumb-default-small.png&quot;; </span><br><span class="line">	thumbnailBg[1] = &quot;css/images/thumb-default-small1.png&quot;; </span><br><span class="line">	thumbnailBg[2] = &quot;css/images/thumb-default-small2.png&quot;; </span><br><span class="line">	thumbnailBg[3] = &quot;css/images/thumb-default-small3.png&quot;; </span><br><span class="line">	thumbnailBg[4] = &quot;css/images/thumb-default-small4.png&quot;; </span><br><span class="line">	thumbnailBg[5] = &quot;css/images/thumb-default-small5.png&quot;; </span><br><span class="line">	thumbnailBg[6] = &quot;css/images/thumb-default-small6.png&quot;; </span><br><span class="line">	thumbnailBg[7] = &quot;css/images/thumb-default-small7.png&quot;; </span><br><span class="line">	thumbnailBg[8] = &quot;css/images/thumb-default-small8.png&quot;; </span><br><span class="line">	thumbnailBg[9] = &quot;css/images/thumb-default-small9.png&quot;; </span><br><span class="line">	thumbnailBg[10] = &quot;css/images/thumb-default-small10.png&quot;; </span><br><span class="line">&lt;span style=&quot;background-image:url(&lt;%= thumbnailBg[randomBgIndex] %&gt;)&quot;  class=&quot;thumbnail-image thumbnail-none&quot;&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<p>OK~</p>
+					<p>有的文章中没有添加如上这种banner图，所以呢，博客右侧的Recent的缩略图只会显示默认的图，<a id="more"></a>有时候连续五篇文章都没有图那就连续五张缩略图一样了，很不美观，不喜欢~所以就把它改成没有缩略图情况下随机变换缩略图，不多说，上代码：<br>首先需要通过Math对象生成出一个随机数，random方法可以生成一个0~1之间的随机数，得到的数再乘10，结果即为0~10之间的一个随机数，再通过round方法对该随机数进行四舍五入得到一个整数</p>
+<pre><code>var randomBgIndex = Math.round(Math.random() * 10);
+</code></pre><p>再声明一个数组用来存放缩略图的路径</p>
+<pre><code>var thumbnailBg = []; 
+    thumbnailBg[0] = &quot;css/images/thumb-default-small.png&quot;; 
+    thumbnailBg[1] = &quot;css/images/thumb-default-small1.png&quot;; 
+    thumbnailBg[2] = &quot;css/images/thumb-default-small2.png&quot;; 
+    thumbnailBg[3] = &quot;css/images/thumb-default-small3.png&quot;; 
+    thumbnailBg[4] = &quot;css/images/thumb-default-small4.png&quot;; 
+    thumbnailBg[5] = &quot;css/images/thumb-default-small5.png&quot;; 
+    thumbnailBg[6] = &quot;css/images/thumb-default-small6.png&quot;; 
+    thumbnailBg[7] = &quot;css/images/thumb-default-small7.png&quot;; 
+    thumbnailBg[8] = &quot;css/images/thumb-default-small8.png&quot;; 
+    thumbnailBg[9] = &quot;css/images/thumb-default-small9.png&quot;; 
+    thumbnailBg[10] = &quot;css/images/thumb-default-small10.png&quot;; 
+&lt;span style=&quot;background-image:url(&lt;%= thumbnailBg[randomBgIndex] %&gt;)&quot;  class=&quot;thumbnail-image thumbnail-none&quot;&gt;&lt;/span&gt;
+
+</code></pre><p>&lt;% %&gt;这里是blog用的ejs语法<code>thumbnailBg[randomBgIndex]</code>用来取随机产生的值。</p>
+<p>完整的代码：</p>
+<pre><code>var randomBgIndex = Math.round(Math.random() * 10);
+var thumbnailBg = []; 
+    thumbnailBg[0] = &quot;css/images/thumb-default-small.png&quot;; 
+    thumbnailBg[1] = &quot;css/images/thumb-default-small1.png&quot;; 
+    thumbnailBg[2] = &quot;css/images/thumb-default-small2.png&quot;; 
+    thumbnailBg[3] = &quot;css/images/thumb-default-small3.png&quot;; 
+    thumbnailBg[4] = &quot;css/images/thumb-default-small4.png&quot;; 
+    thumbnailBg[5] = &quot;css/images/thumb-default-small5.png&quot;; 
+    thumbnailBg[6] = &quot;css/images/thumb-default-small6.png&quot;; 
+    thumbnailBg[7] = &quot;css/images/thumb-default-small7.png&quot;; 
+    thumbnailBg[8] = &quot;css/images/thumb-default-small8.png&quot;; 
+    thumbnailBg[9] = &quot;css/images/thumb-default-small9.png&quot;; 
+    thumbnailBg[10] = &quot;css/images/thumb-default-small10.png&quot;; 
+&lt;span style=&quot;background-image:url(&lt;%= thumbnailBg[randomBgIndex] %&gt;)&quot;  class=&quot;thumbnail-image thumbnail-none&quot;&gt;&lt;/span&gt;
+</code></pre><p>OK~</p>
   	
 					
 	  </div>     

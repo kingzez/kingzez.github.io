@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1816
+			<span class="post-info-entry">1730
 			</span>
 		
 	</div>
@@ -116,7 +112,52 @@
 
 			
 					<h4 id="DOM简单操作实现多选反选"><a href="#DOM简单操作实现多选反选" class="headerlink" title="DOM简单操作实现多选反选"></a>DOM简单操作实现多选反选</h4><a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line"> &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</span><br><span class="line"> &lt;title&gt;DOM&lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;form&gt;</span><br><span class="line">          Choose one:&lt;br&gt;</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby1&quot;&gt;  音乐</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby2&quot;&gt;  登山</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby3&quot;&gt;  游泳</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby4&quot;&gt;  阅读</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby5&quot;&gt;  打球</span><br><span class="line">          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby6&quot;&gt;  跑步 &lt;br&gt;</span><br><span class="line">          &lt;input type=&quot;button&quot; value = &quot;全选&quot; onclick = &quot;checkall();&quot;&gt;</span><br><span class="line">          &lt;input type=&quot;button&quot; value = &quot;全不选&quot; onclick = &quot;clearall();&quot;&gt;</span><br><span class="line">          &lt;p&gt;input your number，number1 to 6:&lt;/p&gt;</span><br><span class="line">          &lt;input id=&quot;wb&quot; name=&quot;wb&quot; type=&quot;text&quot; &gt;</span><br><span class="line">          &lt;input name=&quot;ok&quot; type=&quot;button&quot; value=&quot;确定&quot; onclick = &quot;checkone();&quot;&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">function checkall()&#123;</span><br><span class="line">var hobby = document.getElementsByTagName(&quot;input&quot;);          </span><br><span class="line">for(i=0; i&lt;hobby.length; i++)</span><br><span class="line">if(hobby[i].type ==&quot;checkbox&quot;)&#123;</span><br><span class="line">    hobby[i].checked = true;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">function clearall()&#123;</span><br><span class="line">var hobby = document.getElementsByName(&quot;hobby&quot;);</span><br><span class="line">for(i = 0; i &lt; hobby.length; i++)&#123;</span><br><span class="line">    hobby[i].checked =false;</span><br><span class="line">&#125;         </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function checkone()&#123;</span><br><span class="line">var j=document.getElementById(&quot;wb&quot;).value;</span><br><span class="line">var hobby = document.getElementById(&quot;hobby&quot; + j);</span><br><span class="line">hobby.checked = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>  	
+<pre><code>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+ &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+ &lt;title&gt;DOM&lt;/title&gt;
+ &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form&gt;
+          Choose one:&lt;br&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby1&quot;&gt;  音乐
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby2&quot;&gt;  登山
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby3&quot;&gt;  游泳
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby4&quot;&gt;  阅读
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby5&quot;&gt;  打球
+          &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; id=&quot;hobby6&quot;&gt;  跑步 &lt;br&gt;
+          &lt;input type=&quot;button&quot; value = &quot;全选&quot; onclick = &quot;checkall();&quot;&gt;
+          &lt;input type=&quot;button&quot; value = &quot;全不选&quot; onclick = &quot;clearall();&quot;&gt;
+          &lt;p&gt;input your number，number1 to 6:&lt;/p&gt;
+          &lt;input id=&quot;wb&quot; name=&quot;wb&quot; type=&quot;text&quot; &gt;
+          &lt;input name=&quot;ok&quot; type=&quot;button&quot; value=&quot;确定&quot; onclick = &quot;checkone();&quot;&gt;
+        &lt;/form&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function checkall(){
+var hobby = document.getElementsByTagName(&quot;input&quot;);          
+for(i=0; i&lt;hobby.length; i++)
+if(hobby[i].type ==&quot;checkbox&quot;){
+    hobby[i].checked = true;
+}
+}
+function clearall(){
+var hobby = document.getElementsByName(&quot;hobby&quot;);
+for(i = 0; i &lt; hobby.length; i++){
+    hobby[i].checked =false;
+}         
+}
+
+function checkone(){
+var j=document.getElementById(&quot;wb&quot;).value;
+var hobby = document.getElementById(&quot;hobby&quot; + j);
+hobby.checked = true;
+}
+
+&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>  	
 					
 	  </div>     
 	  

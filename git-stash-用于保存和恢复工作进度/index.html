@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">461
+			<span class="post-info-entry">435
 			</span>
 		
 	</div>
@@ -106,19 +102,26 @@
 
 			
 					<p>git stash 用于保存和恢复工作进度<br><a id="more"></a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">git stash
+</code></pre>
 <p>保存当前的工作进度。会分别对暂存区和工作区的状态进行保存</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save "message..."</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">git stash save "message..."
+</code></pre>
 <p>这条命令实际上是第一条 <code>git stash</code> 命令的完整版</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">git stash list
+</code></pre>
 <p>显示进度列表。此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop [--index] [\&lt;stash&gt;]</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">git stash pop [--index] [\<stash>]
+</stash></code></pre>
 <p>如果不使用任何参数，会恢复最新保存的工作进度，并将恢复的工作进度从存储的工作进度列表中清除。</p>
 <p>如果提供<stash>参数（来自 <code>git stash list</code> 显示的列表），则从该 <code>&lt;stash&gt;</code> 中恢复。恢复完毕也将从进度列表中删除 <code>&lt;stash&gt;</code>。</stash></p>
 <p>选项–index 除了恢复工作区的文件外，还尝试恢复暂存区。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply [--index] [\&lt;stash&gt;]</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">git stash apply [--index] [\<stash>]
+</stash></code></pre>
 <p>除了不删除恢复的进度之外，其余和 <code>git stash pop</code> 命令一样</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git stash clear</span><br></pre></td></tr></table></figure>
+<pre class=" language-shell"><code class="language-shell">
+git stash clear
+</code></pre>
 <p>删除所有存储的进度</p>
   	
 					

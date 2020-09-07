@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1542
+			<span class="post-info-entry">1514
 			</span>
 		
 	</div>
@@ -115,14 +111,66 @@
 		
 
 			
-					<p>打开终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure></p>
+					<p>打开终端</p>
+<pre class=" language-bash"><code class="language-bash">brew <span class="token function">install</span> redis
+</code></pre>
 <a id="more"></a>
-<p>如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~ w$ brew install redis</span><br><span class="line">==&gt; Downloading https://homebrew.bintray.com/bottles/redis-3.0.0.yosemite.bottle</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">==&gt; Pouring redis-3.0.0.yosemite.bottle.tar.gz</span><br><span class="line">==&gt; Caveats</span><br><span class="line">To have launchd start redis at login:</span><br><span class="line">    ln -sfv /usr/<span class="built_in">local</span>/opt/redis/*.plist ~/Library/LaunchAgents</span><br><span class="line">Then to load redis now:</span><br><span class="line">    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist</span><br><span class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need launchctl, you can just run:</span></span><br><span class="line"><span class="string">    redis-server /usr/local/etc/redis.conf</span></span><br><span class="line"><span class="string">==&gt; Summary</span></span><br><span class="line"><span class="string">🍺  /usr/local/Cellar/redis/3.0.0: 9 files, 892K</span></span><br></pre></td></tr></table></figure></p>
-<p>安装成功，启动redis<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure></p>
-<p>如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~ w$ redis-server</span><br><span class="line">3002:C 23 Sep 22:29:50.895 <span class="comment"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span></span><br><span class="line">3002:M 23 Sep 22:29:50.897 * Increased maximum number of open files to 10032 (it was originally <span class="built_in">set</span> to 2560).</span><br><span class="line">                _._</span><br><span class="line">           _.-``__ <span class="string">''</span>-._</span><br><span class="line">      _.-``    `.  `_.  <span class="string">''</span>-._           Redis 3.0.0 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ <span class="string">''</span>-._</span><br><span class="line"> (    <span class="string">'      ,       .-`  | `,    )     Running in standalone mode</span></span><br><span class="line"><span class="string"> |`-._`-...-` __...-.``-._|'</span>` _.-<span class="string">'|     Port: 6379</span></span><br><span class="line"><span class="string"> |    `-._   `._    /     _.-'</span>    |     PID: 3002</span><br><span class="line">  `-._    `-._  `-./  _.-<span class="string">'    _.-'</span></span><br><span class="line"> |`-._`-._    `-.__.-<span class="string">'    _.-'</span>_.-<span class="string">'|</span></span><br><span class="line"><span class="string"> |    `-._`-._        _.-'</span>_.-<span class="string">'    |           http://redis.io</span></span><br><span class="line"><span class="string">  `-._    `-._`-.__.-'</span>_.-<span class="string">'    _.-'</span></span><br><span class="line"> |`-._`-._    `-.__.-<span class="string">'    _.-'</span>_.-<span class="string">'|</span></span><br><span class="line"><span class="string"> |    `-._`-._        _.-'</span>_.-<span class="string">'    |</span></span><br><span class="line"><span class="string">  `-._    `-._`-.__.-'</span>_.-<span class="string">'    _.-'</span></span><br><span class="line">      `-._    `-.__.-<span class="string">'    _.-'</span></span><br><span class="line">          `-._        _.-<span class="string">'</span></span><br><span class="line"><span class="string">              `-.__.-'</span></span><br><span class="line"></span><br><span class="line">3002:M 23 Sep 22:29:50.898 <span class="comment"># Server started, Redis version 3.0.0</span></span><br><span class="line">3002:M 23 Sep 22:29:50.898 * The server is now ready to accept connections on port 6379</span><br></pre></td></tr></table></figure></p>
-<p>服务端启动，测试客户端，打开新的终端窗口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~ w$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> foo bar</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get foo</span><br><span class="line"><span class="string">"bar"</span></span><br></pre></td></tr></table></figure></p>
+<p>如下</p>
+<pre class=" language-bash"><code class="language-bash">~ w$ brew <span class="token function">install</span> redis
+<span class="token operator">==</span><span class="token operator">></span> Downloading https://homebrew.bintray.com/bottles/redis-3.0.0.yosemite.bottle
+<span class="token comment" spellcheck="true">######################################################################## 100.0%</span>
+<span class="token operator">==</span><span class="token operator">></span> Pouring redis-3.0.0.yosemite.bottle.tar.gz
+<span class="token operator">==</span><span class="token operator">></span> Caveats
+To have launchd start redis at login:
+    <span class="token function">ln</span> -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+Then to load redis now:
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+Or, <span class="token keyword">if</span> you don't want/need launchctl, you can just run:
+    redis-server /usr/local/etc/redis.conf
+<span class="token operator">==</span><span class="token operator">></span> Summary
+🍺  /usr/local/Cellar/redis/3.0.0: 9 files, 892K
+
+</code></pre>
+<p>安装成功，启动redis</p>
+<pre class=" language-bash"><code class="language-bash">redis-server
+</code></pre>
+<p>如下</p>
+<pre class=" language-bash"><code class="language-bash">~ w$ redis-server
+3002:C 23 Sep 22:29:50.895 <span class="token comment" spellcheck="true"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span>
+3002:M 23 Sep 22:29:50.897 * Increased maximum number of <span class="token function">open</span> files to 10032 <span class="token punctuation">(</span>it was originally <span class="token keyword">set</span> to 2560<span class="token punctuation">)</span>.
+                _._
+           _.-``__ <span class="token string">''</span>-._
+      _.-`<span class="token variable"><span class="token variable">`</span>    <span class="token variable">`</span></span><span class="token keyword">.</span>  `_.  <span class="token string">''</span>-._           Redis 3.0.0 <span class="token punctuation">(</span>00000000/0<span class="token punctuation">)</span> 64 bit
+  .-`<span class="token variable"><span class="token variable">`</span> .-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span><span class="token keyword">.</span>  <span class="token variable">`</span></span>``\/    _.,_ <span class="token string">''</span>-._
+ <span class="token punctuation">(</span>    <span class="token string">'      ,       .-<span class="token variable"><span class="token variable">`</span>  <span class="token operator">|</span> <span class="token variable">`</span></span>,    )     Running in standalone mode
+ |<span class="token variable"><span class="token variable">`</span>-._<span class="token variable">`</span></span>-...-<span class="token variable"><span class="token variable">`</span> __<span class="token punctuation">..</span>.-.<span class="token variable">`</span></span>`-._|'</span>` _.-<span class="token string">'|     Port: 6379
+ |    <span class="token variable"><span class="token variable">`</span>-._   <span class="token variable">`</span></span>._    /     _.-'</span>    <span class="token operator">|</span>     PID: 3002
+  <span class="token variable"><span class="token variable">`</span>-._    <span class="token variable">`</span></span>-._  `-./  _.-<span class="token string">'    _.-'</span>
+ <span class="token operator">|</span><span class="token variable"><span class="token variable">`</span>-._<span class="token variable">`</span></span>-._    `-.__.-<span class="token string">'    _.-'</span>_.-<span class="token string">'|
+ |    <span class="token variable"><span class="token variable">`</span>-._<span class="token variable">`</span></span>-._        _.-'</span>_.-<span class="token string">'    |           http://redis.io
+  <span class="token variable"><span class="token variable">`</span>-._    <span class="token variable">`</span></span>-._`-.__.-'</span>_.-<span class="token string">'    _.-'</span>
+ <span class="token operator">|</span><span class="token variable"><span class="token variable">`</span>-._<span class="token variable">`</span></span>-._    `-.__.-<span class="token string">'    _.-'</span>_.-<span class="token string">'|
+ |    <span class="token variable"><span class="token variable">`</span>-._<span class="token variable">`</span></span>-._        _.-'</span>_.-<span class="token string">'    |
+  <span class="token variable"><span class="token variable">`</span>-._    <span class="token variable">`</span></span>-._`-.__.-'</span>_.-<span class="token string">'    _.-'</span>
+      <span class="token variable"><span class="token variable">`</span>-._    <span class="token variable">`</span></span>-.__.-<span class="token string">'    _.-'</span>
+          `-._        _.-<span class="token string">'
+              `-.__.-'</span>
+
+3002:M 23 Sep 22:29:50.898 <span class="token comment" spellcheck="true"># Server started, Redis version 3.0.0</span>
+3002:M 23 Sep 22:29:50.898 * The server is now ready to accept connections on port 6379
+
+</code></pre>
+<p>服务端启动，测试客户端，打开新的终端窗口</p>
+<pre class=" language-bash"><code class="language-bash">~ w$ redis-cli
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> foo bar
+OK
+127.0.0.1:6379<span class="token operator">></span> get foo
+<span class="token string">"bar"</span>
+</code></pre>
 <p>ok.成功连接服务端，测试成功。</p>
-<p>关闭redis<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli shutdown</span><br></pre></td></tr></table></figure></p>
+<p>关闭redis</p>
+<pre class=" language-bash"><code class="language-bash">redis-cli <span class="token function">shutdown</span>
+</code></pre>
   	
 					
 	  </div>     

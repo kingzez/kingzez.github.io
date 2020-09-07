@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1440
+			<span class="post-info-entry">1388
 			</span>
 		
 	</div>
@@ -108,16 +104,75 @@
 					<blockquote>
 <p>全面 docker 化…em 尽量<br>持续更新…</p>
 </blockquote>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新系统</span></span><br><span class="line">sudo yum -y update</span><br><span class="line"></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
-<h3 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 NodeSource 二进制发行版 安装nodejs12</span></span><br><span class="line">curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -</span><br><span class="line"></span><br><span class="line">sudo yum clean all &amp;&amp; sudo yum makecache fast</span><br><span class="line">sudo yum install -y gcc-c++ make</span><br><span class="line">sudo yum install -y nodejs</span><br></pre></td></tr></table></figure>
-<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
-<h3 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker pull mongo:3.5</span><br><span class="line"></span><br><span class="line">mkdir -p /opt/data/mongo</span><br><span class="line"></span><br><span class="line">docker run -d -p 27017:27017 -v /opt/data/mongo:/data/db --restart always --name mongo mongo:3.</span><br></pre></td></tr></table></figure>
-<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用系统启动</span></span><br><span class="line">sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用docker</span></span><br><span class="line">docker pull nginx</span><br><span class="line">docker run -d --network host --name nginx -v /etc/nginx/:/etc/nginx nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改后检查</span></span><br><span class="line">docker <span class="built_in">exec</span> nginx nginx -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启nginx</span></span><br><span class="line">docker restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">docker logs -f --tail 10 nginx</span><br></pre></td></tr></table></figure>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 更新系统</span>
+<span class="token function">sudo</span> yum -y update
+
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y yum-utils device-mapper-persistent-data lvm2
+</code></pre>
+<h3 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 使用 NodeSource 二进制发行版 安装nodejs12</span>
+curl -sL https://rpm.nodesource.com/setup_12.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span> -
+
+<span class="token function">sudo</span> yum clean all <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> yum makecache fast
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y gcc-c++ <span class="token function">make</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y nodejs
+</code></pre>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><pre class=" language-bash"><code class="language-bash">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+<span class="token function">sudo</span> yum <span class="token function">install</span> docker-ce docker-ce-cli containerd.io
+
+systemctl <span class="token function">enable</span> --now docker
+</code></pre>
+<h3 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h3><pre class=" language-bash"><code class="language-bash">docker pull mongo:3.5
+
+<span class="token function">mkdir</span> -p /opt/data/mongo
+
+docker run -d -p 27017:27017 -v /opt/data/mongo:/data/db --restart always --name mongo mongo:3.
+</code></pre>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> epel-release
+<span class="token function">sudo</span> yum <span class="token function">install</span> nginx
+
+<span class="token comment" spellcheck="true"># 使用系统启动</span>
+<span class="token function">sudo</span> systemctl start nginx
+
+<span class="token comment" spellcheck="true"># 使用docker</span>
+docker pull nginx
+docker run -d --network host --name nginx -v /etc/nginx/:/etc/nginx nginx
+
+<span class="token comment" spellcheck="true"># 修改后检查</span>
+docker <span class="token function">exec</span> nginx nginx -t
+
+<span class="token comment" spellcheck="true"># 重启nginx</span>
+docker restart nginx
+
+<span class="token comment" spellcheck="true"># 查看日志</span>
+docker logs -f --tail 10 nginx
+</code></pre>
 <h3 id="https"><a href="#https" class="headerlink" title="https"></a>https</h3><blockquote>
 <p><a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx" target="_blank" rel="noopener">https://certbot.eff.org/lets-encrypt/centosrhel7-nginx</a></p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行前提 关闭nginx服务</span></span><br><span class="line">sudo certbot certonly --nginx -d kingzez.com</span><br></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备忘</span></span><br><span class="line"><span class="attribute">ssl_certificate</span>			/etc/nginx/kingzez.com.pem;</span><br><span class="line"><span class="attribute">ssl_certificate_key</span> /etc/nginx/kingzez.com.key.pem;</span><br><span class="line"><span class="attribute">ssl_trusted_certificate</span> /etc/nginx/kingzez.com.pem;</span><br><span class="line"><span class="attribute">ssl_ciphers</span>         EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;</span><br><span class="line"><span class="attribute">ssl_protocols</span>       TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">server_name</span> api.kingzez.com;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:3000/;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> /test/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:4000/;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 执行前提 关闭nginx服务</span>
+<span class="token function">sudo</span> certbot certonly --nginx -d kingzez.com
+</code></pre>
+<pre class=" language-nginx"><code class="language-nginx"><span class="token comment" spellcheck="true"># 备忘</span>
+<span class="token keyword">ssl_certificate</span>            <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>kingzez<span class="token punctuation">.</span>com<span class="token punctuation">.</span>pem<span class="token punctuation">;</span>
+<span class="token keyword">ssl_certificate_key</span> <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>kingzez<span class="token punctuation">.</span>com<span class="token punctuation">.</span>key<span class="token punctuation">.</span>pem<span class="token punctuation">;</span>
+ssl_trusted_certificate <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>kingzez<span class="token punctuation">.</span>com<span class="token punctuation">.</span>pem<span class="token punctuation">;</span>
+<span class="token keyword">ssl_ciphers</span>         EECDH<span class="token operator">+</span>AESGCM<span class="token punctuation">:</span>EDH<span class="token operator">+</span>AESGCM<span class="token punctuation">:</span>AES256<span class="token operator">+</span>EECDH<span class="token punctuation">:</span>AES256<span class="token operator">+</span>EDH<span class="token punctuation">;</span>
+<span class="token keyword">ssl_protocols</span>       TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+
+<span class="token keyword">server</span> <span class="token punctuation">{</span>
+  <span class="token keyword">server_name</span> api<span class="token punctuation">.</span>kingzez<span class="token punctuation">.</span>com<span class="token punctuation">;</span>
+  <span class="token keyword">listen</span> <span class="token number">443</span> <span class="token keyword">ssl</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+    <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">3000</span><span class="token operator">/</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">location</span> <span class="token operator">/</span>test<span class="token operator">/</span> <span class="token punctuation">{</span>
+    <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">4000</span><span class="token operator">/</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
   	
 					
 	  </div>     

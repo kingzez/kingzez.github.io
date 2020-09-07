@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1456
+			<span class="post-info-entry">1420
 			</span>
 		
 	</div>
@@ -115,26 +111,53 @@
 <li>安装nvm</li>
 <li>创建项目的时候就设置好项目使用的nodejs版本</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd project</span><br><span class="line">node -v &gt; .nvmrc</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>cd project
+node -v &gt; .nvmrc
+</code></pre><ul>
 <li><a href="https://github.com/dijitalmunky/nvm-auto" target="_blank" rel="noopener">配置 nvm-auto</a>, 这样每次 cd到带有.nvmrc目录，nodejs的版本就自动切换过去了</li>
 </ul>
 <h3 id="Git-插件"><a href="#Git-插件" class="headerlink" title="Git 插件"></a>Git 插件</h3><p><a href="https://github.com/tj/git-extras" target="_blank" rel="noopener">https://github.com/tj/git-extras</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install git-extras</span><br><span class="line">...</span><br><span class="line">git ignore node_modules</span><br><span class="line">// you will see node_modules in your .gitignore</span><br></pre></td></tr></table></figure>
-<h3 id="terminal-工具"><a href="#terminal-工具" class="headerlink" title="terminal 工具"></a>terminal 工具</h3><p><a href="https://github.com/wting/autojump" target="_blank" rel="noopener">autojump</a> - 快速浏览你的文件系统</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br></pre></td></tr></table></figure>
-<p>在zsh下需要配置zsh文件，在.zshrc下添加命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$[[ -s `brew --prefix`/etc/autojump.sh ]] &amp;&amp; . `brew --prefix`/etc/autojump.sh</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">j remarketing  =&gt; <span class="built_in">cd</span> Project/remarketing/</span><br></pre></td></tr></table></figure>
+<pre><code>brew install git-extras
+...
+git ignore node_modules
+// you will see node_modules in your .gitignore
+</code></pre><h3 id="terminal-工具"><a href="#terminal-工具" class="headerlink" title="terminal 工具"></a>terminal 工具</h3><p><a href="https://github.com/wting/autojump" target="_blank" rel="noopener">autojump</a> - 快速浏览你的文件系统</p>
+<pre><code>brew install autojump
+</code></pre><p>在zsh下需要配置zsh文件，在.zshrc下添加命令</p>
+<pre class=" language-bash"><code class="language-bash">$<span class="token punctuation">[</span><span class="token punctuation">[</span> -s <span class="token variable"><span class="token variable">`</span>brew --prefix<span class="token variable">`</span></span>/etc/autojump.sh <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">.</span> <span class="token variable"><span class="token variable">`</span>brew --prefix<span class="token variable">`</span></span>/etc/autojump.sh
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">j remarketing  <span class="token operator">=</span><span class="token operator">></span> <span class="token function">cd</span> Project/remarketing/
+</code></pre>
 <h3 id="Git-commit-规范化工具-emoji-cz"><a href="#Git-commit-规范化工具-emoji-cz" class="headerlink" title="Git commit 规范化工具 emoji-cz"></a>Git commit 规范化工具 emoji-cz</h3><p>第一步安装 commitizen<br><a href="https://github.com/commitizen/cz-cli" target="_blank" rel="noopener">https://github.com/commitizen/cz-cli</a></p>
 <p>第二部安装 emoji-cz<br><a href="https://github.com/ellerbrock/cz-conventional-changelog-emoji" target="_blank" rel="noopener">https://github.com/ellerbrock/cz-conventional-changelog-emoji</a><br><a href="https://github.com/ngryman/cz-emoji" target="_blank" rel="noopener">https://github.com/ngryman/cz-emoji</a><br><a href="https://github.com/kevin940726/emoji-cz#installation" target="_blank" rel="noopener">https://github.com/kevin940726/emoji-cz#installation</a> in used</p>
-<h3 id="简单易用的基于Markdown描述的自动化构建工具"><a href="#简单易用的基于Markdown描述的自动化构建工具" class="headerlink" title="简单易用的基于Markdown描述的自动化构建工具"></a>简单易用的基于Markdown描述的自动化构建工具</h3><p>项目地址：<a href="https://github.com/egoist/maid#install" target="_blank" rel="noopener">https://github.com/egoist/maid#install</a><br>demo：maidfile.md<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## lint</span></span><br><span class="line"></span><br><span class="line">It uses ESLint to ensure code quality.</span><br><span class="line"></span><br><span class="line"><span class="code">```bash</span></span><br><span class="line"><span class="code">eslint --fix</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="简单易用的基于Markdown描述的自动化构建工具"><a href="#简单易用的基于Markdown描述的自动化构建工具" class="headerlink" title="简单易用的基于Markdown描述的自动化构建工具"></a>简单易用的基于Markdown描述的自动化构建工具</h3><p>项目地址：<a href="https://github.com/egoist/maid#install" target="_blank" rel="noopener">https://github.com/egoist/maid#install</a><br>demo：maidfile.md</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> lint</span>
+
+It uses ESLint to ensure code quality.
+
+```bash
+eslint --fix
+</code></pre>
 <h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>Build our main app</p>
 <!-- Following line is a maid command for running task -->
 <p>Run task <code>build:demo</code> after this</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># note that you can directly call binaries inside node_modules/.bin</span></span><br><span class="line"><span class="comment"># just like how `npm scripts` works</span></span><br><span class="line">babel src -d lib</span><br></pre></td></tr></table></figure>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># note that you can directly call binaries inside node_modules/.bin</span>
+<span class="token comment" spellcheck="true"># just like how `npm scripts` works</span>
+babel src -d lib
+</code></pre>
 <h2 id="build-demo"><a href="#build-demo" class="headerlink" title="build:demo"></a>build:demo</h2><p>You can use JavaScript to write to task script too!</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Async task should return a Promise</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> compiler = webpack(<span class="built_in">require</span>(<span class="string">'./webpack.config'</span>))</span><br><span class="line">  compiler.run(<span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> reject(err)</span><br><span class="line">    <span class="built_in">console</span>.log(stats.toString(<span class="string">'minimal'</span>))</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Async task should return a Promise</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./webpack.config'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  compiler<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">,</span> stats<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>stats<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">'minimal'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
 <p><code>`</code></p>
   	
 					

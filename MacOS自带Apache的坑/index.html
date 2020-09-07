@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">529
+			<span class="post-info-entry">525
 			</span>
 		
 	</div>
@@ -105,17 +101,20 @@
 		
 
 			
-					<p>刚刚升级了10.12，<code>sudo apachectl start</code>启动apache的时候瞬间懵逼了，<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apachectl start</span><br><span class="line">(48)Address already <span class="keyword">in</span> use: AH00072: make_sock: could not <span class="built_in">bind</span> to address [::]:80</span><br><span class="line">(48)Address already <span class="keyword">in</span> use: AH00072: make_sock: could not <span class="built_in">bind</span> to address 0.0.0.0:80</span><br><span class="line">no listening sockets available, shutting down</span><br><span class="line">AH00015: Unable to open logs</span><br></pre></td></tr></table></figure></p>
+					<p>刚刚升级了10.12，<code>sudo apachectl start</code>启动apache的时候瞬间懵逼了，<br><a id="more"></a></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apachectl start
+<span class="token punctuation">(</span>48<span class="token punctuation">)</span>Address already <span class="token keyword">in</span> use: AH00072: make_sock: could not bind to address <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80
+<span class="token punctuation">(</span>48<span class="token punctuation">)</span>Address already <span class="token keyword">in</span> use: AH00072: make_sock: could not bind to address 0.0.0.0:80
+no listening sockets available, shutting down
+AH00015: Unable to <span class="token function">open</span> logs
+</code></pre>
 <p>明明没有启动，也没做什么，后来发现原因是我使用的不是mac自带的apache，升级之后就悲剧，因为在新的系统中，apache是默认启动的，且不支持删除，所以解决方法是</p>
 <ul>
-<li><p>停止apache</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apachectl -k stop</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭apache随系统启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist</span><br></pre></td></tr></table></figure>
-</li>
+<li>停止apache<pre><code>sudo apachectl -k stop
+</code></pre></li>
+<li>关闭apache随系统启动<pre><code>sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+</code></pre>这样就可以了，再次<code>sudo apachectl start</code> 就是自己安装的apache服务了。</li>
 </ul>
-<p>这样就可以了，再次<code>sudo apachectl start</code> 就是自己安装的apache服务了。</p>
   	
 					
 	  </div>     

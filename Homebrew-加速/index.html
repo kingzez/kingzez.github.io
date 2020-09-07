@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">901
+			<span class="post-info-entry">902
 			</span>
 		
 	</div>
@@ -111,9 +107,26 @@
 <blockquote>
 <p><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git</a><br>以上两个国内镜像源Tsinghua较快</p>
 </blockquote>
-<h3 id="替换默认源地址"><a href="#替换默认源地址" class="headerlink" title="替换默认源地址"></a>替换默认源地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
-<p>添加至 ~/.zshrc，后 source ~/.zshrc<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># brew mirror</span></span><br><span class="line"><span class="built_in">export</span> HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span><br></pre></td></tr></table></figure></p>
-<h3 id="复原默认地址"><a href="#复原默认地址" class="headerlink" title="复原默认地址"></a>复原默认地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<h3 id="替换默认源地址"><a href="#替换默认源地址" class="headerlink" title="替换默认源地址"></a>替换默认源地址</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo<span class="token variable">)</span></span>"</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+<span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo homebrew/core<span class="token variable">)</span></span>"</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+<span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo homebrew/cask<span class="token variable">)</span></span>"</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
+
+brew update
+</code></pre>
+<p>添加至 ~/.zshrc，后 source ~/.zshrc</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># brew mirror</span>
+<span class="token function">export</span> HOMEBREW_BOTTLE_DOMAIN<span class="token operator">=</span>https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+</code></pre>
+<h3 id="复原默认地址"><a href="#复原默认地址" class="headerlink" title="复原默认地址"></a>复原默认地址</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo<span class="token variable">)</span></span>"</span> remote set-url origin https://github.com/Homebrew/brew.git
+
+<span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo homebrew/core<span class="token variable">)</span></span>"</span> remote set-url origin https://github.com/Homebrew/homebrew-core.git
+
+<span class="token function">git</span> -C <span class="token string">"<span class="token variable"><span class="token variable">$(</span>brew --repo homebrew/cask<span class="token variable">)</span></span>"</span> remote set-url origin https://github.com/Homebrew/homebrew-cask.git
+
+brew update
+</code></pre>
   	
 					
 	  </div>     

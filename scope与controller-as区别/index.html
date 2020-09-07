@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">4318
+			<span class="post-info-entry">4064
 			</span>
 		
 	</div>
@@ -110,12 +106,100 @@
 <li>第一种为：我们熟悉的将model绑定到$scope上，在html页面中<code>ng-controller=&quot;SettingsController&quot;</code>。</li>
 <li>第二种为：将方法和属性直接绑定到controller上，在html页面中<code>ng-controller=&quot;SettingsController as setting&quot;</code>。<br>第一种我们都很熟悉，那么这两种到底有什么区别呢？例子来自angularJS官网。</li>
 </ul>
-<p><em>controller as</em><br>index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;ctrl-as-exmpl&quot; ng-controller=&quot;SettingsController1 as settings&quot;&gt;</span><br><span class="line">  Name: &lt;input type=&quot;text&quot; ng-model=&quot;settings.name&quot;/&gt;</span><br><span class="line">  [ &lt;a href=&quot;&quot; ng-click=&quot;settings.greet()&quot;&gt;greet&lt;/a&gt; ]&lt;br/&gt;</span><br><span class="line">  Contact:</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li ng-repeat=&quot;contact in settings.contacts&quot;&gt;</span><br><span class="line">      &lt;select ng-model=&quot;contact.type&quot;&gt;</span><br><span class="line">         &lt;option&gt;phone&lt;/option&gt;</span><br><span class="line">         &lt;option&gt;email&lt;/option&gt;</span><br><span class="line">      &lt;/select&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; ng-model=&quot;contact.value&quot;/&gt;</span><br><span class="line">      [ &lt;a href=&quot;&quot; ng-click=&quot;settings.clearContact(contact)&quot;&gt;clear&lt;/a&gt;</span><br><span class="line">      | &lt;a href=&quot;&quot; ng-click=&quot;settings.removeContact(contact)&quot;&gt;X&lt;/a&gt; ]</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;[ &lt;a href=&quot;&quot; ng-click=&quot;settings.addContact()&quot;&gt;add&lt;/a&gt; ]&lt;/li&gt;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>app.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&apos;controllerAsExample&apos;, [])</span><br><span class="line">  .controller(&apos;SettingsController1&apos;, SettingsController1);</span><br><span class="line"></span><br><span class="line">function SettingsController1() &#123;</span><br><span class="line">  this.name = &quot;John Smith&quot;;</span><br><span class="line">  this.contacts = [</span><br><span class="line">    &#123;type: &apos;phone&apos;, value: &apos;408 555 1212&apos;&#125;,</span><br><span class="line">    &#123;type: &apos;email&apos;, value: &apos;john.smith@example.org&apos;&#125; ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SettingsController1.prototype.greet = function() &#123;</span><br><span class="line">  alert(this.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">SettingsController1.prototype.addContact = function() &#123;</span><br><span class="line">  this.contacts.push(&#123;type: &apos;email&apos;, value: &apos;yourname@example.org&apos;&#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">SettingsController1.prototype.removeContact = function(contactToRemove) &#123;</span><br><span class="line"> var index = this.contacts.indexOf(contactToRemove);</span><br><span class="line">  this.contacts.splice(index, 1);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">SettingsController1.prototype.clearContact = function(contact) &#123;</span><br><span class="line">  contact.type = &apos;phone&apos;;</span><br><span class="line">  contact.value = &apos;&apos;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><em>$scope</em><br>index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;ctrl-exmpl&quot; ng-controller=&quot;SettingsController2&quot;&gt;</span><br><span class="line">  Name: &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;/&gt;</span><br><span class="line">  [ &lt;a href=&quot;&quot; ng-click=&quot;greet()&quot;&gt;greet&lt;/a&gt; ]&lt;br/&gt;</span><br><span class="line">  Contact:</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li ng-repeat=&quot;contact in contacts&quot;&gt;</span><br><span class="line">      &lt;select ng-model=&quot;contact.type&quot;&gt;</span><br><span class="line">         &lt;option&gt;phone&lt;/option&gt;</span><br><span class="line">         &lt;option&gt;email&lt;/option&gt;</span><br><span class="line">      &lt;/select&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; ng-model=&quot;contact.value&quot;/&gt;</span><br><span class="line">      [ &lt;a href=&quot;&quot; ng-click=&quot;clearContact(contact)&quot;&gt;clear&lt;/a&gt;</span><br><span class="line">      | &lt;a href=&quot;&quot; ng-click=&quot;removeContact(contact)&quot;&gt;X&lt;/a&gt; ]</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;[ &lt;a href=&quot;&quot; ng-click=&quot;addContact()&quot;&gt;add&lt;/a&gt; ]&lt;/li&gt;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>app.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&apos;controllerExample&apos;, [])</span><br><span class="line">  .controller(&apos;SettingsController2&apos;, [&apos;$scope&apos;, SettingsController2]);</span><br><span class="line"></span><br><span class="line">function SettingsController2($scope) &#123;</span><br><span class="line">  $scope.name = &quot;John Smith&quot;;</span><br><span class="line">  $scope.contacts = [</span><br><span class="line">    &#123;type:&apos;phone&apos;, value:&apos;408 555 1212&apos;&#125;,</span><br><span class="line">    &#123;type:&apos;email&apos;, value:&apos;john.smith@example.org&apos;&#125; ];</span><br><span class="line"></span><br><span class="line">  $scope.greet = function() &#123;</span><br><span class="line">    alert($scope.name);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $scope.addContact = function() &#123;</span><br><span class="line">    $scope.contacts.push(&#123;type:&apos;email&apos;, value:&apos;yourname@example.org&apos;&#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $scope.removeContact = function(contactToRemove) &#123;</span><br><span class="line">    var index = $scope.contacts.indexOf(contactToRemove);</span><br><span class="line">    $scope.contacts.splice(index, 1);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $scope.clearContact = function(contact) &#123;</span><br><span class="line">    contact.type = &apos;phone&apos;;</span><br><span class="line">    contact.value = &apos;&apos;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>定义controller时不用显式的依赖$scope，好处就是一个普通的函数定义，例子中的SettingsController2就是所谓的POJO（Plain Old Javascript Object，Java里的概念），这样的Object与框架无关，里面只有逻辑。即便有一天你的项目不再使用AngularJS了，依然可以很方便的重用和移植这些逻辑。另外，从测试的角度看，这样的Object也是单元测试友好的。单元测试强调的就是孤立其他依赖元素，而POJO恰恰满足这个条件，可以单纯的去测试这个函数的输入输出，而不用费劲的去模拟一个假的$scope。</p>
+<p><em>controller as</em><br>index.html</p>
+<pre><code>&lt;div id=&quot;ctrl-as-exmpl&quot; ng-controller=&quot;SettingsController1 as settings&quot;&gt;
+  Name: &lt;input type=&quot;text&quot; ng-model=&quot;settings.name&quot;/&gt;
+  [ &lt;a href=&quot;&quot; ng-click=&quot;settings.greet()&quot;&gt;greet&lt;/a&gt; ]&lt;br/&gt;
+  Contact:
+  &lt;ul&gt;
+    &lt;li ng-repeat=&quot;contact in settings.contacts&quot;&gt;
+      &lt;select ng-model=&quot;contact.type&quot;&gt;
+         &lt;option&gt;phone&lt;/option&gt;
+         &lt;option&gt;email&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;input type=&quot;text&quot; ng-model=&quot;contact.value&quot;/&gt;
+      [ &lt;a href=&quot;&quot; ng-click=&quot;settings.clearContact(contact)&quot;&gt;clear&lt;/a&gt;
+      | &lt;a href=&quot;&quot; ng-click=&quot;settings.removeContact(contact)&quot;&gt;X&lt;/a&gt; ]
+    &lt;/li&gt;
+    &lt;li&gt;[ &lt;a href=&quot;&quot; ng-click=&quot;settings.addContact()&quot;&gt;add&lt;/a&gt; ]&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+
+</code></pre><p>app.js</p>
+<pre><code>angular.module(&#39;controllerAsExample&#39;, [])
+  .controller(&#39;SettingsController1&#39;, SettingsController1);
+
+function SettingsController1() {
+  this.name = &quot;John Smith&quot;;
+  this.contacts = [
+    {type: &#39;phone&#39;, value: &#39;408 555 1212&#39;},
+    {type: &#39;email&#39;, value: &#39;john.smith@example.org&#39;} ];
+}
+
+SettingsController1.prototype.greet = function() {
+  alert(this.name);
+};
+
+SettingsController1.prototype.addContact = function() {
+  this.contacts.push({type: &#39;email&#39;, value: &#39;yourname@example.org&#39;});
+};
+
+SettingsController1.prototype.removeContact = function(contactToRemove) {
+ var index = this.contacts.indexOf(contactToRemove);
+  this.contacts.splice(index, 1);
+};
+
+SettingsController1.prototype.clearContact = function(contact) {
+  contact.type = &#39;phone&#39;;
+  contact.value = &#39;&#39;;
+};
+</code></pre><p><em>$scope</em><br>index.html</p>
+<pre><code>&lt;div id=&quot;ctrl-exmpl&quot; ng-controller=&quot;SettingsController2&quot;&gt;
+  Name: &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;/&gt;
+  [ &lt;a href=&quot;&quot; ng-click=&quot;greet()&quot;&gt;greet&lt;/a&gt; ]&lt;br/&gt;
+  Contact:
+  &lt;ul&gt;
+    &lt;li ng-repeat=&quot;contact in contacts&quot;&gt;
+      &lt;select ng-model=&quot;contact.type&quot;&gt;
+         &lt;option&gt;phone&lt;/option&gt;
+         &lt;option&gt;email&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;input type=&quot;text&quot; ng-model=&quot;contact.value&quot;/&gt;
+      [ &lt;a href=&quot;&quot; ng-click=&quot;clearContact(contact)&quot;&gt;clear&lt;/a&gt;
+      | &lt;a href=&quot;&quot; ng-click=&quot;removeContact(contact)&quot;&gt;X&lt;/a&gt; ]
+    &lt;/li&gt;
+    &lt;li&gt;[ &lt;a href=&quot;&quot; ng-click=&quot;addContact()&quot;&gt;add&lt;/a&gt; ]&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><p>app.js</p>
+<pre><code>angular.module(&#39;controllerExample&#39;, [])
+  .controller(&#39;SettingsController2&#39;, [&#39;$scope&#39;, SettingsController2]);
+
+function SettingsController2($scope) {
+  $scope.name = &quot;John Smith&quot;;
+  $scope.contacts = [
+    {type:&#39;phone&#39;, value:&#39;408 555 1212&#39;},
+    {type:&#39;email&#39;, value:&#39;john.smith@example.org&#39;} ];
+
+  $scope.greet = function() {
+    alert($scope.name);
+  };
+
+  $scope.addContact = function() {
+    $scope.contacts.push({type:&#39;email&#39;, value:&#39;yourname@example.org&#39;});
+  };
+
+  $scope.removeContact = function(contactToRemove) {
+    var index = $scope.contacts.indexOf(contactToRemove);
+    $scope.contacts.splice(index, 1);
+  };
+
+  $scope.clearContact = function(contact) {
+    contact.type = &#39;phone&#39;;
+    contact.value = &#39;&#39;;
+  };
+}
+</code></pre><p>定义controller时不用显式的依赖$scope，好处就是一个普通的函数定义，例子中的SettingsController2就是所谓的POJO（Plain Old Javascript Object，Java里的概念），这样的Object与框架无关，里面只有逻辑。即便有一天你的项目不再使用AngularJS了，依然可以很方便的重用和移植这些逻辑。另外，从测试的角度看，这样的Object也是单元测试友好的。单元测试强调的就是孤立其他依赖元素，而POJO恰恰满足这个条件，可以单纯的去测试这个函数的输入输出，而不用费劲的去模拟一个假的$scope。</p>
 <p>另外，还有一个比较牵强的好处：防止滥用$scope的$watch，$on，$broadcast方法。可能刚刚就有人想问了，不依赖$scope我怎么watch一个model，怎样广播和响应事件。答案是没法弄，这些事还真是只有$scope能干。但很多时候在controller里watch一个model是很多余的，这样做会明显的降低性能。所以，当你本来就依赖$scope的时候，你会习惯性的调用这些方法来实现自己的逻辑。但当使用controller as的时候，由于没有直接依赖$scope，使用watch前你会稍加斟酌，没准就思考到了别的实现方式了呢。</p>
   	
 					

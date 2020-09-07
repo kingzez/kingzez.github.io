@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">154
+			<span class="post-info-entry">156
 			</span>
 		
 	</div>
@@ -106,8 +102,12 @@
 
 			
 					<h4 id="解决Mac-OS-ssh登陆CentOS中文乱码方法"><a href="#解决Mac-OS-ssh登陆CentOS中文乱码方法" class="headerlink" title="解决Mac OS ssh登陆CentOS中文乱码方法"></a>解决Mac OS ssh登陆CentOS中文乱码方法</h4><a id="more"></a>
-<p>这种情况一般是终端和服务器的字符集不匹配，MacOSX下默认的是utf8字符集,所以编辑 /etc/ssh_config，注释此行“ SendEnv LANG LC_*”即可，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh_config，</span><br></pre></td></tr></table></figure></p>
-<p>注释此行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SendEnv LANG LC_”</span><br></pre></td></tr></table></figure></p>
+<p>这种情况一般是终端和服务器的字符集不匹配，MacOSX下默认的是utf8字符集,所以编辑 /etc/ssh_config，注释此行“ SendEnv LANG LC_*”即可，</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/ssh_config，
+</code></pre>
+<p>注释此行</p>
+<pre class=" language-bash"><code class="language-bash">SendEnv LANG LC_”
+</code></pre>
   	
 					
 	  </div>     

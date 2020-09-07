@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">1467
+			<span class="post-info-entry">1405
 			</span>
 		
 	</div>
@@ -109,9 +105,25 @@
 <blockquote>
 <p>Material Design Lite will automatically register and render all elements marked with MDL classes upon page load. However in the case where you are creating DOM elements dynamically you need to register new elements using the <code>upgradeElement</code> function. Here is how you can dynamically create the same raised button with ripples shown in the section above:</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;container&quot;/&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  var button = document.createElement(&apos;button&apos;);</span><br><span class="line">  var textNode = document.createTextNode(&apos;Click Me!&apos;);</span><br><span class="line">  button.appendChild(textNode);</span><br><span class="line">  button.className = &apos;mdl-button mdl-js-button mdl-js-ripple-effect&apos;;</span><br><span class="line">  componentHandler.upgradeElement(button);</span><br><span class="line">  document.getElementById(&apos;container&apos;).appendChild(button);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>找到原因后就要解决问题了，在angularjs中如何更新组件呢？因为这个更新是每时每刻都在运行的，所以要加在angular的启动文件app.js中，需要注意的是run加的位置，区分config和run的区别，config阶段是给了ng上下文一个针对constant与provider修改其内部属性的一个阶段，而run阶段是在config之后的在运行独立的代码块，通常写法runBlock，简单的说一下就是ng启动阶段是 config–&gt;run–&gt;compile/link，那么解决方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&apos;app&apos;,[])</span><br><span class="line">	.run([&apos;$rootScope&apos;, &apos;$timeout&apos;, function($rootScope, $timeout) &#123;</span><br><span class="line">		$rootScope.$on(&apos;$viewContentLoaded&apos;, () =&gt; &#123;</span><br><span class="line">			$timeout(() =&gt; &#123;</span><br><span class="line">			componentHandler.upgradeAllRegistered();</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;]);</span><br></pre></td></tr></table></figure></p>
-<p>那么开始后续的开发~</p>
+<pre><code>&lt;div id=&quot;container&quot;/&gt;
+&lt;script&gt;
+  var button = document.createElement(&#39;button&#39;);
+  var textNode = document.createTextNode(&#39;Click Me!&#39;);
+  button.appendChild(textNode);
+  button.className = &#39;mdl-button mdl-js-button mdl-js-ripple-effect&#39;;
+  componentHandler.upgradeElement(button);
+  document.getElementById(&#39;container&#39;).appendChild(button);
+&lt;/script&gt;
+</code></pre><p>找到原因后就要解决问题了，在angularjs中如何更新组件呢？因为这个更新是每时每刻都在运行的，所以要加在angular的启动文件app.js中，需要注意的是run加的位置，区分config和run的区别，config阶段是给了ng上下文一个针对constant与provider修改其内部属性的一个阶段，而run阶段是在config之后的在运行独立的代码块，通常写法runBlock，简单的说一下就是ng启动阶段是 config–&gt;run–&gt;compile/link，那么解决方法是：</p>
+<pre><code>angular.module(&#39;app&#39;,[])
+    .run([&#39;$rootScope&#39;, &#39;$timeout&#39;, function($rootScope, $timeout) {
+        $rootScope.$on(&#39;$viewContentLoaded&#39;, () =&gt; {
+            $timeout(() =&gt; {
+            componentHandler.upgradeAllRegistered();
+            })
+        })
+    }]);
+</code></pre><p>那么开始后续的开发~</p>
   	
 					
 	  </div>     

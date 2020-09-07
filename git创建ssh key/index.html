@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">524
+			<span class="post-info-entry">522
 			</span>
 		
 	</div>
@@ -115,11 +111,19 @@
 		
 
 			
-					<h4 id="一、设置Git的username-，email："><a href="#一、设置Git的username-，email：" class="headerlink" title="一、设置Git的username ，email："></a>一、设置Git的username ，email：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;kingzez&quot;</span><br><span class="line">$ git config --global user.email &quot;kingzez@sina.com&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="二、如何针对每个repo单独设定username和email？"><a href="#二、如何针对每个repo单独设定username和email？" class="headerlink" title="二、如何针对每个repo单独设定username和email？"></a>二、如何针对每个repo单独设定username和email？</h4><p>有时，你可能想为不同的 repo（比如公司的项目和个人项目）设置不同的 commit 信息，很简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name &quot;kingzez&quot;</span><br><span class="line">git config user.email &quot;kingzez@sina.com&quot;</span><br></pre></td></tr></table></figure></p>
-<p>可以看出，在使用 git config 时，默认修改的是当前 repo 的配置，如果添加 –global 则会修改全局的配置。<br><a id="more"></a></p>
-<h4 id="三、创建ssh密匙过程"><a href="#三、创建ssh密匙过程" class="headerlink" title="三、创建ssh密匙过程"></a>三、创建ssh密匙过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.查看是否已经有了ssh密钥：cd ~/.ssh</span><br><span class="line">   如果没有密钥则不会有此文件夹，有则不影响，备份删除都可以</span><br><span class="line">2.生存密钥：</span><br><span class="line">   $ ssh-keygen -t rsa -C “kingzez@sina.com”</span><br><span class="line">   3个回车，密码为空。</span><br><span class="line">3.操作完成生成 id_rsa和id_rsa.pub</span><br></pre></td></tr></table></figure>
-<h4 id="三、添加ssh-key-到github-或coding等。"><a href="#三、添加ssh-key-到github-或coding等。" class="headerlink" title="三、添加ssh key 到github 或coding等。"></a>三、添加ssh key 到github 或coding等。</h4>  	
+					<h4 id="一、设置Git的username-，email："><a href="#一、设置Git的username-，email：" class="headerlink" title="一、设置Git的username ，email："></a>一、设置Git的username ，email：</h4><pre><code>      $ git config --global user.name &quot;kingzez&quot;
+      $ git config --global user.email &quot;kingzez@sina.com&quot;
+</code></pre><h4 id="二、如何针对每个repo单独设定username和email？"><a href="#二、如何针对每个repo单独设定username和email？" class="headerlink" title="二、如何针对每个repo单独设定username和email？"></a>二、如何针对每个repo单独设定username和email？</h4><p>有时，你可能想为不同的 repo（比如公司的项目和个人项目）设置不同的 commit 信息，很简单：</p>
+<pre><code>git config user.name &quot;kingzez&quot;
+git config user.email &quot;kingzez@sina.com&quot;
+</code></pre><p>可以看出，在使用 git config 时，默认修改的是当前 repo 的配置，如果添加 –global 则会修改全局的配置。<br><a id="more"></a></p>
+<h4 id="三、创建ssh密匙过程"><a href="#三、创建ssh密匙过程" class="headerlink" title="三、创建ssh密匙过程"></a>三、创建ssh密匙过程</h4><pre><code>     1.查看是否已经有了ssh密钥：cd ~/.ssh
+        如果没有密钥则不会有此文件夹，有则不影响，备份删除都可以
+     2.生存密钥：
+        $ ssh-keygen -t rsa -C “kingzez@sina.com”
+        3个回车，密码为空。
+     3.操作完成生成 id_rsa和id_rsa.pub
+</code></pre><h4 id="三、添加ssh-key-到github-或coding等。"><a href="#三、添加ssh-key-到github-或coding等。" class="headerlink" title="三、添加ssh key 到github 或coding等。"></a>三、添加ssh key 到github 或coding等。</h4>  	
 					
 	  </div>     
 	  

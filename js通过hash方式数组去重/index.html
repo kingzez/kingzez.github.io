@@ -17,12 +17,8 @@
 
 
   <link rel="stylesheet" href="/nayo.min.css">
-  <script type="text/javascript">
-  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'a2cdaf57bbf7e228', {});
-    gio('send');
-  </script>
-</head>  
+  <link rel="stylesheet" href="/font.css">
+<link rel="stylesheet" href="/css/prism-dracula.css" type="text/css"></head>  
   <body>   
     
       <header class="header">
@@ -92,7 +88,7 @@
 		
 		
 			<i class="iconfont icon-words"></i>
-			<span class="post-info-entry">391
+			<span class="post-info-entry">330
 			</span>
 		
 	</div>
@@ -106,8 +102,23 @@
 
 			
 					<p>之前面试中遇到过数组去重的问题，方法很多，但是相对来说比较好的方式是通过hash方式来进行去重，这样的效率要高很多，以下是具体代码：<br><a id="more"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var newArr = [1,2,2,3,3,3,3,4,4,5,5,6,6,7,8,8,8,9,9,9,9];</span><br><span class="line"></span><br><span class="line">function killArray(arr)&#123;</span><br><span class="line">	var hash = &#123;&#125;,</span><br><span class="line">	    result = [];</span><br><span class="line"></span><br><span class="line">	for(var i=0; i&lt;arr.length; i++)&#123;</span><br><span class="line">		if(!hash[arr[i]])&#123;</span><br><span class="line">		    hash[arr[i]] = true;</span><br><span class="line">		    result.push(arr[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">killArray(newArr); //输出[1,2,3,4,5,6,7,8,9]</span><br></pre></td></tr></table></figure>
-<p>完成~</p>
+<pre><code>var newArr = [1,2,2,3,3,3,3,4,4,5,5,6,6,7,8,8,8,9,9,9,9];
+
+function killArray(arr){
+    var hash = {},
+        result = [];
+
+    for(var i=0; i&lt;arr.length; i++){
+        if(!hash[arr[i]]){
+            hash[arr[i]] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+
+killArray(newArr); //输出[1,2,3,4,5,6,7,8,9]
+</code></pre><p>完成~</p>
   	
 					
 	  </div>     
