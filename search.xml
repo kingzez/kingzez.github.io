@@ -394,10 +394,10 @@
     
     <entry>
       <title>Git使用相关集锦</title>
-      <link href="/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3%E9%9B%86%E9%94%A6/"/>
-      <url>/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3%E9%9B%86%E9%94%A6/</url>
+      <link href="/git-collections/"/>
+      <url>/git-collections/</url>
       
-        <content type="html"><![CDATA[<p>总结之前写过的git相关文章，编成目录，也方便自己查看<br><a id="more"></a></p><ol><li><a href="/2015/08/22/git创建ssh key/">Git创建ssh key</a></li><li><a href="/2015/08/23/git push冲突时解决方法/">git push冲突时解决方法或通过fetch来更新分支代码</a></li><li><a href="/2015/10/18/CentOS下搭建git服务器/">CentOS下搭建Git服务器</a></li><li><a href="/2015/10/19/如何完全删除gitosis/">如何完全删除gitosis</a></li><li><a href="/2015/12/20/人称git核弹级 filter-branch/">人称Git核弹级 filter-branch</a></li><li><a href="/2017/03/20/git-pull-强制覆盖local/">git-pull-强制覆盖local</a></li><li><a href="/2017/04/10/git重写最近一次历史/">Git重写最近一次历史</a></li><li><a href="/2017/04/10/Git-忽略已跟踪文件的改动/">Git忽略已跟踪文件的改动</a></li><li><a href="/2017/04/09/git-stash-用于保存和恢复工作进度/">git stash 用于保存和恢复工作进度</a></li></ol><blockquote><p>“git merge” used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an <!--more--> unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch –allow-unrelated-histories option to be used in a rare event that merges histories of two projects that started their lives independently.</p></blockquote><pre><code>git merge --allow-unrelated-histories 允许合并无关历史记录的分支，比如两个项目</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>总结之前写过的git相关文章，编成目录，也方便自己查看<br><a id="more"></a></p><ol><li><a href="/git创建ssh key/">Git创建ssh key</a></li><li><a href="/git push冲突时解决方法/">git push冲突时解决方法或通过fetch来更新分支代码</a></li><li><a href="/CentOS下搭建git服务器/">CentOS下搭建Git服务器</a></li><li><a href="/如何完全删除gitosis/">如何完全删除gitosis</a></li><li><a href="/2015/12/20/人称git核弹级 filter-branch/">人称Git核弹级 filter-branch</a></li><li><a href="/git-pull-强制覆盖local/">git-pull-强制覆盖local</a></li><li><a href="/git重写最近一次历史/">Git重写最近一次历史</a></li><li><a href="/Git-忽略已跟踪文件的改动/">Git忽略已跟踪文件的改动</a></li><li><a href="/git-stash-用于保存和恢复工作进度/">git stash 用于保存和恢复工作进度</a></li></ol><blockquote><p>“git merge” used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an <!--more--> unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch –allow-unrelated-histories option to be used in a rare event that merges histories of two projects that started their lives independently.</p></blockquote><pre><code>git merge --allow-unrelated-histories 允许合并无关历史记录的分支，比如两个项目</code></pre>]]></content>
       
       
       <categories>
@@ -1138,9 +1138,9 @@
       
         <tags>
             
-            <tag> CentOS </tag>
-            
             <tag> git </tag>
+            
+            <tag> CentOS </tag>
             
         </tags>
       
@@ -1165,9 +1165,9 @@
       
         <tags>
             
-            <tag> Mac </tag>
-            
             <tag> redis </tag>
+            
+            <tag> Mac </tag>
             
         </tags>
       
@@ -1305,7 +1305,7 @@
       <link href="/git%E5%88%9B%E5%BB%BAssh%20key/"/>
       <url>/git%E5%88%9B%E5%BB%BAssh%20key/</url>
       
-        <content type="html"><![CDATA[<h4 id="一、设置Git的username-，email："><a href="#一、设置Git的username-，email：" class="headerlink" title="一、设置Git的username ，email："></a>一、设置Git的username ，email：</h4><pre><code>      $ git config --global user.name &quot;kingzez&quot;      $ git config --global user.email &quot;kingzez@sina.com&quot;</code></pre><h4 id="二、如何针对每个repo单独设定username和email？"><a href="#二、如何针对每个repo单独设定username和email？" class="headerlink" title="二、如何针对每个repo单独设定username和email？"></a>二、如何针对每个repo单独设定username和email？</h4><p>有时，你可能想为不同的 repo（比如公司的项目和个人项目）设置不同的 commit 信息，很简单：</p><pre><code>git config user.name &quot;kingzez&quot;git config user.email &quot;kingzez@sina.com&quot;</code></pre><p>可以看出，在使用 git config 时，默认修改的是当前 repo 的配置，如果添加 –global 则会修改全局的配置。<br><a id="more"></a></p><h4 id="三、创建ssh密匙过程"><a href="#三、创建ssh密匙过程" class="headerlink" title="三、创建ssh密匙过程"></a>三、创建ssh密匙过程</h4><pre><code>     1.查看是否已经有了ssh密钥：cd ~/.ssh        如果没有密钥则不会有此文件夹，有则不影响，备份删除都可以     2.生存密钥：        $ ssh-keygen -t rsa -C “kingzez@sina.com”        3个回车，密码为空。     3.操作完成生成 id_rsa和id_rsa.pub</code></pre><h4 id="三、添加ssh-key-到github-或coding等。"><a href="#三、添加ssh-key-到github-或coding等。" class="headerlink" title="三、添加ssh key 到github 或coding等。"></a>三、添加ssh key 到github 或coding等。</h4>]]></content>
+        <content type="html"><![CDATA[<h4 id="一、设置Git的username-，email："><a href="#一、设置Git的username-，email：" class="headerlink" title="一、设置Git的username ，email："></a>一、设置Git的username ，email：</h4><pre class=" language-bash"><code class="language-bash">   <span class="token function">git</span> config --global user.name <span class="token string">"kingzez"</span>   <span class="token function">git</span> config --global user.email <span class="token string">"kingzez@sina.com"</span></code></pre><h4 id="二、如何针对每个repo单独设定username和email？"><a href="#二、如何针对每个repo单独设定username和email？" class="headerlink" title="二、如何针对每个repo单独设定username和email？"></a>二、如何针对每个repo单独设定username和email？</h4><p>有时，你可能想为不同的 repo（比如公司的项目和个人项目）设置不同的 commit 信息，很简单：</p><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> config user.name <span class="token string">"kingzez"</span><span class="token function">git</span> config user.email <span class="token string">"kingzez@sina.com"</span></code></pre><p>可以看出，在使用 git config 时，默认修改的是当前 repo 的配置，如果添加 –global 则会修改全局的配置。<br><a id="more"></a></p><h4 id="三、创建ssh密匙过程"><a href="#三、创建ssh密匙过程" class="headerlink" title="三、创建ssh密匙过程"></a>三、创建ssh密匙过程</h4><pre class=" language-bash"><code class="language-bash">     1.查看是否已经有了ssh密钥：cd ~/.ssh        如果没有密钥则不会有此文件夹，有则不影响，备份删除都可以     2.生存密钥：        ssh-keygen -t rsa -C “kingzez@sina.com”        3个回车，密码为空。     3.操作完成生成 id_rsa和id_rsa.pub</code></pre><h4 id="三、添加ssh-key-到github-或coding等。"><a href="#三、添加ssh-key-到github-或coding等。" class="headerlink" title="三、添加ssh key 到github 或coding等。"></a>三、添加ssh key 到github 或coding等。</h4>]]></content>
       
       
       <categories>
